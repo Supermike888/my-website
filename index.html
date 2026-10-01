@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Интерактивный тест по ключевым возможностям продуктов 1С для финансиста">
+  <title>Тест по продуктам 1С Релиз 1.2</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d71920'/%3E%3Cpath d='M17 19h9v27h-9zm14 0h16v7H39v4h7v7h-7v9h-8z' fill='white'/%3E%3C/svg%3E">
+  <style>
+:root {
+  color-scheme: light;
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8dee8;
+  --paper: #ffffff;
+  --canvas: #f3f5f8;
+  --navy: #102a43;
+  --red: #d71920;
+  --red-dark: #b60f15;
+  --blue-pale: #e9f0f7;
+  --green: #16794f;
+  --green-pale: #e7f6ef;
+  --wrong: #b42318;
+  --wrong-pale: #fff0ee;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+button, input { font: inherit; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid #8fb8e0; outline-offset: 3px; }
+.topbar {
+  min-height: 76px;
+  padding: 14px clamp(20px, 4vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: white;
+  background: var(--navy);
+  border-bottom: 4px solid var(--red);
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  background: var(--red);
+  color: white;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+.brand-copy { display: grid; line-height: 1.15; }
+.brand-copy strong { font-size: 17px; }
+.brand-copy small { margin-top: 4px; color: #becbda; font-size: 13px; }
+.edition { color: #cdd6e1; font-size: 14px; white-space: nowrap; }
+.shell { width: min(1180px, 100%); margin: 0 auto; padding: 34px 24px 56px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 32px; }
+.rail-sticky { position: sticky; top: 24px; }
+.eyebrow { margin: 0 0 8px; color: var(--red); font-size: 13px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.progress-copy { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.progress-copy strong { font-size: 22px; }
+.progress-copy span { color: var(--muted); font-size: 14px; }
+.progress-track { height: 7px; overflow: hidden; border-radius: 999px; background: #dce2ea; }
+.progress-track span { display: block; width: 4%; height: 100%; border-radius: inherit; background: var(--red); transition: width .25s ease; }
+.question-map { display: grid; grid-template-columns: repeat(6, 1fr); gap: 7px; margin: 22px 0; }
+.question-dot {
+  min-width: 0;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+.question-dot.current { border-color: var(--navy); background: var(--navy); color: white; }
+.question-dot.answered:not(.current) { border-color: #9eb5ca; background: var(--blue-pale); color: var(--navy); }
+.rail-note { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+.workspace { min-width: 0; }
+.loading, .quiz-card, .results, .method { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 12px 30px rgba(17, 37, 63, .07); }
+.loading { padding: 56px; text-align: center; color: var(--muted); }
+.quiz-card { padding: clamp(28px, 5vw, 58px); min-height: 570px; display: flex; flex-direction: column; }
+.question-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+.section-label { color: var(--red); font-weight: 800; font-size: 14px; }
+.question-label { color: var(--muted); font-size: 14px; }
+.quiz-card h1, .results h1 { margin: 0; max-width: 850px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(27px, 3.2vw, 40px); line-height: 1.17; letter-spacing: -.02em; }
+.hint { margin: 16px 0 26px; color: var(--muted); }
+.answers { display: grid; gap: 12px; }
+.answer {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 13px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: white;
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease, transform .16s ease;
+}
+.answer:hover { border-color: #91a7bc; transform: translateY(-1px); }
+.answer:has(input:checked) { border-color: var(--navy); background: var(--blue-pale); }
+.answer input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--navy); }
+.answer span { font-weight: 600; }
+.answer-error { margin: 14px 0 0; color: var(--wrong); font-weight: 700; }
+.actions { display: flex; justify-content: space-between; gap: 14px; margin-top: auto; padding-top: 32px; }
+.button { min-height: 48px; padding: 11px 22px; border-radius: 9px; border: 1px solid transparent; cursor: pointer; font-weight: 800; }
+.button.primary { color: white; background: var(--red); }
+.button.primary:hover { background: var(--red-dark); }
+.button.secondary { color: var(--navy); border-color: #aebdca; background: white; }
+.button.secondary:hover { background: #f5f7fa; }
+.button:disabled { opacity: .38; cursor: not-allowed; }
+.results { padding: clamp(28px, 5vw, 58px); }
+.scoreline { display: flex; align-items: baseline; gap: 16px; margin: 4px 0 14px; }
+.scoreline strong { color: var(--red); font-size: clamp(56px, 9vw, 92px); line-height: 1; letter-spacing: -.06em; }
+.scoreline span { color: var(--muted); font-size: 18px; }
+.result-summary { max-width: 720px; margin: 16px 0 30px; color: var(--muted); font-size: 18px; }
+.section-results { display: grid; gap: 14px; max-width: 720px; }
+.section-result { display: grid; grid-template-columns: minmax(170px, 1fr) minmax(150px, 2fr) auto; align-items: center; gap: 14px; }
+.section-result span:first-child { font-weight: 700; }
+.mini-track { height: 9px; border-radius: 999px; overflow: hidden; background: #e2e7ed; }
+.mini-track i { display: block; height: 100%; background: var(--navy); }
+.section-result strong { min-width: 54px; text-align: right; }
+.result-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.review { display: grid; gap: 16px; margin-top: 32px; }
+.review-item { padding: 22px; border: 1px solid var(--line); border-left: 5px solid var(--green); border-radius: 10px; background: white; }
+.review-item.wrong { border-left-color: var(--wrong); }
+.review-item h2 { margin: 0 0 10px; font-size: 18px; line-height: 1.35; }
+.review-state { margin: 0 0 8px; color: var(--green); font-weight: 800; }
+.review-item.wrong .review-state { color: var(--wrong); }
+.review-item p { margin: 7px 0 0; }
+.review-item .muted { color: var(--muted); }
+.method { margin-top: 20px; box-shadow: none; }
+.method summary { padding: 18px 22px; cursor: pointer; color: var(--navy); font-weight: 800; }
+.method-body { padding: 0 22px 22px; color: var(--muted); }
+.method-body ul { margin: 14px 0 0; padding-left: 20px; }
+.method-body li { margin: 6px 0; }
+.method-body a { color: #145a8d; }
+[hidden] { display: none !important; }
+@media (max-width: 820px) {
+  .topbar { align-items: flex-start; }
+  .edition { display: none; }
+  .shell { grid-template-columns: 1fr; padding: 22px 16px 40px; gap: 18px; }
+  .rail-sticky { position: static; }
+  .question-map { grid-template-columns: repeat(8, 1fr); margin: 14px 0 0; }
+  .rail-note { display: none; }
+  .quiz-card { min-height: 0; padding: 26px 20px; }
+  .actions { margin-top: 10px; }
+}
+@media (max-width: 520px) {
+  .brand-copy strong { font-size: 15px; }
+  .question-map { grid-template-columns: repeat(6, 1fr); }
+  .question-dot { height: 31px; }
+  .actions, .result-actions { flex-direction: column; }
+  .button { width: 100%; }
+  .section-result { grid-template-columns: 1fr auto; }
+  .section-result .mini-track { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
+
+
+/* Compact release layout: keep the complete question flow in the first desktop viewport. */
+@media (min-width: 821px) {
+  body { line-height: 1.35; }
+  .topbar { min-height: 58px; padding: 7px clamp(18px, 3vw, 46px); border-bottom-width: 3px; }
+  .brand { gap: 10px; }
+  .brand-mark { width: 36px; height: 36px; border-radius: 7px; font-size: 15px; }
+  .brand-copy strong { font-size: 15px; }
+  .brand-copy small { margin-top: 2px; font-size: 12px; }
+  .edition { font-size: 13px; }
+  .shell { width: min(1260px, 100%); padding: 16px 20px 26px; grid-template-columns: 220px minmax(0, 1fr); gap: 20px; }
+  .rail-sticky { top: 14px; }
+  .eyebrow { margin-bottom: 5px; font-size: 12px; }
+  .progress-copy { margin-bottom: 6px; }
+  .progress-copy strong { font-size: 19px; }
+  .question-map { grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 12px 0; }
+  .question-dot { height: 28px; border-radius: 6px; font-size: 12px; }
+  .rail-note { font-size: 12px; line-height: 1.35; }
+  .quiz-card { min-height: calc(100vh - 100px); padding: 20px 28px; border-radius: 13px; }
+  .question-meta { margin-bottom: 8px; }
+  .section-label, .question-label { font-size: 13px; }
+  .quiz-card h1 { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.12; }
+  .hint { margin: 7px 0 12px; font-size: 14px; }
+  .answers { gap: 7px; }
+  .answer { grid-template-columns: 22px 1fr; gap: 10px; padding: 9px 12px; border-radius: 8px; }
+  .answer input { width: 18px; height: 18px; margin-top: 1px; }
+  .answer span { font-size: 14px; line-height: 1.32; }
+  .actions { padding-top: 14px; }
+  .button { min-height: 42px; padding: 8px 18px; border-radius: 8px; font-size: 14px; }
+  .method { margin-top: 12px; }
+  .method summary { padding: 12px 18px; font-size: 14px; }
+}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" aria-label="Оценка знаний продуктов 1С">
+      <span class="brand-mark">1С</span>
+      <span class="brand-copy"><strong>Продуктовый навигатор</strong><small>релиз 1.2 · мультивыбор · Управление холдингом</small></span>
+    </div>
+    <div class="edition">28 вопросов · редакция 30.09.2026</div>
+  </header>
+
+  <main class="shell">
+    <aside class="rail" aria-label="Прогресс теста">
+      <div class="rail-sticky">
+        <p class="eyebrow">Ваш прогресс</p>
+        <div class="progress-copy"><strong id="progress-number">1 / 24</strong><span id="progress-percent">4%</span></div>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+        <div id="question-map" class="question-map"></div>
+        <p class="rail-note">Отмечайте все подходящие варианты. Балл засчитывается только за точный набор.</p>
+      </div>
+    </aside>
+
+    <section class="workspace" aria-live="polite">
+      <div id="loading" class="loading">Загружаем вопросы…</div>
+
+      <article id="quiz-card" class="quiz-card" hidden>
+        <div class="question-meta">
+          <span id="section-label" class="section-label"></span>
+          <span id="question-label" class="question-label"></span>
+        </div>
+        <h1 id="question-text"></h1>
+        <p class="hint">Можно выбрать один или несколько вариантов.</p>
+        <form id="answers" class="answers"></form>
+        <p id="answer-error" class="answer-error" hidden>Выберите хотя бы один вариант ответа.</p>
+        <div class="actions">
+          <button id="prev" class="button secondary" type="button">Назад</button>
+          <button id="next" class="button primary" type="button">Следующий вопрос</button>
+        </div>
+      </article>
+
+      <section id="results" class="results" hidden>
+        <p class="eyebrow">Результат теста</p>
+        <div class="scoreline"><strong id="score-percent">0%</strong><span id="score-fraction"></span></div>
+        <h1 id="result-title"></h1>
+        <p id="result-summary" class="result-summary"></p>
+        <div id="section-results" class="section-results"></div>
+        <div class="result-actions">
+          <button id="restart" class="button secondary" type="button">Пройти заново</button>
+          <button id="show-review" class="button primary" type="button">Разобрать ответы</button>
+        </div>
+        <div id="review" class="review" hidden></div>
+      </section>
+
+      <section class="method">
+        <details>
+          <summary>Методика и источники</summary>
+          <div class="method-body">
+            <p>Все вопросы имеют одинаковый вес. При мультивыборе правильным считается только точное совпадение набора. Тест проверяет знание типового позиционирования решений, а не навыки работы в конкретной доработанной базе.</p>
+            <ul id="sources"></ul>
+          </div>
+        </details>
+      </section>
+    </section>
+  </main>
+  <script>
+window.TEST_DATA = {
+  "title": "Тест по возможностям продуктов 1С для финансиста Релиз 1.2",
+  "updated": "30.09.2026",
+  "instructions": "В каждом вопросе отметьте все подходящие варианты. Правильным считается только точный набор ответов. Релиз 1.2 включает 1С:Управление холдингом.",
+  "questions": [
+    {
+      "id": 1,
+      "section": "Позиционирование продуктов",
+      "question": "Какой продукт прежде всего предназначен для бухгалтерского и налогового учета по российским правилам и подготовки регламентированной отчетности?",
+      "options": [
+        "1С:CRM",
+        "1С:Управление торговлей",
+        "1С:Бухгалтерия 8",
+        "1С:Управление нашей фирмой"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "1С:Бухгалтерия 8 — профильное решение для бухгалтерского и налогового учета и обязательной отчетности."
+    },
+    {
+      "id": 2,
+      "section": "Позиционирование продуктов",
+      "question": "Компания занимается оптовой торговлей и хочет управлять заказами, закупками, запасами, ценами и товарным движением без акцента на производственное планирование. Какое решение наиболее профильное?",
+      "options": [
+        "1С:Управление торговлей",
+        "БИТ.ФИНАНС",
+        "1С:Бухгалтерия КОРП МСФО",
+        "1С:Зарплата и управление персоналом"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "1С:Управление торговлей ориентирована на оперативный и управленческий учет торговой компании: продажи, закупки, склад, цены и запасы."
+    },
+    {
+      "id": 3,
+      "section": "Позиционирование продуктов",
+      "question": "Какой продукт является профильным для кадрового учета, штатного расписания, расчета зарплаты, НДФЛ и страховых взносов?",
+      "options": [
+        "БИТ.ФИНАНС",
+        "1С:CRM",
+        "1С:Управление торговлей",
+        "1С:Зарплата и управление персоналом"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "1С:ЗУП специализируется на кадровом учете, оплате труда, налогах и взносах с ФОТ и зарплатной отчетности."
+    },
+    {
+      "id": 4,
+      "section": "Позиционирование продуктов",
+      "question": "Небольшая компания совмещает услуги, торговлю и позаказное производство и хочет вести CRM, продажи, закупки, склад и управленческие финансы в одной несложной системе. Что выбрать в первую очередь?",
+      "options": [
+        "1С:Бухгалтерия КОРП МСФО",
+        "1С:Управление нашей фирмой",
+        "1С:CRM",
+        "1С:ERP Управление предприятием"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "1С:УНФ рассчитана на малый бизнес и объединяет CRM, торговлю, услуги, склад, деньги и несложное позаказное или мелкосерийное производство."
+    },
+    {
+      "id": 5,
+      "section": "Позиционирование продуктов",
+      "question": "Какое решение чаще выбирают для единой системы среднего бизнеса, когда нужны торговля, склад, бухгалтерский и налоговый учет, зарплата, казначейство и бюджетирование, но не требуется развитое управление сложным производством?",
+      "options": [
+        "1С:Управление торговлей",
+        "1С:Бухгалтерия 8",
+        "1С:Комплексная автоматизация",
+        "1С:CRM"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "1С:КА объединяет ключевые контуры учета и управления для малого и среднего бизнеса, включая регламентированный учет и зарплату."
+    },
+    {
+      "id": 6,
+      "section": "Позиционирование продуктов",
+      "question": "Какое решение наиболее уместно для многопрофильного среднего или крупного предприятия со сложным производством, расчетом себестоимости, бюджетированием и управлением ресурсами?",
+      "options": [
+        "1С:ERP Управление предприятием",
+        "1С:CRM",
+        "1С:Управление нашей фирмой",
+        "1С:Бухгалтерия 8"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "1С:ERP — комплексное ERP-решение, в том числе для технически сложного многопередельного производства и глубокой управленческой автоматизации."
+    },
+    {
+      "id": 7,
+      "section": "Финансы и учет",
+      "question": "В каких решениях из списка штатно присутствуют бухгалтерский и налоговый учет и подготовка регламентированной отчетности организации?",
+      "options": [
+        "1С:ERP Управление предприятием",
+        "1С:Управление торговлей",
+        "1С:Комплексная автоматизация",
+        "1С:Бухгалтерия 8"
+      ],
+      "answer": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "БП, КА и ERP включают регламентированный учет. УТ сосредоточена на оперативном и управленческом контуре торговли и обычно обменивается с бухгалтерской системой."
+    },
+    {
+      "id": 8,
+      "section": "Финансы и учет",
+      "question": "Какие решения из списка подходят для бюджетирования и план-фактного анализа бюджетов?",
+      "options": [
+        "БИТ.ФИНАНС",
+        "1С:ERP Управление предприятием",
+        "1С:Комплексная автоматизация",
+        "1С:Бухгалтерия 8"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "В ERP и КА есть подсистема бюджетирования; БИТ.ФИНАНС специализируется на бюджетировании и управленческих финансах. БП не является профильной системой бюджетного управления."
+    },
+    {
+      "id": 9,
+      "section": "Финансы и учет",
+      "question": "Какие решения из списка могут закрыть задачи казначейства: заявки на расходование, согласование, лимиты, платежный календарь и контроль денежных потоков?",
+      "options": [
+        "1С:CRM",
+        "1С:ERP Управление предприятием",
+        "БИТ.ФИНАНС",
+        "1С:Комплексная автоматизация"
+      ],
+      "answer": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Казначейские функции есть в ERP и КА; БИТ.ФИНАНС предлагает специализированный финансовый контур. CRM ориентирована на продажи и отношения с клиентами."
+    },
+    {
+      "id": 10,
+      "section": "Финансы и учет",
+      "question": "Какие решения из списка позволяют вести учет и формировать индивидуальную отчетность по МСФО для отдельной компании?",
+      "options": [
+        "БИТ.ФИНАНС с модулем МСФО",
+        "1С:Бухгалтерия КОРП МСФО",
+        "1С:Зарплата и управление персоналом",
+        "1С:ERP Управление предприятием"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Все три финансовых решения поддерживают МСФО в соответствующем контуре или поставке. ЗУП предназначена для кадров и зарплаты."
+    },
+    {
+      "id": 11,
+      "section": "Финансы и учет",
+      "question": "Для какой задачи 1С:Бухгалтерия КОРП МСФО подходит лучше всего?",
+      "options": [
+        "Оперативное управление складом торговой сети",
+        "Расчет зарплаты и кадровое делопроизводство холдинга",
+        "Управление воронкой продаж и рекламными кампаниями",
+        "Учет по РСБУ и МСФО отдельной компании с трансляцией или параллельным учетом"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Продукт объединяет российский учет и индивидуальный учет по МСФО; для объектов можно применять трансляцию данных РСБУ или параллельный учет."
+    },
+    {
+      "id": 12,
+      "section": "Финансы и учет",
+      "question": "Какие решения из списка могут закрыть задачи консолидации группы компаний: сбор данных, сверку ВГО, корректировки и консолидированную отчетность?",
+      "options": [
+        "1С:Управление холдингом 8",
+        "1С:Управление торговлей",
+        "БИТ.ФИНАНС в поставке с функциями консолидации",
+        "1С:Бухгалтерия КОРП МСФО без дополнительного контура"
+      ],
+      "answer": [
+        0,
+        2
+      ],
+      "explanation": "1С:Управление холдингом и соответствующие поставки БИТ.ФИНАНС поддерживают групповые консолидационные процессы. БП КОРП МСФО ориентирована прежде всего на отдельную компанию."
+    },
+    {
+      "id": 13,
+      "section": "Операционные процессы",
+      "question": "Какие решения из списка способны поддерживать продажи, закупки и складской учет в единой информационной базе?",
+      "options": [
+        "1С:ERP Управление предприятием",
+        "1С:Комплексная автоматизация",
+        "1С:Управление нашей фирмой",
+        "1С:Управление торговлей"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Все четыре решения поддерживают эти процессы, но различаются масштабом, глубиной и наличием других контуров."
+    },
+    {
+      "id": 14,
+      "section": "Операционные процессы",
+      "question": "В каких решениях из списка можно полноценно вести кадровый учет и расчет зарплаты организации?",
+      "options": [
+        "1С:Зарплата и управление персоналом",
+        "1С:CRM",
+        "1С:ERP Управление предприятием",
+        "1С:Комплексная автоматизация"
+      ],
+      "answer": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "ЗУП является профильной системой, а КА и ERP включают кадровый и зарплатный контур. CRM не предназначена для расчета зарплаты."
+    },
+    {
+      "id": 15,
+      "section": "Операционные процессы",
+      "question": "Какие решения из списка имеют собственные CRM-возможности для ведения клиентов и процессов продаж?",
+      "options": [
+        "1С:CRM",
+        "1С:Управление торговлей",
+        "1С:Управление нашей фирмой",
+        "1С:Бухгалтерия 8"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Специализированная 1С:CRM и встроенные CRM-контуры УТ и УНФ поддерживают работу с клиентами и продажами. БП не является CRM-системой."
+    },
+    {
+      "id": 16,
+      "section": "Операционные процессы",
+      "question": "Какое решение наиболее уместно, если нужны развитые сценарии продаж, лиды, канбан, роботы, маркетинговые коммуникации и сервисное обслуживание клиентов?",
+      "options": [
+        "1С:Бухгалтерия 8",
+        "1С:CRM",
+        "1С:Бухгалтерия КОРП МСФО",
+        "1С:Зарплата и управление персоналом"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "1С:CRM — специализированное решение для полного цикла взаимодействия с клиентами, маркетинга, продаж и сервиса."
+    },
+    {
+      "id": 17,
+      "section": "Операционные процессы",
+      "question": "Какие решения из списка подходят для учета производства?",
+      "options": [
+        "1С:CRM — как производственная учетная система",
+        "1С:Комплексная автоматизация — для небольшого производства",
+        "1С:Управление нашей фирмой — для позаказного и мелкосерийного производства",
+        "1С:ERP Управление предприятием — для сложного производства"
+      ],
+      "answer": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "ERP, КА и УНФ закрывают производство на разной глубине и масштабе. 1С:CRM может сопровождать продажи, но не заменяет производственный учет."
+    },
+    {
+      "id": 18,
+      "section": "Операционные процессы",
+      "question": "Что корректно сказать о связке 1С:Управление торговлей и 1С:Бухгалтерия 8?",
+      "options": [
+        "УТ предназначена прежде всего для учета по МСФО",
+        "БП заменяет специализированную CRM во всех сценариях",
+        "УТ ведет оперативный торговый контур, а БП принимает данные для регламентированного учета",
+        "Обе программы обязательны только для расчета зарплаты"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Типовой сценарий — оперативные продажи, закупки и склад в УТ с передачей данных в БП для бухгалтерского и налогового учета."
+    },
+    {
+      "id": 19,
+      "section": "Выбор решения",
+      "question": "Финансовая служба хочет добавить к уже работающей базе 1С развитые бюджетирование, казначейство, договоры и управленческую отчетность без полной замены основной конфигурации. Что следует рассмотреть?",
+      "options": [
+        "БИТ.ФИНАНС как специализированную надстройку",
+        "Только 1С:CRM",
+        "Переход на 1С:Бухгалтерию Базовую",
+        "Только 1С:ЗУП"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "БИТ.ФИНАНС — модульное финансовое решение, доступное для нескольких базовых конфигураций 1С и расширяющее их финансовые возможности."
+    },
+    {
+      "id": 20,
+      "section": "Выбор решения",
+      "question": "Какие факторы скорее указывают на выбор 1С:ERP вместо 1С:Комплексной автоматизации?",
+      "options": [
+        "Глубокое планирование и диспетчеризация производства",
+        "Сложное многопередельное производство",
+        "Потребность только в бухгалтерской отчетности одной небольшой организации",
+        "Управление ремонтами и производственными ресурсами"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "ERP выбирают при более сложных производственных и ресурсных процессах. Для одной только бухгалтерской отчетности достаточнее профильная БП."
+    },
+    {
+      "id": 21,
+      "section": "Выбор решения",
+      "question": "Какие причины могут обосновать переход с разрозненных УТ, БП и ЗУП на 1С:Комплексную автоматизацию?",
+      "options": [
+        "Общий контур торговли, учета и зарплаты",
+        "Необходимость получить максимально развитую отдельную CRM любой ценой",
+        "Снижение количества обменов между отдельными системами",
+        "Единая база основных управленческих и учетных процессов"
+      ],
+      "answer": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "КА объединяет торговлю, склад, регламентированный учет, кадры и зарплату; глубокая специализированная CRM может потребовать отдельного решения или модуля."
+    },
+    {
+      "id": 22,
+      "section": "Выбор решения",
+      "question": "Компания ведет детальный расчет зарплаты в 1С:ЗУП, а бухгалтерский учет — в 1С:Бухгалтерии. Какой подход правильный?",
+      "options": [
+        "Независимо рассчитывать зарплату в обеих программах",
+        "Передавать бухгалтерские проводки из БП в УТ для расчета НДФЛ",
+        "Заменить ЗУП на 1С:CRM",
+        "Рассчитывать зарплату в ЗУП и передавать результаты отражения в БП"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Профильный расчет выполняют в ЗУП, а результаты передают в бухгалтерский контур, избегая двойного независимого расчета."
+    },
+    {
+      "id": 23,
+      "section": "Выбор решения",
+      "question": "Какие решения из списка поддерживают учет по МСФО с трансляцией данных РСБУ и параллельным учетом в соответствующих поставках?",
+      "options": [
+        "1С:Бухгалтерия КОРП МСФО",
+        "1С:Управление холдингом 8",
+        "1С:ERP Управление предприятием",
+        "1С:Управление торговлей"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "БП КОРП МСФО, ERP и Управление холдингом поддерживают соответствующие модели международного финансового учета. УТ не является системой МСФО."
+    },
+    {
+      "id": 24,
+      "section": "Выбор решения",
+      "question": "Какие утверждения о выборе продукта корректны?",
+      "options": [
+        "Любая конфигурация 1С одинаково хорошо заменяет все остальные",
+        "Наличие одинаковой функции еще не означает одинаковую глубину ее реализации",
+        "Для выбора нужно учитывать интеграции и уже работающие системы",
+        "Масштаб бизнеса и сложность процессов влияют на выбор между УНФ, КА и ERP"
+      ],
+      "answer": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Выбор определяется не только списком функций, но и глубиной процессов, масштабом, интеграциями и целевой архитектурой учета."
+    },
+    {
+      "id": 25,
+      "section": "Управление холдингом",
+      "question": "Какие задачи относятся к целевому назначению 1С:Управления холдингом?",
+      "options": [
+        "Корпоративное бюджетирование и бизнес-анализ",
+        "Централизованное казначейство",
+        "Диспетчеризация производственных цехов как основной контур",
+        "Консолидация отчетности группы компаний"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Решение класса CPM ориентировано на управляющие компании и финансовые службы холдингов. Оперативное управление производством не является его основным контуром."
+    },
+    {
+      "id": 26,
+      "section": "Управление холдингом",
+      "question": "Какие функции 1С:Управления холдингом особенно важны при неоднородном ИТ-ландшафте группы?",
+      "options": [
+        "Импорт и интеграция с внешними учетными системами",
+        "Расчет зарплаты как единственная задача продукта",
+        "Управление мастер-данными",
+        "Сверка и элиминация внутригрупповых операций"
+      ],
+      "answer": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "Управление холдингом рассчитано на интеграцию данных группы, корпоративные мастер-данные и консолидационные процедуры, включая ВГО."
+    },
+    {
+      "id": 27,
+      "section": "Управление холдингом",
+      "question": "Какие утверждения корректно разграничивают 1С:ERP и 1С:Управление холдингом?",
+      "options": [
+        "1С:ERP глубже закрывает оперативную деятельность и сложное производство",
+        "1С:Управление холдингом не предназначено быть основной системой управления продажами и производством бизнес-единиц",
+        "1С:Управление холдингом ориентировано на корпоративные финансовые функции и консолидацию группы",
+        "Оба продукта являются только программами кадрового учета"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "ERP отвечает за глубокий операционный контур предприятия, а Управление холдингом — за функции корпоративного центра и финансовое управление группой."
+    },
+    {
+      "id": 28,
+      "section": "Управление холдингом",
+      "question": "Какие возможности отличают 1С:Управление холдингом от 1С:Бухгалтерии КОРП МСФО для отдельной компании?",
+      "options": [
+        "Только подготовка индивидуальной отчетности одного юридического лица",
+        "Портал сверки внутригрупповых операций",
+        "Консолидационные и элиминационные корректировки",
+        "Управление периметром группы компаний"
+      ],
+      "answer": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Управление холдингом расширяет индивидуальный МСФО-контур групповыми процедурами: периметром, ВГО, корректировками и консолидацией."
+    }
+  ],
+  "sources": [
+    {
+      "label": "1С:Бухгалтерия 8 — возможности",
+      "url": "https://v8.1c.ru/buhv8/vozmozhnosti-1s-buhgalterii-8/"
+    },
+    {
+      "label": "1С:Управление торговлей",
+      "url": "https://v8.1c.ru/trade/"
+    },
+    {
+      "label": "1С:ERP Управление предприятием",
+      "url": "https://v8.1c.ru/erp/"
+    },
+    {
+      "label": "1С:Зарплата и управление персоналом",
+      "url": "https://v8.1c.ru/hrm/"
+    },
+    {
+      "label": "1С:Управление нашей фирмой",
+      "url": "https://v8.1c.ru/small.biz/"
+    },
+    {
+      "label": "1С:Комплексная автоматизация",
+      "url": "https://v8.1c.ru/ka/"
+    },
+    {
+      "label": "1С:CRM",
+      "url": "https://solutions.1c.ru/catalog/crm-corp-20/features"
+    },
+    {
+      "label": "1С:Бухгалтерия КОРП МСФО",
+      "url": "https://v8.1c.ru/1c-buhgalteriya-msfo/"
+    },
+    {
+      "label": "БИТ.ФИНАНС",
+      "url": "https://www.bitfinance.ru/"
+    },
+    {
+      "label": "1С:Управление холдингом 8",
+      "url": "https://v8.1c.ru/cpm/"
+    }
+  ]
+};
+
+  </script>
+  <script>
+"use strict";
+
+const state = { data: null, current: 0, answers: [] };
+const $ = (id) => document.getElementById(id);
+
+function sameSet(a, b) {
+  return a.length === b.length && [...a].sort((x, y) => x - y).every((v, i) => v === [...b].sort((x, y) => x - y)[i]);
+}
+
+function renderMap() {
+  const map = $("question-map");
+  map.replaceChildren();
+  state.data.questions.forEach((q, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "question-dot";
+    button.textContent = String(index + 1);
+    button.setAttribute("aria-label", `Перейти к вопросу ${index + 1}`);
+    if (index === state.current) button.classList.add("current");
+    if (state.answers[index]?.length) button.classList.add("answered");
+    button.addEventListener("click", () => { saveCurrent(); state.current = index; renderQuestion(); });
+    map.append(button);
+  });
+}
+
+function updateProgress() {
+  const total = state.data.questions.length;
+  const n = state.current + 1;
+  const pct = Math.round((n / total) * 100);
+  $("progress-number").textContent = `${n} / ${total}`;
+  $("progress-percent").textContent = `${pct}%`;
+  $("progress-bar").style.width = `${pct}%`;
+}
+
+function saveCurrent() {
+  const checked = [...document.querySelectorAll('#answers input:checked')].map((el) => Number(el.value));
+  state.answers[state.current] = checked;
+}
+
+function renderQuestion() {
+  $("answer-error").hidden = true;
+  const q = state.data.questions[state.current];
+  $("section-label").textContent = q.section;
+  $("question-label").textContent = `Вопрос ${state.current + 1}`;
+  $("question-text").textContent = q.question;
+  const form = $("answers");
+  form.replaceChildren();
+  q.options.forEach((option, index) => {
+    const label = document.createElement("label");
+    label.className = "answer";
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = `q${q.id}`;
+    input.value = String(index);
+    input.checked = state.answers[state.current]?.includes(index) ?? false;
+    input.addEventListener("change", () => { saveCurrent(); renderMap(); });
+    const text = document.createElement("span");
+    text.textContent = option;
+    label.append(input, text);
+    form.append(label);
+  });
+  $("prev").disabled = state.current === 0;
+  $("next").textContent = state.current === state.data.questions.length - 1 ? "Завершить тест" : "Следующий вопрос";
+  updateProgress();
+  renderMap();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function levelFor(percent) {
+  if (percent >= 85) return ["Сильное знание продуктовой линейки", "Вы уверенно различаете назначение решений и видите, где функции пересекаются. На собеседовании стоит дополнить результат примерами проектов и интеграционных схем."];
+  if (percent >= 70) return ["Уверенная рабочая база", "Основные продукты и финансовые контуры вам знакомы. Разберите ошибки: именно различия в глубине функций часто становятся предметом вопросов на собеседовании."];
+  if (percent >= 50) return ["Базовое понимание сформировано", "Вы ориентируетесь в части решений, но некоторые границы между учетными и управленческими контурами требуют закрепления."];
+  return ["Нужно укрепить продуктовую карту", "Начните с назначения каждого продукта, затем сравните регламентированный учет, бюджетирование, казначейство, CRM и производственный контур."];
+}
+
+function showResults() {
+  saveCurrent();
+  if (!state.answers[state.current]?.length) {
+    $("answer-error").hidden = false;
+    return;
+  }
+  const questions = state.data.questions;
+  const correct = questions.filter((q, i) => sameSet(state.answers[i] || [], q.answer)).length;
+  const percent = Math.round((correct / questions.length) * 100);
+  const [title, summary] = levelFor(percent);
+  $("score-percent").textContent = `${percent}%`;
+  $("score-fraction").textContent = `${correct} из ${questions.length} точных ответов`;
+  $("result-title").textContent = title;
+  $("result-summary").textContent = summary;
+
+  const groups = [...new Set(questions.map((q) => q.section))];
+  const sectionBox = $("section-results");
+  sectionBox.replaceChildren();
+  groups.forEach((section) => {
+    const indexes = questions.map((q, i) => q.section === section ? i : -1).filter((i) => i >= 0);
+    const score = indexes.filter((i) => sameSet(state.answers[i] || [], questions[i].answer)).length;
+    const pct = Math.round((score / indexes.length) * 100);
+    const row = document.createElement("div");
+    row.className = "section-result";
+    row.innerHTML = `<span>${section}</span><span class="mini-track"><i style="width:${pct}%"></i></span><strong>${score}/${indexes.length}</strong>`;
+    sectionBox.append(row);
+  });
+  $("quiz-card").hidden = true;
+  $("results").hidden = false;
+  $("review").hidden = true;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderReview() {
+  const review = $("review");
+  review.replaceChildren();
+  state.data.questions.forEach((q, i) => {
+    const ok = sameSet(state.answers[i] || [], q.answer);
+    const selected = (state.answers[i] || []).map((n) => q.options[n]).join("; ") || "нет ответа";
+    const correct = q.answer.map((n) => q.options[n]).join("; ");
+    const item = document.createElement("article");
+    item.className = `review-item${ok ? "" : " wrong"}`;
+    item.innerHTML = `<p class="review-state">${ok ? "Верно" : "Неверно"}</p><h2>${i + 1}. ${q.question}</h2><p><strong>Ваш ответ:</strong> ${selected}</p>${ok ? "" : `<p><strong>Правильный ответ:</strong> ${correct}</p>`}<p class="muted">${q.explanation}</p>`;
+    review.append(item);
+  });
+  review.hidden = false;
+  $("show-review").hidden = true;
+}
+
+function restart() {
+  state.current = 0;
+  state.answers = state.data.questions.map(() => []);
+  $("results").hidden = true;
+  $("quiz-card").hidden = false;
+  $("show-review").hidden = false;
+  renderQuestion();
+}
+
+async function init() {
+  try {
+    if (window.TEST_DATA) {
+      state.data = window.TEST_DATA;
+    } else {
+      const response = await fetch("questions.json");
+      if (!response.ok) throw new Error("Не удалось получить банк вопросов");
+      state.data = await response.json();
+    }
+    state.answers = state.data.questions.map(() => []);
+    $("loading").hidden = true;
+    $("quiz-card").hidden = false;
+    const sources = $("sources");
+    state.data.sources.forEach((source) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = source.url;
+      a.target = "_blank";
+      a.rel = "noreferrer";
+      a.textContent = source.label;
+      li.append(a);
+      sources.append(li);
+    });
+    renderQuestion();
+  } catch (error) {
+    $("loading").textContent = "Не удалось загрузить тест. Обновите страницу.";
+    console.error(error);
+  }
+}
+
+$("prev").addEventListener("click", () => { saveCurrent(); if (state.current > 0) { state.current -= 1; renderQuestion(); } });
+$("next").addEventListener("click", () => {
+  saveCurrent();
+  if (!state.answers[state.current]?.length) { $("answer-error").hidden = false; return; }
+  if (state.current === state.data.questions.length - 1) showResults();
+  else { state.current += 1; renderQuestion(); }
+});
+$("restart").addEventListener("click", restart);
+$("show-review").addEventListener("click", renderReview);
+init();
+
+  </script>
+</body>
+</html>
