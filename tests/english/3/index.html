@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Тест по английскому языку: Существительные.">
+  <meta name="theme-color" content="#090b12">
+  <title>Существительные — тест по английскому языку</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b12;
+      --surface: rgba(20, 24, 37, .96);
+      --surface-soft: rgba(28, 34, 52, .78);
+      --surface-hover: rgba(35, 43, 65, .9);
+      --text: #f4f7ff;
+      --muted: #9da9c2;
+      --line: rgba(151, 168, 205, .18);
+      --blue: #5b8cff;
+      --violet: #8162ff;
+      --cyan: #29d8c7;
+      --cyan-soft: rgba(41, 216, 199, .12);
+      --shadow: 0 22px 64px rgba(0, 0, 0, .32);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-width: 320px; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(91, 140, 255, .14), transparent 30rem),
+        radial-gradient(circle at 100% 100%, rgba(41, 216, 199, .1), transparent 32rem),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, .option:focus-within {
+      outline: 3px solid rgba(41, 216, 199, .55);
+      outline-offset: 3px;
+    }
+
+    .shell { width: min(1080px, calc(100% - 28px)); margin: 0 auto; padding: 12px 0 20px; }
+    .topbar { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark {
+      width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center;
+      border: 1px solid rgba(133, 149, 255, .35); border-radius: 11px;
+      background: linear-gradient(145deg, rgba(91, 140, 255, .18), rgba(129, 98, 255, .08));
+      color: #aebdff; font-size: .72rem; font-weight: 800;
+    }
+    .brand-name { color: var(--muted); font-size: 12px; }
+    .brand-title { overflow-wrap: anywhere; font-weight: 750; line-height: 1.15; }
+    .back-link { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .back-link:hover { color: var(--text); }
+
+    .panel { overflow: hidden; border: 1px solid var(--line); border-radius: 21px; background: var(--surface); box-shadow: var(--shadow); }
+    .home { padding: clamp(20px, 3.3vw, 34px); }
+    .eyebrow { color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 7px 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.04; letter-spacing: -.04em; }
+    .lead { max-width: 760px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.48; }
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 18px 0; }
+    .rule { padding: 11px 12px; border: 1px solid rgba(151, 168, 205, .1); border-radius: 13px; background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.38; }
+    .rule strong { display: block; margin-bottom: 2px; color: var(--text); font-size: 13px; }
+    .summary { margin-bottom: 10px; color: var(--muted); font-size: 13px; }
+    .block-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 10px; }
+    .block-card { border: 1px solid var(--line); border-radius: 15px; padding: 14px; background: rgba(14, 18, 29, .65); }
+    .block-card.done { border-color: rgba(41, 216, 199, .34); background: rgba(25, 63, 63, .22); }
+    .block-card.active { border-color: rgba(91, 140, 255, .5); }
+    .block-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .block-name { font-weight: 800; }
+    .badge { padding: 4px 7px; border-radius: 999px; background: rgba(255, 255, 255, .06); color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .done .badge { background: var(--cyan-soft); color: #7ff1e6; }
+    .active .badge { background: rgba(91, 140, 255, .14); color: #afc4ff; }
+    .block-score { min-height: 38px; margin: 10px 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .btn {
+      min-height: 40px; border: 0; border-radius: 11px; padding: 9px 12px;
+      background: linear-gradient(135deg, var(--blue), var(--violet)); color: white; font-weight: 750;
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+    }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn.secondary { border: 1px solid var(--line); background: rgba(255, 255, 255, .035); color: var(--text); }
+    .btn.secondary:hover { background: var(--surface-hover); }
+    .btn:disabled { cursor: not-allowed; opacity: .42; transform: none; }
+    .btn.full { width: 100%; }
+
+    .overall { margin-top: 16px; border: 1px solid rgba(41, 216, 199, .3); border-radius: 15px; padding: 14px; background: var(--cyan-soft); color: #cbd8e9; font-size: 14px; line-height: 1.5; }
+    .overall strong { color: #8cf4ea; }
+    .overall .btn { margin-top: 10px; }
+
+    .test-view { min-height: min(620px, calc(100svh - 92px)); display: flex; flex-direction: column; }
+    .test-head { padding: 12px 18px 9px; border-bottom: 1px solid var(--line); background: rgba(12, 15, 25, .82); }
+    .test-head-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .test-meta { color: var(--muted); font-size: 12px; }
+    .progress-track { height: 5px; overflow: hidden; margin-top: 8px; border-radius: 999px; background: rgba(255, 255, 255, .08); }
+    .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); transition: width .2s ease; }
+    .question-wrap { flex: 1; display: flex; flex-direction: column; padding: clamp(16px, 2.7vw, 26px); }
+    .question-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .word { max-width: 100%; margin: 6px 0 3px; overflow-wrap: anywhere; font-size: clamp(32px, 5.2vw, 52px); letter-spacing: -.035em; line-height: 1.02; }
+    .pos { color: var(--cyan); font-size: 12px; font-weight: 750; }
+    .prompt { margin: 10px 0 8px; color: var(--muted); font-size: 13px; }
+    .options { display: grid; gap: 8px; }
+    .option {
+      min-width: 0; min-height: 50px; display: flex; align-items: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 13px; padding: 9px 12px;
+      background: rgba(255, 255, 255, .025); transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option:hover { border-color: rgba(41, 216, 199, .46); transform: translateY(-1px); }
+    .option.selected { border-color: var(--cyan); background: var(--cyan-soft); }
+    .option input { width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--cyan); }
+    .letter { width: 22px; flex: 0 0 auto; color: var(--cyan); font-weight: 850; }
+    .option-text { min-width: 0; overflow-wrap: anywhere; line-height: 1.35; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 14px; }
+
+    .result { padding: clamp(22px, 4vw, 42px); text-align: center; }
+    .result h2 { margin: 5px 0 2px; overflow-wrap: anywhere; font-size: clamp(27px, 4vw, 38px); }
+    .subject { margin: 0; color: var(--muted); font-size: 13px; }
+    .score { margin: 13px 0 3px; color: #8cf4ea; font-size: clamp(42px, 7vw, 66px); font-weight: 850; letter-spacing: -.05em; }
+    .result-note { max-width: 640px; margin: 0 auto 16px; color: var(--muted); line-height: 1.45; }
+    .table-scroll { width: 100%; overflow-x: auto; margin: 16px auto; border: 1px solid var(--line); border-radius: 13px; }
+    .result-table { width: 100%; min-width: 520px; border-collapse: collapse; text-align: left; }
+    .result-table th, .result-table td { padding: 9px 11px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .result-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    .result-table td:nth-child(n+2), .result-table th:nth-child(n+2) { text-align: right; }
+    .result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+    .report-date { margin: 13px 0 0; color: var(--muted); font-size: 12px; }
+    .footer { padding: 11px 0 0; color: #71809b; font-size: 11px; text-align: center; }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 16px, 1080px); padding-top: 6px; }
+      .topbar { min-height: 46px; margin-bottom: 6px; }
+      .brand-name { display: none; }
+      .brand-title { max-width: 145px; font-size: 13px; }
+      .back-link { font-size: 12px; }
+      .panel { border-radius: 17px; }
+      .home { padding: 18px 15px; }
+      h1 { font-size: clamp(27px, 8.8vw, 34px); }
+      .lead { font-size: 14px; }
+      .rules { grid-template-columns: 1fr; gap: 7px; margin: 14px 0; }
+      .rule { padding: 9px 10px; }
+      .block-grid { grid-template-columns: 1fr; }
+      .test-view { min-height: calc(100svh - 68px); }
+      .test-head { padding: 9px 12px 8px; }
+      .test-head .btn { min-height: 36px; padding: 7px 9px; font-size: 12px; }
+      .question-wrap { padding: 14px 12px; }
+      .word { font-size: clamp(30px, 10.2vw, 38px); }
+      .option { min-height: 52px; padding: 9px 10px; }
+      .nav { padding-top: 11px; }
+      .result { padding: 20px 13px; }
+      .score { font-size: clamp(40px, 14vw, 56px); }
+      .table-scroll { margin: 14px auto; }
+    }
+
+    @media (min-width: 701px) and (max-height: 768px) {
+      .shell { padding-top: 6px; }
+      .topbar { min-height: 44px; margin-bottom: 6px; }
+      .test-view { min-height: calc(100vh - 74px); }
+      .question-wrap { padding: 14px 22px; }
+      .word { font-size: 42px; }
+      .option { min-height: 46px; padding: 8px 12px; }
+      .nav { padding-top: 9px; }
+    }
+
+    @media print {
+      :root { color-scheme: light; --text: #152033; --muted: #596477; --line: #d9dee8; --cyan: #176b67; --cyan-soft: #e7f4f2; }
+      body { min-height: auto; background: white; color: var(--text); }
+      .shell { width: 100%; padding: 0; }
+      .topbar, .result-actions, .footer { display: none !important; }
+      .panel { overflow: visible; border: 0; border-radius: 0; background: white; box-shadow: none; }
+      .result { padding: 10mm 8mm; }
+      .score { color: #176b67; }
+      .table-scroll { overflow: visible; border-color: var(--line); }
+      .result-table { min-width: 0; }
+      .result-table, .overall { break-inside: avoid; }
+      .overall { background: #eef8f6; color: #354052; }
+      .overall strong { color: #0f514e; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><div class="shell"><div class="panel home">Для работы теста необходимо включить JavaScript в браузере.</div></div></noscript>
+  <main class="shell" id="app" aria-live="polite"></main>
+  <script>
+    'use strict';
+    const TEST_DATA = {"meta":{"version":"1.0-stage2","created":"2026-10-14","answerFormat":"one_of_three","counts":{"verbs":120,"nouns":320,"modifiers":160,"total":600},"generation":{"distractors":"Translations of other words with the same part of speech; semantic conflicts and Russian token overlaps excluded.","questionOrder":"Deterministic mixed order, not alphabetical.","correctPositions":"Balanced across A/B/C within each subtest."},"category":"nouns"},"questions":[{"id":"noun-020","sourceId":20,"word":"adult","pos":"noun","subtest":1,"orderInSubtest":1,"options":["младенец, малыш","взрослый человек","сотрудник, наёмный работник"],"correctIndex":1,"correctAnswer":"взрослый человек"},{"id":"noun-007","sourceId":7,"word":"friend","pos":"noun","subtest":1,"orderInSubtest":2,"options":["друг, подруга","писатель, автор","отец, папа"],"correctIndex":0,"correctAnswer":"друг, подруга"},{"id":"noun-018","sourceId":18,"word":"boy","pos":"noun","subtest":1,"orderInSubtest":3,"options":["руководитель, менеджер","муж","мальчик, юноша"],"correctIndex":2,"correctAnswer":"мальчик, юноша"},{"id":"noun-038","sourceId":38,"word":"writer","pos":"noun","subtest":1,"orderInSubtest":4,"options":["писатель, автор","студент, учащийся","руководитель, менеджер"],"correctIndex":0,"correctAnswer":"писатель, автор"},{"id":"noun-003","sourceId":3,"word":"man","pos":"noun","subtest":1,"orderInSubtest":5,"options":["лидер, руководитель","мужчина, человек","младенец, малыш"],"correctIndex":1,"correctAnswer":"мужчина, человек"},{"id":"noun-027","sourceId":27,"word":"manager","pos":"noun","subtest":1,"orderInSubtest":6,"options":["мальчик, юноша","семья","руководитель, менеджер"],"correctIndex":2,"correctAnswer":"руководитель, менеджер"},{"id":"noun-005","sourceId":5,"word":"child","pos":"noun","subtest":1,"orderInSubtest":7,"options":["ребёнок","сестра","родитель"],"correctIndex":0,"correctAnswer":"ребёнок"},{"id":"noun-040","sourceId":40,"word":"partner","pos":"noun","subtest":1,"orderInSubtest":8,"options":["девочка, девушка","партнёр, компаньон","дочь"],"correctIndex":1,"correctAnswer":"партнёр, компаньон"},{"id":"noun-033","sourceId":33,"word":"guest","pos":"noun","subtest":1,"orderInSubtest":9,"options":["гость","взрослый человек","писатель, автор"],"correctIndex":0,"correctAnswer":"гость"},{"id":"noun-029","sourceId":29,"word":"client","pos":"noun","subtest":1,"orderInSubtest":10,"options":["клиент, заказчик","люди, народ","руководитель, менеджер"],"correctIndex":0,"correctAnswer":"клиент, заказчик"},{"id":"noun-013","sourceId":13,"word":"husband","pos":"noun","subtest":1,"orderInSubtest":11,"options":["мальчик, юноша","муж","водитель"],"correctIndex":1,"correctAnswer":"муж"},{"id":"noun-012","sourceId":12,"word":"sister","pos":"noun","subtest":1,"orderInSubtest":12,"options":["сестра","ребёнок","младенец, малыш"],"correctIndex":0,"correctAnswer":"сестра"},{"id":"noun-034","sourceId":34,"word":"owner","pos":"noun","subtest":1,"orderInSubtest":13,"options":["владелец, собственник","женщина","игрок, участник"],"correctIndex":0,"correctAnswer":"владелец, собственник"},{"id":"noun-011","sourceId":11,"word":"brother","pos":"noun","subtest":1,"orderInSubtest":14,"options":["сосед, соседка","учитель, преподаватель","брат"],"correctIndex":2,"correctAnswer":"брат"},{"id":"noun-004","sourceId":4,"word":"woman","pos":"noun","subtest":1,"orderInSubtest":15,"options":["женщина","партнёр, компаньон","ребёнок"],"correctIndex":0,"correctAnswer":"женщина"},{"id":"noun-025","sourceId":25,"word":"worker","pos":"noun","subtest":1,"orderInSubtest":16,"options":["клиент, заказчик","младенец, малыш","работник, рабочий"],"correctIndex":2,"correctAnswer":"работник, рабочий"},{"id":"noun-014","sourceId":14,"word":"wife","pos":"noun","subtest":1,"orderInSubtest":17,"options":["художник, артист","жена","гость"],"correctIndex":1,"correctAnswer":"жена"},{"id":"noun-009","sourceId":9,"word":"mother","pos":"noun","subtest":1,"orderInSubtest":18,"options":["женщина","клиент, заказчик","мать, мама"],"correctIndex":2,"correctAnswer":"мать, мама"},{"id":"noun-002","sourceId":2,"word":"people","pos":"noun","subtest":1,"orderInSubtest":19,"options":["люди, народ","лидер, руководитель","водитель"],"correctIndex":0,"correctAnswer":"люди, народ"},{"id":"noun-010","sourceId":10,"word":"father","pos":"noun","subtest":1,"orderInSubtest":20,"options":["сотрудник, наёмный работник","медсестра, медбрат","отец, папа"],"correctIndex":2,"correctAnswer":"отец, папа"},{"id":"noun-021","sourceId":21,"word":"student","pos":"noun","subtest":1,"orderInSubtest":21,"options":["студент, учащийся","жена","сын"],"correctIndex":0,"correctAnswer":"студент, учащийся"},{"id":"noun-016","sourceId":16,"word":"daughter","pos":"noun","subtest":1,"orderInSubtest":22,"options":["партнёр, компаньон","дочь","медсестра, медбрат"],"correctIndex":1,"correctAnswer":"дочь"},{"id":"noun-024","sourceId":24,"word":"nurse","pos":"noun","subtest":1,"orderInSubtest":23,"options":["медсестра, медбрат","девочка, девушка","жена"],"correctIndex":0,"correctAnswer":"медсестра, медбрат"},{"id":"noun-022","sourceId":22,"word":"teacher","pos":"noun","subtest":1,"orderInSubtest":24,"options":["брат","учитель, преподаватель","медсестра, медбрат"],"correctIndex":1,"correctAnswer":"учитель, преподаватель"},{"id":"noun-023","sourceId":23,"word":"doctor","pos":"noun","subtest":1,"orderInSubtest":25,"options":["взрослый человек","работник, рабочий","врач, доктор"],"correctIndex":2,"correctAnswer":"врач, доктор"},{"id":"noun-031","sourceId":31,"word":"member","pos":"noun","subtest":1,"orderInSubtest":26,"options":["член, участник","лидер, руководитель","девочка, девушка"],"correctIndex":0,"correctAnswer":"член, участник"},{"id":"noun-039","sourceId":39,"word":"player","pos":"noun","subtest":1,"orderInSubtest":27,"options":["игрок, участник","медсестра, медбрат","ребёнок"],"correctIndex":0,"correctAnswer":"игрок, участник"},{"id":"noun-032","sourceId":32,"word":"neighbor","pos":"noun","subtest":1,"orderInSubtest":28,"options":["сестра","партнёр, компаньон","сосед, соседка"],"correctIndex":2,"correctAnswer":"сосед, соседка"},{"id":"noun-028","sourceId":28,"word":"customer","pos":"noun","subtest":1,"orderInSubtest":29,"options":["сотрудник, наёмный работник","сын","покупатель, клиент"],"correctIndex":2,"correctAnswer":"покупатель, клиент"},{"id":"noun-037","sourceId":37,"word":"artist","pos":"noun","subtest":1,"orderInSubtest":30,"options":["художник, артист","сотрудник, наёмный работник","водитель"],"correctIndex":0,"correctAnswer":"художник, артист"},{"id":"noun-035","sourceId":35,"word":"driver","pos":"noun","subtest":1,"orderInSubtest":31,"options":["отец, папа","водитель","дочь"],"correctIndex":1,"correctAnswer":"водитель"},{"id":"noun-006","sourceId":6,"word":"family","pos":"noun","subtest":1,"orderInSubtest":32,"options":["водитель","руководитель, менеджер","семья"],"correctIndex":2,"correctAnswer":"семья"},{"id":"noun-030","sourceId":30,"word":"leader","pos":"noun","subtest":1,"orderInSubtest":33,"options":["медсестра, медбрат","лидер, руководитель","покупатель, клиент"],"correctIndex":1,"correctAnswer":"лидер, руководитель"},{"id":"noun-036","sourceId":36,"word":"police","pos":"noun","subtest":1,"orderInSubtest":34,"options":["мужчина, человек","полиция","девочка, девушка"],"correctIndex":1,"correctAnswer":"полиция"},{"id":"noun-008","sourceId":8,"word":"parent","pos":"noun","subtest":1,"orderInSubtest":35,"options":["девочка, девушка","младенец, малыш","родитель"],"correctIndex":2,"correctAnswer":"родитель"},{"id":"noun-019","sourceId":19,"word":"girl","pos":"noun","subtest":1,"orderInSubtest":36,"options":["водитель","сотрудник, наёмный работник","девочка, девушка"],"correctIndex":2,"correctAnswer":"девочка, девушка"},{"id":"noun-015","sourceId":15,"word":"son","pos":"noun","subtest":1,"orderInSubtest":37,"options":["партнёр, компаньон","сын","руководитель, менеджер"],"correctIndex":1,"correctAnswer":"сын"},{"id":"noun-026","sourceId":26,"word":"employee","pos":"noun","subtest":1,"orderInSubtest":38,"options":["учитель, преподаватель","сотрудник, наёмный работник","отец, папа"],"correctIndex":1,"correctAnswer":"сотрудник, наёмный работник"},{"id":"noun-001","sourceId":1,"word":"person","pos":"noun","subtest":1,"orderInSubtest":39,"options":["мать, мама","человек, личность","врач, доктор"],"correctIndex":1,"correctAnswer":"человек, личность"},{"id":"noun-017","sourceId":17,"word":"baby","pos":"noun","subtest":1,"orderInSubtest":40,"options":["жена","художник, артист","младенец, малыш"],"correctIndex":2,"correctAnswer":"младенец, малыш"},{"id":"noun-058","sourceId":58,"word":"bank","pos":"noun","subtest":2,"orderInSubtest":1,"options":["аэропорт","школа","банк, берег"],"correctIndex":2,"correctAnswer":"банк, берег"},{"id":"noun-080","sourceId":80,"word":"side","pos":"noun","subtest":2,"orderInSubtest":2,"options":["сторона, бок","банк, берег","рынок"],"correctIndex":0,"correctAnswer":"сторона, бок"},{"id":"noun-050","sourceId":50,"word":"house","pos":"noun","subtest":2,"orderInSubtest":3,"options":["улица","страна","дом, здание"],"correctIndex":2,"correctAnswer":"дом, здание"},{"id":"noun-077","sourceId":77,"word":"trip","pos":"noun","subtest":2,"orderInSubtest":4,"options":["аэропорт","улица","поездка, путешествие"],"correctIndex":2,"correctAnswer":"поездка, путешествие"},{"id":"noun-061","sourceId":61,"word":"market","pos":"noun","subtest":2,"orderInSubtest":5,"options":["рынок","сторона, бок","страна"],"correctIndex":0,"correctAnswer":"рынок"},{"id":"noun-041","sourceId":41,"word":"world","pos":"noun","subtest":2,"orderInSubtest":6,"options":["город","самолёт, плоскость","мир"],"correctIndex":2,"correctAnswer":"мир"},{"id":"noun-059","sourceId":59,"word":"shop","pos":"noun","subtest":2,"orderInSubtest":7,"options":["кухня","магазин","университет"],"correctIndex":1,"correctAnswer":"магазин"},{"id":"noun-047","sourceId":47,"word":"place","pos":"noun","subtest":2,"orderInSubtest":8,"options":["кухня","место","автомобиль, машина"],"correctIndex":1,"correctAnswer":"место"},{"id":"noun-062","sourceId":62,"word":"restaurant","pos":"noun","subtest":2,"orderInSubtest":9,"options":["город","поездка, путешествие","ресторан"],"correctIndex":2,"correctAnswer":"ресторан"},{"id":"noun-045","sourceId":45,"word":"town","pos":"noun","subtest":2,"orderInSubtest":10,"options":["город, небольшой город","поездка, путешествие","путь, способ"],"correctIndex":0,"correctAnswer":"город, небольшой город"},{"id":"noun-075","sourceId":75,"word":"bicycle","pos":"noun","subtest":2,"orderInSubtest":11,"options":["дом, жильё","велосипед","кухня"],"correctIndex":1,"correctAnswer":"велосипед"},{"id":"noun-066","sourceId":66,"word":"road","pos":"noun","subtest":2,"orderInSubtest":12,"options":["комната, помещение","дорога","гостиница, отель"],"correctIndex":1,"correctAnswer":"дорога"},{"id":"noun-063","sourceId":63,"word":"hotel","pos":"noun","subtest":2,"orderInSubtest":13,"options":["гостиница, отель","ресторан","здание, строение"],"correctIndex":0,"correctAnswer":"гостиница, отель"},{"id":"noun-068","sourceId":68,"word":"park","pos":"noun","subtest":2,"orderInSubtest":14,"options":["парк","автобус","рынок"],"correctIndex":0,"correctAnswer":"парк"},{"id":"noun-070","sourceId":70,"word":"center","pos":"noun","subtest":2,"orderInSubtest":15,"options":["кухня","центр, середина","больница"],"correctIndex":1,"correctAnswer":"центр, середина"},{"id":"noun-079","sourceId":79,"word":"way","pos":"noun","subtest":2,"orderInSubtest":16,"options":["путь, способ","самолёт, плоскость","офис, кабинет"],"correctIndex":0,"correctAnswer":"путь, способ"},{"id":"noun-078","sourceId":78,"word":"journey","pos":"noun","subtest":2,"orderInSubtest":17,"options":["автомобиль, машина","кухня","путешествие, путь"],"correctIndex":2,"correctAnswer":"путешествие, путь"},{"id":"noun-076","sourceId":76,"word":"boat","pos":"noun","subtest":2,"orderInSubtest":18,"options":["банк, берег","лодка, судно","офис, кабинет"],"correctIndex":1,"correctAnswer":"лодка, судно"},{"id":"noun-055","sourceId":55,"word":"school","pos":"noun","subtest":2,"orderInSubtest":19,"options":["поездка, путешествие","школа","рынок"],"correctIndex":1,"correctAnswer":"школа"},{"id":"noun-064","sourceId":64,"word":"station","pos":"noun","subtest":2,"orderInSubtest":20,"options":["сторона, бок","станция, вокзал","область, район, площадь"],"correctIndex":1,"correctAnswer":"станция, вокзал"},{"id":"noun-069","sourceId":69,"word":"building","pos":"noun","subtest":2,"orderInSubtest":21,"options":["город, небольшой город","дорога","здание, строение"],"correctIndex":2,"correctAnswer":"здание, строение"},{"id":"noun-056","sourceId":56,"word":"university","pos":"noun","subtest":2,"orderInSubtest":22,"options":["офис, кабинет","школа","университет"],"correctIndex":2,"correctAnswer":"университет"},{"id":"noun-074","sourceId":74,"word":"plane","pos":"noun","subtest":2,"orderInSubtest":23,"options":["самолёт, плоскость","школа","путь, способ"],"correctIndex":0,"correctAnswer":"самолёт, плоскость"},{"id":"noun-049","sourceId":49,"word":"home","pos":"noun","subtest":2,"orderInSubtest":24,"options":["поездка, путешествие","дом, жильё","кухня"],"correctIndex":1,"correctAnswer":"дом, жильё"},{"id":"noun-073","sourceId":73,"word":"train","pos":"noun","subtest":2,"orderInSubtest":25,"options":["город","мир","поезд"],"correctIndex":2,"correctAnswer":"поезд"},{"id":"noun-052","sourceId":52,"word":"kitchen","pos":"noun","subtest":2,"orderInSubtest":26,"options":["кухня","мир","дом, здание"],"correctIndex":0,"correctAnswer":"кухня"},{"id":"noun-057","sourceId":57,"word":"hospital","pos":"noun","subtest":2,"orderInSubtest":27,"options":["кухня","больница","дорога"],"correctIndex":1,"correctAnswer":"больница"},{"id":"noun-060","sourceId":60,"word":"store","pos":"noun","subtest":2,"orderInSubtest":28,"options":["магазин, склад, запас","страна","станция, вокзал"],"correctIndex":0,"correctAnswer":"магазин, склад, запас"},{"id":"noun-043","sourceId":43,"word":"state","pos":"noun","subtest":2,"orderInSubtest":29,"options":["автомобиль, машина","станция, вокзал","государство, штат, состояние"],"correctIndex":2,"correctAnswer":"государство, штат, состояние"},{"id":"noun-051","sourceId":51,"word":"room","pos":"noun","subtest":2,"orderInSubtest":30,"options":["путешествие, путь","город","комната, помещение"],"correctIndex":2,"correctAnswer":"комната, помещение"},{"id":"noun-042","sourceId":42,"word":"country","pos":"noun","subtest":2,"orderInSubtest":31,"options":["здание, строение","страна","рынок"],"correctIndex":1,"correctAnswer":"страна"},{"id":"noun-071","sourceId":71,"word":"car","pos":"noun","subtest":2,"orderInSubtest":32,"options":["государство, штат, состояние","аэропорт","автомобиль, машина"],"correctIndex":2,"correctAnswer":"автомобиль, машина"},{"id":"noun-072","sourceId":72,"word":"bus","pos":"noun","subtest":2,"orderInSubtest":33,"options":["дом, жильё","автобус","парк"],"correctIndex":1,"correctAnswer":"автобус"},{"id":"noun-065","sourceId":65,"word":"airport","pos":"noun","subtest":2,"orderInSubtest":34,"options":["велосипед","аэропорт","офис, кабинет"],"correctIndex":1,"correctAnswer":"аэропорт"},{"id":"noun-054","sourceId":54,"word":"office","pos":"noun","subtest":2,"orderInSubtest":35,"options":["офис, кабинет","область, район, площадь","велосипед"],"correctIndex":0,"correctAnswer":"офис, кабинет"},{"id":"noun-044","sourceId":44,"word":"city","pos":"noun","subtest":2,"orderInSubtest":36,"options":["страна","город","гостиница, отель"],"correctIndex":1,"correctAnswer":"город"},{"id":"noun-048","sourceId":48,"word":"area","pos":"noun","subtest":2,"orderInSubtest":37,"options":["поездка, путешествие","центр, середина","область, район, площадь"],"correctIndex":2,"correctAnswer":"область, район, площадь"},{"id":"noun-046","sourceId":46,"word":"village","pos":"noun","subtest":2,"orderInSubtest":38,"options":["деревня, село","станция, вокзал","аэропорт"],"correctIndex":0,"correctAnswer":"деревня, село"},{"id":"noun-067","sourceId":67,"word":"street","pos":"noun","subtest":2,"orderInSubtest":39,"options":["улица","поезд","лодка, судно"],"correctIndex":0,"correctAnswer":"улица"},{"id":"noun-053","sourceId":53,"word":"bathroom","pos":"noun","subtest":2,"orderInSubtest":40,"options":["ванная комната, санузел","велосипед","улица"],"correctIndex":0,"correctAnswer":"ванная комната, санузел"},{"id":"noun-111","sourceId":111,"word":"thing","pos":"noun","subtest":3,"orderInSubtest":1,"options":["пол, этаж","земля, почва, основание","вещь, предмет, дело"],"correctIndex":2,"correctAnswer":"вещь, предмет, дело"},{"id":"noun-096","sourceId":96,"word":"morning","pos":"noun","subtest":3,"orderInSubtest":2,"options":["земля, почва, основание","утро","день"],"correctIndex":1,"correctAnswer":"утро"},{"id":"noun-084","sourceId":84,"word":"space","pos":"noun","subtest":3,"orderInSubtest":3,"options":["земля, почва, основание","месяц","пространство, место"],"correctIndex":2,"correctAnswer":"пространство, место"},{"id":"noun-120","sourceId":120,"word":"example","pos":"noun","subtest":3,"orderInSubtest":4,"options":["сезон, время года","пример, образец","неделя"],"correctIndex":1,"correctAnswer":"пример, образец"},{"id":"noun-099","sourceId":99,"word":"night","pos":"noun","subtest":3,"orderInSubtest":5,"options":["ночь","время, раз","регион, область"],"correctIndex":0,"correctAnswer":"ночь"},{"id":"noun-118","sourceId":118,"word":"reason","pos":"noun","subtest":3,"orderInSubtest":6,"options":["язык","причина, основание","месяц"],"correctIndex":1,"correctAnswer":"причина, основание"},{"id":"noun-102","sourceId":102,"word":"moment","pos":"noun","subtest":3,"orderInSubtest":7,"options":["язык","момент, мгновение","пространство, место"],"correctIndex":1,"correctAnswer":"момент, мгновение"},{"id":"noun-088","sourceId":88,"word":"neighborhood","pos":"noun","subtest":3,"orderInSubtest":8,"options":["район, окрестности","время, раз","имя, название"],"correctIndex":0,"correctAnswer":"район, окрестности"},{"id":"noun-082","sourceId":82,"word":"ground","pos":"noun","subtest":3,"orderInSubtest":9,"options":["земля, почва, основание","угол","конец, окончание"],"correctIndex":0,"correctAnswer":"земля, почва, основание"},{"id":"noun-081","sourceId":81,"word":"corner","pos":"noun","subtest":3,"orderInSubtest":10,"options":["минута","жизнь","угол"],"correctIndex":2,"correctAnswer":"угол"},{"id":"noun-098","sourceId":98,"word":"evening","pos":"noun","subtest":3,"orderInSubtest":11,"options":["причина, основание","момент, мгновение","вечер"],"correctIndex":2,"correctAnswer":"вечер"},{"id":"noun-117","sourceId":117,"word":"idea","pos":"noun","subtest":3,"orderInSubtest":12,"options":["земля, суша","ферма, хозяйство","идея, мысль"],"correctIndex":2,"correctAnswer":"идея, мысль"},{"id":"noun-089","sourceId":89,"word":"farm","pos":"noun","subtest":3,"orderInSubtest":13,"options":["земля, суша","ферма, хозяйство","момент, мгновение"],"correctIndex":1,"correctAnswer":"ферма, хозяйство"},{"id":"noun-092","sourceId":92,"word":"day","pos":"noun","subtest":3,"orderInSubtest":14,"options":["день","идея, мысль","слово"],"correctIndex":0,"correctAnswer":"день"},{"id":"noun-100","sourceId":100,"word":"hour","pos":"noun","subtest":3,"orderInSubtest":15,"options":["час","земля, суша","вопрос"],"correctIndex":0,"correctAnswer":"час"},{"id":"noun-115","sourceId":115,"word":"question","pos":"noun","subtest":3,"orderInSubtest":16,"options":["земля, почва, основание","вопрос","сезон, время года"],"correctIndex":1,"correctAnswer":"вопрос"},{"id":"noun-101","sourceId":101,"word":"minute","pos":"noun","subtest":3,"orderInSubtest":17,"options":["возраст, эпоха","язык","минута"],"correctIndex":2,"correctAnswer":"минута"},{"id":"noun-107","sourceId":107,"word":"beginning","pos":"noun","subtest":3,"orderInSubtest":18,"options":["слово","ферма, хозяйство","начало"],"correctIndex":2,"correctAnswer":"начало"},{"id":"noun-106","sourceId":106,"word":"future","pos":"noun","subtest":3,"orderInSubtest":19,"options":["сезон, время года","вечер","будущее"],"correctIndex":2,"correctAnswer":"будущее"},{"id":"noun-104","sourceId":104,"word":"life","pos":"noun","subtest":3,"orderInSubtest":20,"options":["жизнь","вопрос","вечер"],"correctIndex":0,"correctAnswer":"жизнь"},{"id":"noun-110","sourceId":110,"word":"season","pos":"noun","subtest":3,"orderInSubtest":21,"options":["сезон, время года","имя, название","пол, этаж"],"correctIndex":0,"correctAnswer":"сезон, время года"},{"id":"noun-083","sourceId":83,"word":"floor","pos":"noun","subtest":3,"orderInSubtest":22,"options":["конец, окончание","минута","пол, этаж"],"correctIndex":2,"correctAnswer":"пол, этаж"},{"id":"noun-108","sourceId":108,"word":"end","pos":"noun","subtest":3,"orderInSubtest":23,"options":["конец, окончание","регион, область","период, промежуток"],"correctIndex":0,"correctAnswer":"конец, окончание"},{"id":"noun-093","sourceId":93,"word":"week","pos":"noun","subtest":3,"orderInSubtest":24,"options":["неделя","возраст, эпоха","утро"],"correctIndex":0,"correctAnswer":"неделя"},{"id":"noun-086","sourceId":86,"word":"region","pos":"noun","subtest":3,"orderInSubtest":25,"options":["регион, область","сообщество, община","месяц"],"correctIndex":0,"correctAnswer":"регион, область"},{"id":"noun-113","sourceId":113,"word":"word","pos":"noun","subtest":3,"orderInSubtest":26,"options":["результат, итог","возраст, эпоха","слово"],"correctIndex":2,"correctAnswer":"слово"},{"id":"noun-112","sourceId":112,"word":"name","pos":"noun","subtest":3,"orderInSubtest":27,"options":["неделя","имя, название","день, время после полудня"],"correctIndex":1,"correctAnswer":"имя, название"},{"id":"noun-091","sourceId":91,"word":"time","pos":"noun","subtest":3,"orderInSubtest":28,"options":["время, раз","регион, область","результат, итог"],"correctIndex":0,"correctAnswer":"время, раз"},{"id":"noun-094","sourceId":94,"word":"month","pos":"noun","subtest":3,"orderInSubtest":29,"options":["жизнь","месяц","пространство, место"],"correctIndex":1,"correctAnswer":"месяц"},{"id":"noun-095","sourceId":95,"word":"year","pos":"noun","subtest":3,"orderInSubtest":30,"options":["имя, название","ночь","год"],"correctIndex":2,"correctAnswer":"год"},{"id":"noun-097","sourceId":97,"word":"afternoon","pos":"noun","subtest":3,"orderInSubtest":31,"options":["земля, почва, основание","день, время после полудня","пространство, место"],"correctIndex":1,"correctAnswer":"день, время после полудня"},{"id":"noun-109","sourceId":109,"word":"period","pos":"noun","subtest":3,"orderInSubtest":32,"options":["регион, область","вечер","период, промежуток"],"correctIndex":2,"correctAnswer":"период, промежуток"},{"id":"noun-085","sourceId":85,"word":"land","pos":"noun","subtest":3,"orderInSubtest":33,"options":["слово","земля, суша","время, раз"],"correctIndex":1,"correctAnswer":"земля, суша"},{"id":"noun-090","sourceId":90,"word":"garden","pos":"noun","subtest":3,"orderInSubtest":34,"options":["сад","пример, образец","язык"],"correctIndex":0,"correctAnswer":"сад"},{"id":"noun-087","sourceId":87,"word":"community","pos":"noun","subtest":3,"orderInSubtest":35,"options":["пол, этаж","период, промежуток","сообщество, община"],"correctIndex":2,"correctAnswer":"сообщество, община"},{"id":"noun-105","sourceId":105,"word":"past","pos":"noun","subtest":3,"orderInSubtest":36,"options":["угол","прошлое","слово"],"correctIndex":1,"correctAnswer":"прошлое"},{"id":"noun-116","sourceId":116,"word":"answer","pos":"noun","subtest":3,"orderInSubtest":37,"options":["ответ","год","язык"],"correctIndex":0,"correctAnswer":"ответ"},{"id":"noun-103","sourceId":103,"word":"age","pos":"noun","subtest":3,"orderInSubtest":38,"options":["результат, итог","возраст, эпоха","конец, окончание"],"correctIndex":1,"correctAnswer":"возраст, эпоха"},{"id":"noun-114","sourceId":114,"word":"language","pos":"noun","subtest":3,"orderInSubtest":39,"options":["время, раз","сообщество, община","язык"],"correctIndex":2,"correctAnswer":"язык"},{"id":"noun-119","sourceId":119,"word":"result","pos":"noun","subtest":3,"orderInSubtest":40,"options":["месяц","результат, итог","пример, образец"],"correctIndex":1,"correctAnswer":"результат, итог"},{"id":"noun-152","sourceId":152,"word":"report","pos":"noun","subtest":4,"orderInSubtest":1,"options":["решение, выход","отчёт, доклад","телефон"],"correctIndex":1,"correctAnswer":"отчёт, доклад"},{"id":"noun-133","sourceId":133,"word":"program","pos":"noun","subtest":4,"orderInSubtest":2,"options":["знание, знания","картина, изображение","программа"],"correctIndex":2,"correctAnswer":"программа"},{"id":"noun-126","sourceId":126,"word":"news","pos":"noun","subtest":4,"orderInSubtest":3,"options":["документ","память, воспоминание","новости, известия"],"correctIndex":2,"correctAnswer":"новости, известия"},{"id":"noun-125","sourceId":125,"word":"information","pos":"noun","subtest":4,"orderInSubtest":4,"options":["программа","документ","информация, сведения"],"correctIndex":2,"correctAnswer":"информация, сведения"},{"id":"noun-132","sourceId":132,"word":"computer","pos":"noun","subtest":4,"orderInSubtest":5,"options":["статья, предмет, артикль","компьютер","навык, умение"],"correctIndex":1,"correctAnswer":"компьютер"},{"id":"noun-123","sourceId":123,"word":"fact","pos":"noun","subtest":4,"orderInSubtest":6,"options":["факт","страница","история, рассказ"],"correctIndex":0,"correctAnswer":"факт"},{"id":"noun-139","sourceId":139,"word":"article","pos":"noun","subtest":4,"orderInSubtest":7,"options":["статья, предмет, артикль","файл, дело","компьютер"],"correctIndex":0,"correctAnswer":"статья, предмет, артикль"},{"id":"noun-158","sourceId":158,"word":"experience","pos":"noun","subtest":4,"orderInSubtest":8,"options":["статья, предмет, артикль","проблема, задача","опыт, переживание"],"correctIndex":2,"correctAnswer":"опыт, переживание"},{"id":"noun-156","sourceId":156,"word":"memory","pos":"noun","subtest":4,"orderInSubtest":9,"options":["система","память, воспоминание","программа"],"correctIndex":1,"correctAnswer":"память, воспоминание"},{"id":"noun-137","sourceId":137,"word":"page","pos":"noun","subtest":4,"orderInSubtest":10,"options":["исследование","страница","бумага, документ, статья"],"correctIndex":1,"correctAnswer":"страница"},{"id":"noun-143","sourceId":143,"word":"image","pos":"noun","subtest":4,"orderInSubtest":11,"options":["информация, сведения","навык, умение","изображение, образ"],"correctIndex":2,"correctAnswer":"изображение, образ"},{"id":"noun-141","sourceId":141,"word":"picture","pos":"noun","subtest":4,"orderInSubtest":12,"options":["информация, сведения","фильм, плёнка","картина, изображение"],"correctIndex":2,"correctAnswer":"картина, изображение"},{"id":"noun-127","sourceId":127,"word":"message","pos":"noun","subtest":4,"orderInSubtest":13,"options":["документ","сообщение, послание","видео, видеозапись"],"correctIndex":1,"correctAnswer":"сообщение, послание"},{"id":"noun-130","sourceId":130,"word":"phone","pos":"noun","subtest":4,"orderInSubtest":14,"options":["знание, знания","факт","телефон"],"correctIndex":2,"correctAnswer":"телефон"},{"id":"noun-135","sourceId":135,"word":"file","pos":"noun","subtest":4,"orderInSubtest":15,"options":["исследование","файл, дело","образование, обучение"],"correctIndex":1,"correctAnswer":"файл, дело"},{"id":"noun-136","sourceId":136,"word":"document","pos":"noun","subtest":4,"orderInSubtest":16,"options":["документ","память, воспоминание","разговор, беседа"],"correctIndex":0,"correctAnswer":"документ"},{"id":"noun-148","sourceId":148,"word":"voice","pos":"noun","subtest":4,"orderInSubtest":17,"options":["письмо, буква","видео, видеозапись","голос"],"correctIndex":2,"correctAnswer":"голос"},{"id":"noun-121","sourceId":121,"word":"problem","pos":"noun","subtest":4,"orderInSubtest":18,"options":["проблема, задача","изображение, образ","бумага, документ, статья"],"correctIndex":0,"correctAnswer":"проблема, задача"},{"id":"noun-149","sourceId":149,"word":"sound","pos":"noun","subtest":4,"orderInSubtest":19,"options":["звук","память, воспоминание","отчёт, доклад"],"correctIndex":0,"correctAnswer":"звук"},{"id":"noun-147","sourceId":147,"word":"movie","pos":"noun","subtest":4,"orderInSubtest":20,"options":["статья, предмет, артикль","история, рассказ","фильм, кино"],"correctIndex":2,"correctAnswer":"фильм, кино"},{"id":"noun-159","sourceId":159,"word":"education","pos":"noun","subtest":4,"orderInSubtest":21,"options":["образование, обучение","фильм, плёнка","видео, видеозапись"],"correctIndex":0,"correctAnswer":"образование, обучение"},{"id":"noun-140","sourceId":140,"word":"paper","pos":"noun","subtest":4,"orderInSubtest":22,"options":["бумага, документ, статья","интернет","исследование"],"correctIndex":0,"correctAnswer":"бумага, документ, статья"},{"id":"noun-131","sourceId":131,"word":"internet","pos":"noun","subtest":4,"orderInSubtest":23,"options":["сообщение, послание","бумага, документ, статья","интернет"],"correctIndex":2,"correctAnswer":"интернет"},{"id":"noun-129","sourceId":129,"word":"email","pos":"noun","subtest":4,"orderInSubtest":24,"options":["электронное письмо, электронная почта","телефон","история, рассказ"],"correctIndex":0,"correctAnswer":"электронное письмо, электронная почта"},{"id":"noun-128","sourceId":128,"word":"letter","pos":"noun","subtest":4,"orderInSubtest":25,"options":["страница","письмо, буква","фильм, кино"],"correctIndex":1,"correctAnswer":"письмо, буква"},{"id":"noun-160","sourceId":160,"word":"lesson","pos":"noun","subtest":4,"orderInSubtest":26,"options":["фильм, кино","электронное письмо, электронная почта","урок, занятие"],"correctIndex":2,"correctAnswer":"урок, занятие"},{"id":"noun-138","sourceId":138,"word":"book","pos":"noun","subtest":4,"orderInSubtest":27,"options":["книга","письмо, буква","образование, обучение"],"correctIndex":0,"correctAnswer":"книга"},{"id":"noun-154","sourceId":154,"word":"research","pos":"noun","subtest":4,"orderInSubtest":28,"options":["исследование","урок, занятие","опыт, переживание"],"correctIndex":0,"correctAnswer":"исследование"},{"id":"noun-134","sourceId":134,"word":"system","pos":"noun","subtest":4,"orderInSubtest":29,"options":["новости, известия","система","опыт, переживание"],"correctIndex":1,"correctAnswer":"система"},{"id":"noun-142","sourceId":142,"word":"photo","pos":"noun","subtest":4,"orderInSubtest":30,"options":["фотография","файл, дело","история, рассказ"],"correctIndex":0,"correctAnswer":"фотография"},{"id":"noun-144","sourceId":144,"word":"video","pos":"noun","subtest":4,"orderInSubtest":31,"options":["видео, видеозапись","исследование, учёба","решение, выход"],"correctIndex":0,"correctAnswer":"видео, видеозапись"},{"id":"noun-145","sourceId":145,"word":"music","pos":"noun","subtest":4,"orderInSubtest":32,"options":["память, воспоминание","музыка","образование, обучение"],"correctIndex":1,"correctAnswer":"музыка"},{"id":"noun-150","sourceId":150,"word":"conversation","pos":"noun","subtest":4,"orderInSubtest":33,"options":["разговор, беседа","информация, сведения","решение, выход"],"correctIndex":0,"correctAnswer":"разговор, беседа"},{"id":"noun-124","sourceId":124,"word":"story","pos":"noun","subtest":4,"orderInSubtest":34,"options":["история, рассказ","изображение, образ","проблема, задача"],"correctIndex":0,"correctAnswer":"история, рассказ"},{"id":"noun-146","sourceId":146,"word":"film","pos":"noun","subtest":4,"orderInSubtest":35,"options":["образование, обучение","сообщение, послание","фильм, плёнка"],"correctIndex":2,"correctAnswer":"фильм, плёнка"},{"id":"noun-157","sourceId":157,"word":"skill","pos":"noun","subtest":4,"orderInSubtest":36,"options":["исследование","навык, умение","урок, занятие"],"correctIndex":1,"correctAnswer":"навык, умение"},{"id":"noun-122","sourceId":122,"word":"solution","pos":"noun","subtest":4,"orderInSubtest":37,"options":["музыка","решение, выход","новости, известия"],"correctIndex":1,"correctAnswer":"решение, выход"},{"id":"noun-155","sourceId":155,"word":"knowledge","pos":"noun","subtest":4,"orderInSubtest":38,"options":["фильм, плёнка","бумага, документ, статья","знание, знания"],"correctIndex":2,"correctAnswer":"знание, знания"},{"id":"noun-151","sourceId":151,"word":"speech","pos":"noun","subtest":4,"orderInSubtest":39,"options":["видео, видеозапись","речь, выступление","компьютер"],"correctIndex":1,"correctAnswer":"речь, выступление"},{"id":"noun-153","sourceId":153,"word":"study","pos":"noun","subtest":4,"orderInSubtest":40,"options":["фотография","исследование, учёба","решение, выход"],"correctIndex":1,"correctAnswer":"исследование, учёба"},{"id":"noun-179","sourceId":179,"word":"order","pos":"noun","subtest":5,"orderInSubtest":1,"options":["налог","заказ, порядок, распоряжение","работа, труд"],"correctIndex":1,"correctAnswer":"заказ, порядок, распоряжение"},{"id":"noun-177","sourceId":177,"word":"service","pos":"noun","subtest":5,"orderInSubtest":2,"options":["услуга, обслуживание, служба","счёт, учётная запись, отчёт","компания, общество"],"correctIndex":0,"correctAnswer":"услуга, обслуживание, служба"},{"id":"noun-167","sourceId":167,"word":"group","pos":"noun","subtest":5,"orderInSubtest":3,"options":["сила, власть, мощность","группа","правило, норма"],"correctIndex":1,"correctAnswer":"группа"},{"id":"noun-181","sourceId":181,"word":"payment","pos":"noun","subtest":5,"orderInSubtest":4,"options":["проект","политика, правило, страховой полис","платёж, оплата"],"correctIndex":2,"correctAnswer":"платёж, оплата"},{"id":"noun-183","sourceId":183,"word":"money","pos":"noun","subtest":5,"orderInSubtest":5,"options":["закон, право","деньги","продукт, изделие"],"correctIndex":1,"correctAnswer":"деньги"},{"id":"noun-189","sourceId":189,"word":"rule","pos":"noun","subtest":5,"orderInSubtest":6,"options":["работа, должность","правило, норма","продукт, изделие"],"correctIndex":1,"correctAnswer":"правило, норма"},{"id":"noun-200","sourceId":200,"word":"medicine","pos":"noun","subtest":5,"orderInSubtest":7,"options":["выбор","медицина, лекарство","изменение, перемена, сдача"],"correctIndex":1,"correctAnswer":"медицина, лекарство"},{"id":"noun-169","sourceId":169,"word":"project","pos":"noun","subtest":5,"orderInSubtest":8,"options":["проект","политика, правило, страховой полис","общество"],"correctIndex":0,"correctAnswer":"проект"},{"id":"noun-174","sourceId":174,"word":"chance","pos":"noun","subtest":5,"orderInSubtest":9,"options":["шанс, возможность, случай","здоровье","выбор"],"correctIndex":0,"correctAnswer":"шанс, возможность, случай"},{"id":"noun-163","sourceId":163,"word":"business","pos":"noun","subtest":5,"orderInSubtest":10,"options":["услуга, обслуживание, служба","бизнес, дело","шанс, возможность, случай"],"correctIndex":1,"correctAnswer":"бизнес, дело"},{"id":"noun-165","sourceId":165,"word":"organization","pos":"noun","subtest":5,"orderInSubtest":11,"options":["решение","налог","организация"],"correctIndex":2,"correctAnswer":"организация"},{"id":"noun-187","sourceId":187,"word":"tax","pos":"noun","subtest":5,"orderInSubtest":12,"options":["организация","налог","счёт, учётная запись, отчёт"],"correctIndex":1,"correctAnswer":"налог"},{"id":"noun-184","sourceId":184,"word":"price","pos":"noun","subtest":5,"orderInSubtest":13,"options":["культура","цена","организация"],"correctIndex":1,"correctAnswer":"цена"},{"id":"noun-197","sourceId":197,"word":"culture","pos":"noun","subtest":5,"orderInSubtest":14,"options":["продукт, изделие","деньги","культура"],"correctIndex":2,"correctAnswer":"культура"},{"id":"noun-166","sourceId":166,"word":"team","pos":"noun","subtest":5,"orderInSubtest":15,"options":["возможность, благоприятный случай","команда, коллектив","цена"],"correctIndex":1,"correctAnswer":"команда, коллектив"},{"id":"noun-188","sourceId":188,"word":"law","pos":"noun","subtest":5,"orderInSubtest":16,"options":["работа, должность","счёт, законопроект, купюра","закон, право"],"correctIndex":2,"correctAnswer":"закон, право"},{"id":"noun-192","sourceId":192,"word":"control","pos":"noun","subtest":5,"orderInSubtest":17,"options":["работа, труд","встреча, собрание","контроль, управление"],"correctIndex":2,"correctAnswer":"контроль, управление"},{"id":"noun-170","sourceId":170,"word":"plan","pos":"noun","subtest":5,"orderInSubtest":18,"options":["продажа, распродажа","контроль, управление","план, замысел"],"correctIndex":2,"correctAnswer":"план, замысел"},{"id":"noun-186","sourceId":186,"word":"bill","pos":"noun","subtest":5,"orderInSubtest":19,"options":["здоровье","счёт, законопроект, купюра","экономика, хозяйство"],"correctIndex":1,"correctAnswer":"счёт, законопроект, купюра"},{"id":"noun-182","sourceId":182,"word":"account","pos":"noun","subtest":5,"orderInSubtest":20,"options":["сила, власть, мощность","поддержка, опора","счёт, учётная запись, отчёт"],"correctIndex":2,"correctAnswer":"счёт, учётная запись, отчёт"},{"id":"noun-180","sourceId":180,"word":"sale","pos":"noun","subtest":5,"orderInSubtest":21,"options":["группа","культура","продажа, распродажа"],"correctIndex":2,"correctAnswer":"продажа, распродажа"},{"id":"noun-171","sourceId":171,"word":"goal","pos":"noun","subtest":5,"orderInSubtest":22,"options":["цель","возможность, благоприятный случай","общество"],"correctIndex":0,"correctAnswer":"цель"},{"id":"noun-168","sourceId":168,"word":"meeting","pos":"noun","subtest":5,"orderInSubtest":23,"options":["стоимость, затраты","встреча, собрание","правило, норма"],"correctIndex":1,"correctAnswer":"встреча, собрание"},{"id":"noun-199","sourceId":199,"word":"health","pos":"noun","subtest":5,"orderInSubtest":24,"options":["здоровье","решение","возможность, благоприятный случай"],"correctIndex":0,"correctAnswer":"здоровье"},{"id":"noun-172","sourceId":172,"word":"decision","pos":"noun","subtest":5,"orderInSubtest":25,"options":["заказ, порядок, распоряжение","медицина, лекарство","решение"],"correctIndex":2,"correctAnswer":"решение"},{"id":"noun-175","sourceId":175,"word":"choice","pos":"noun","subtest":5,"orderInSubtest":26,"options":["проект","выбор","счёт, учётная запись, отчёт"],"correctIndex":1,"correctAnswer":"выбор"},{"id":"noun-196","sourceId":196,"word":"society","pos":"noun","subtest":5,"orderInSubtest":27,"options":["общество","правительство, государственное управление","услуга, обслуживание, служба"],"correctIndex":0,"correctAnswer":"общество"},{"id":"noun-164","sourceId":164,"word":"company","pos":"noun","subtest":5,"orderInSubtest":28,"options":["правительство, государственное управление","возможность, благоприятный случай","компания, общество"],"correctIndex":2,"correctAnswer":"компания, общество"},{"id":"noun-162","sourceId":162,"word":"work","pos":"noun","subtest":5,"orderInSubtest":29,"options":["работа, труд","правило, норма","продажа, распродажа"],"correctIndex":0,"correctAnswer":"работа, труд"},{"id":"noun-198","sourceId":198,"word":"economy","pos":"noun","subtest":5,"orderInSubtest":30,"options":["работа, должность","экономика, хозяйство","изменение, перемена, сдача"],"correctIndex":1,"correctAnswer":"экономика, хозяйство"},{"id":"noun-176","sourceId":176,"word":"opportunity","pos":"noun","subtest":5,"orderInSubtest":31,"options":["возможность, благоприятный случай","правило, норма","помощь"],"correctIndex":0,"correctAnswer":"возможность, благоприятный случай"},{"id":"noun-161","sourceId":161,"word":"job","pos":"noun","subtest":5,"orderInSubtest":32,"options":["работа, должность","команда, коллектив","организация"],"correctIndex":0,"correctAnswer":"работа, должность"},{"id":"noun-178","sourceId":178,"word":"product","pos":"noun","subtest":5,"orderInSubtest":33,"options":["сила, власть, мощность","правительство, государственное управление","продукт, изделие"],"correctIndex":2,"correctAnswer":"продукт, изделие"},{"id":"noun-191","sourceId":191,"word":"power","pos":"noun","subtest":5,"orderInSubtest":34,"options":["компания, общество","налог","сила, власть, мощность"],"correctIndex":2,"correctAnswer":"сила, власть, мощность"},{"id":"noun-193","sourceId":193,"word":"support","pos":"noun","subtest":5,"orderInSubtest":35,"options":["поддержка, опора","общество","шанс, возможность, случай"],"correctIndex":0,"correctAnswer":"поддержка, опора"},{"id":"noun-190","sourceId":190,"word":"policy","pos":"noun","subtest":5,"orderInSubtest":36,"options":["деньги","политика, правило, страховой полис","медицина, лекарство"],"correctIndex":1,"correctAnswer":"политика, правило, страховой полис"},{"id":"noun-185","sourceId":185,"word":"cost","pos":"noun","subtest":5,"orderInSubtest":37,"options":["стоимость, затраты","организация","встреча, собрание"],"correctIndex":0,"correctAnswer":"стоимость, затраты"},{"id":"noun-173","sourceId":173,"word":"change","pos":"noun","subtest":5,"orderInSubtest":38,"options":["изменение, перемена, сдача","бизнес, дело","организация"],"correctIndex":0,"correctAnswer":"изменение, перемена, сдача"},{"id":"noun-194","sourceId":194,"word":"help","pos":"noun","subtest":5,"orderInSubtest":39,"options":["помощь","экономика, хозяйство","медицина, лекарство"],"correctIndex":0,"correctAnswer":"помощь"},{"id":"noun-195","sourceId":195,"word":"government","pos":"noun","subtest":5,"orderInSubtest":40,"options":["сила, власть, мощность","стоимость, затраты","правительство, государственное управление"],"correctIndex":2,"correctAnswer":"правительство, государственное управление"},{"id":"noun-202","sourceId":202,"word":"safety","pos":"noun","subtest":6,"orderInSubtest":1,"options":["солнце","голова, руководитель","безопасность"],"correctIndex":2,"correctAnswer":"безопасность"},{"id":"noun-208","sourceId":208,"word":"need","pos":"noun","subtest":6,"orderInSubtest":2,"options":["необходимость, потребность","успех","ухо"],"correctIndex":0,"correctAnswer":"необходимость, потребность"},{"id":"noun-226","sourceId":226,"word":"nose","pos":"noun","subtest":6,"orderInSubtest":3,"options":["уровень","нос","неудача, отказ, сбой"],"correctIndex":1,"correctAnswer":"нос"},{"id":"noun-238","sourceId":238,"word":"earth","pos":"noun","subtest":6,"orderInSubtest":4,"options":["безопасность","рука, рычаг, род войск","земля, планета Земля"],"correctIndex":2,"correctAnswer":"земля, планета Земля"},{"id":"noun-214","sourceId":214,"word":"level","pos":"noun","subtest":6,"orderInSubtest":5,"options":["уровень","рот, устье","солнце"],"correctIndex":0,"correctAnswer":"уровень"},{"id":"noun-222","sourceId":222,"word":"head","pos":"noun","subtest":6,"orderInSubtest":6,"options":["сердце, центр","интерес, процент","голова, руководитель"],"correctIndex":2,"correctAnswer":"голова, руководитель"},{"id":"noun-220","sourceId":220,"word":"course","pos":"noun","subtest":6,"orderInSubtest":7,"options":["нога, этап пути","голова, руководитель","курс, направление, блюдо"],"correctIndex":2,"correctAnswer":"курс, направление, блюдо"},{"id":"noun-233","sourceId":233,"word":"mind","pos":"noun","subtest":6,"orderInSubtest":8,"options":["глаз","качество, свойство","ум, разум, мнение"],"correctIndex":2,"correctAnswer":"ум, разум, мнение"},{"id":"noun-223","sourceId":223,"word":"face","pos":"noun","subtest":6,"orderInSubtest":9,"options":["причина, основание","лицо, поверхность","война"],"correctIndex":1,"correctAnswer":"лицо, поверхность"},{"id":"noun-206","sourceId":206,"word":"success","pos":"noun","subtest":6,"orderInSubtest":10,"options":["риск, опасность","способность, умение","успех"],"correctIndex":2,"correctAnswer":"успех"},{"id":"noun-205","sourceId":205,"word":"peace","pos":"noun","subtest":6,"orderInSubtest":11,"options":["отношение, взаимоотношения, связь","мир, покой","нос"],"correctIndex":1,"correctAnswer":"мир, покой"},{"id":"noun-221","sourceId":221,"word":"body","pos":"noun","subtest":6,"orderInSubtest":12,"options":["причина, основание","тело, корпус, организация","риск, опасность"],"correctIndex":1,"correctAnswer":"тело, корпус, организация"},{"id":"noun-225","sourceId":225,"word":"ear","pos":"noun","subtest":6,"orderInSubtest":13,"options":["ухо","качество, свойство","мир, покой"],"correctIndex":0,"correctAnswer":"ухо"},{"id":"noun-212","sourceId":212,"word":"relationship","pos":"noun","subtest":6,"orderInSubtest":14,"options":["успех","уровень","отношение, взаимоотношения, связь"],"correctIndex":2,"correctAnswer":"отношение, взаимоотношения, связь"},{"id":"noun-235","sourceId":235,"word":"back","pos":"noun","subtest":6,"orderInSubtest":15,"options":["спина, задняя часть","ум, разум, мнение","курс, направление, блюдо"],"correctIndex":0,"correctAnswer":"спина, задняя часть"},{"id":"noun-240","sourceId":240,"word":"moon","pos":"noun","subtest":6,"orderInSubtest":16,"options":["луна","рука, стрелка, работник","внимание"],"correctIndex":0,"correctAnswer":"луна"},{"id":"noun-207","sourceId":207,"word":"failure","pos":"noun","subtest":6,"orderInSubtest":17,"options":["неудача, отказ, сбой","разница, отличие","ступня, фут, подножие"],"correctIndex":0,"correctAnswer":"неудача, отказ, сбой"},{"id":"noun-203","sourceId":203,"word":"risk","pos":"noun","subtest":6,"orderInSubtest":18,"options":["интерес, процент","нога, этап пути","риск, опасность"],"correctIndex":2,"correctAnswer":"риск, опасность"},{"id":"noun-209","sourceId":209,"word":"effect","pos":"noun","subtest":6,"orderInSubtest":19,"options":["эффект, воздействие, результат","неудача, отказ, сбой","интерес, процент"],"correctIndex":0,"correctAnswer":"эффект, воздействие, результат"},{"id":"noun-224","sourceId":224,"word":"eye","pos":"noun","subtest":6,"orderInSubtest":20,"options":["сердце, центр","событие, мероприятие","глаз"],"correctIndex":2,"correctAnswer":"глаз"},{"id":"noun-236","sourceId":236,"word":"air","pos":"noun","subtest":6,"orderInSubtest":21,"options":["сердце, центр","разница, отличие","воздух, вид, эфир"],"correctIndex":2,"correctAnswer":"воздух, вид, эфир"},{"id":"noun-211","sourceId":211,"word":"difference","pos":"noun","subtest":6,"orderInSubtest":22,"options":["разница, отличие","нос","безопасность"],"correctIndex":0,"correctAnswer":"разница, отличие"},{"id":"noun-215","sourceId":215,"word":"quality","pos":"noun","subtest":6,"orderInSubtest":23,"options":["ум, разум, мнение","качество, свойство","способность, умение"],"correctIndex":1,"correctAnswer":"качество, свойство"},{"id":"noun-234","sourceId":234,"word":"hair","pos":"noun","subtest":6,"orderInSubtest":24,"options":["волосы, волос","внимание","безопасность, охрана, обеспечение"],"correctIndex":0,"correctAnswer":"волосы, волос"},{"id":"noun-229","sourceId":229,"word":"arm","pos":"noun","subtest":6,"orderInSubtest":25,"options":["нос","огонь, пожар","рука, рычаг, род войск"],"correctIndex":2,"correctAnswer":"рука, рычаг, род войск"},{"id":"noun-217","sourceId":217,"word":"interest","pos":"noun","subtest":6,"orderInSubtest":26,"options":["интерес, процент","неудача, отказ, сбой","безопасность, охрана, обеспечение"],"correctIndex":0,"correctAnswer":"интерес, процент"},{"id":"noun-204","sourceId":204,"word":"war","pos":"noun","subtest":6,"orderInSubtest":27,"options":["риск, опасность","война","ступня, фут, подножие"],"correctIndex":1,"correctAnswer":"война"},{"id":"noun-218","sourceId":218,"word":"attention","pos":"noun","subtest":6,"orderInSubtest":28,"options":["эффект, воздействие, результат","голова, руководитель","внимание"],"correctIndex":2,"correctAnswer":"внимание"},{"id":"noun-232","sourceId":232,"word":"heart","pos":"noun","subtest":6,"orderInSubtest":29,"options":["война","сердце, центр","лицо, поверхность"],"correctIndex":1,"correctAnswer":"сердце, центр"},{"id":"noun-239","sourceId":239,"word":"sun","pos":"noun","subtest":6,"orderInSubtest":30,"options":["сердце, центр","солнце","лицо, поверхность"],"correctIndex":1,"correctAnswer":"солнце"},{"id":"noun-213","sourceId":213,"word":"value","pos":"noun","subtest":6,"orderInSubtest":31,"options":["уровень","ценность, стоимость, значение","неудача, отказ, сбой"],"correctIndex":1,"correctAnswer":"ценность, стоимость, значение"},{"id":"noun-219","sourceId":219,"word":"event","pos":"noun","subtest":6,"orderInSubtest":32,"options":["событие, мероприятие","рот, устье","лицо, поверхность"],"correctIndex":0,"correctAnswer":"событие, мероприятие"},{"id":"noun-227","sourceId":227,"word":"mouth","pos":"noun","subtest":6,"orderInSubtest":33,"options":["безопасность","рот, устье","земля, планета Земля"],"correctIndex":1,"correctAnswer":"рот, устье"},{"id":"noun-228","sourceId":228,"word":"hand","pos":"noun","subtest":6,"orderInSubtest":34,"options":["воздух, вид, эфир","рука, стрелка, работник","солнце"],"correctIndex":1,"correctAnswer":"рука, стрелка, работник"},{"id":"noun-210","sourceId":210,"word":"cause","pos":"noun","subtest":6,"orderInSubtest":35,"options":["волосы, волос","причина, основание","сердце, центр"],"correctIndex":1,"correctAnswer":"причина, основание"},{"id":"noun-216","sourceId":216,"word":"ability","pos":"noun","subtest":6,"orderInSubtest":36,"options":["спина, задняя часть","уровень","способность, умение"],"correctIndex":2,"correctAnswer":"способность, умение"},{"id":"noun-201","sourceId":201,"word":"security","pos":"noun","subtest":6,"orderInSubtest":37,"options":["луна","безопасность, охрана, обеспечение","тело, корпус, организация"],"correctIndex":1,"correctAnswer":"безопасность, охрана, обеспечение"},{"id":"noun-237","sourceId":237,"word":"fire","pos":"noun","subtest":6,"orderInSubtest":38,"options":["волосы, волос","разница, отличие","огонь, пожар"],"correctIndex":2,"correctAnswer":"огонь, пожар"},{"id":"noun-231","sourceId":231,"word":"foot","pos":"noun","subtest":6,"orderInSubtest":39,"options":["ступня, фут, подножие","волосы, волос","голова, руководитель"],"correctIndex":0,"correctAnswer":"ступня, фут, подножие"},{"id":"noun-230","sourceId":230,"word":"leg","pos":"noun","subtest":6,"orderInSubtest":40,"options":["нога, этап пути","огонь, пожар","неудача, отказ, сбой"],"correctIndex":0,"correctAnswer":"нога, этап пути"},{"id":"noun-243","sourceId":243,"word":"river","pos":"noun","subtest":7,"orderInSubtest":1,"options":["завтрак","животное","река"],"correctIndex":2,"correctAnswer":"река"},{"id":"noun-274","sourceId":274,"word":"lunch","pos":"noun","subtest":7,"orderInSubtest":2,"options":["обед, ланч","рубашка","энергия, силы"],"correctIndex":0,"correctAnswer":"обед, ланч"},{"id":"noun-268","sourceId":268,"word":"tea","pos":"noun","subtest":7,"orderInSubtest":3,"options":["чай","рубашка","приём пищи, еда"],"correctIndex":0,"correctAnswer":"чай"},{"id":"noun-264","sourceId":264,"word":"island","pos":"noun","subtest":7,"orderInSubtest":4,"options":["завтрак","овощ","остров"],"correctIndex":2,"correctAnswer":"остров"},{"id":"noun-266","sourceId":266,"word":"food","pos":"noun","subtest":7,"orderInSubtest":5,"options":["еда, пища","природа, характер","лес"],"correctIndex":0,"correctAnswer":"еда, пища"},{"id":"noun-272","sourceId":272,"word":"vegetable","pos":"noun","subtest":7,"orderInSubtest":6,"options":["овощ","чай","лес"],"correctIndex":0,"correctAnswer":"овощ"},{"id":"noun-245","sourceId":245,"word":"mountain","pos":"noun","subtest":7,"orderInSubtest":7,"options":["мясо","гора","окружающая среда, окружение"],"correctIndex":1,"correctAnswer":"гора"},{"id":"noun-246","sourceId":246,"word":"tree","pos":"noun","subtest":7,"orderInSubtest":8,"options":["дерево","хлеб","животное"],"correctIndex":0,"correctAnswer":"дерево"},{"id":"noun-259","sourceId":259,"word":"energy","pos":"noun","subtest":7,"orderInSubtest":9,"options":["остров","погода","энергия, силы"],"correctIndex":2,"correctAnswer":"энергия, силы"},{"id":"noun-278","sourceId":278,"word":"clothes","pos":"noun","subtest":7,"orderInSubtest":10,"options":["ветер","одежда","животное"],"correctIndex":1,"correctAnswer":"одежда"},{"id":"noun-254","sourceId":254,"word":"snow","pos":"noun","subtest":7,"orderInSubtest":11,"options":["дождь","снег","одежда"],"correctIndex":1,"correctAnswer":"снег"},{"id":"noun-256","sourceId":256,"word":"water","pos":"noun","subtest":7,"orderInSubtest":12,"options":["поле, область деятельности","собака","вода"],"correctIndex":2,"correctAnswer":"вода"},{"id":"noun-247","sourceId":247,"word":"flower","pos":"noun","subtest":7,"orderInSubtest":13,"options":["обед, ланч","дерево","цветок"],"correctIndex":2,"correctAnswer":"цветок"},{"id":"noun-267","sourceId":267,"word":"coffee","pos":"noun","subtest":7,"orderInSubtest":14,"options":["погода","кофе","лес"],"correctIndex":1,"correctAnswer":"кофе"},{"id":"noun-248","sourceId":248,"word":"animal","pos":"noun","subtest":7,"orderInSubtest":15,"options":["гора","животное","природа, характер"],"correctIndex":1,"correctAnswer":"животное"},{"id":"noun-249","sourceId":249,"word":"dog","pos":"noun","subtest":7,"orderInSubtest":16,"options":["собака","погода","напиток, порция алкоголя"],"correctIndex":0,"correctAnswer":"собака"},{"id":"noun-270","sourceId":270,"word":"meat","pos":"noun","subtest":7,"orderInSubtest":17,"options":["собака","мясо","кофе"],"correctIndex":1,"correctAnswer":"мясо"},{"id":"noun-271","sourceId":271,"word":"fruit","pos":"noun","subtest":7,"orderInSubtest":18,"options":["лес","озеро","фрукт, плоды"],"correctIndex":2,"correctAnswer":"фрукт, плоды"},{"id":"noun-279","sourceId":279,"word":"shirt","pos":"noun","subtest":7,"orderInSubtest":19,"options":["овощ","рубашка","собака"],"correctIndex":1,"correctAnswer":"рубашка"},{"id":"noun-241","sourceId":241,"word":"sky","pos":"noun","subtest":7,"orderInSubtest":20,"options":["небо","фрукт, плоды","погода"],"correctIndex":0,"correctAnswer":"небо"},{"id":"noun-269","sourceId":269,"word":"bread","pos":"noun","subtest":7,"orderInSubtest":21,"options":["цвет, окраска","хлеб","кошка, кот"],"correctIndex":1,"correctAnswer":"хлеб"},{"id":"noun-257","sourceId":257,"word":"nature","pos":"noun","subtest":7,"orderInSubtest":22,"options":["пляж","река","природа, характер"],"correctIndex":2,"correctAnswer":"природа, характер"},{"id":"noun-261","sourceId":261,"word":"color","pos":"noun","subtest":7,"orderInSubtest":23,"options":["собака","цвет, окраска","природа, характер"],"correctIndex":1,"correctAnswer":"цвет, окраска"},{"id":"noun-273","sourceId":273,"word":"breakfast","pos":"noun","subtest":7,"orderInSubtest":24,"options":["завтрак","чай","небо"],"correctIndex":0,"correctAnswer":"завтрак"},{"id":"noun-262","sourceId":262,"word":"field","pos":"noun","subtest":7,"orderInSubtest":25,"options":["поле, область деятельности","окружающая среда, окружение","свет, освещение"],"correctIndex":0,"correctAnswer":"поле, область деятельности"},{"id":"noun-265","sourceId":265,"word":"beach","pos":"noun","subtest":7,"orderInSubtest":26,"options":["поле, область деятельности","энергия, силы","пляж"],"correctIndex":2,"correctAnswer":"пляж"},{"id":"noun-252","sourceId":252,"word":"weather","pos":"noun","subtest":7,"orderInSubtest":27,"options":["погода","небо","поле, область деятельности"],"correctIndex":0,"correctAnswer":"погода"},{"id":"noun-277","sourceId":277,"word":"drink","pos":"noun","subtest":7,"orderInSubtest":28,"options":["лес","напиток, порция алкоголя","энергия, силы"],"correctIndex":1,"correctAnswer":"напиток, порция алкоголя"},{"id":"noun-255","sourceId":255,"word":"wind","pos":"noun","subtest":7,"orderInSubtest":29,"options":["ветер","свет, освещение","фрукт, плоды"],"correctIndex":0,"correctAnswer":"ветер"},{"id":"noun-242","sourceId":242,"word":"sea","pos":"noun","subtest":7,"orderInSubtest":30,"options":["море","поле, область деятельности","погода"],"correctIndex":0,"correctAnswer":"море"},{"id":"noun-260","sourceId":260,"word":"light","pos":"noun","subtest":7,"orderInSubtest":31,"options":["собака","дождь","свет, освещение"],"correctIndex":2,"correctAnswer":"свет, освещение"},{"id":"noun-275","sourceId":275,"word":"dinner","pos":"noun","subtest":7,"orderInSubtest":32,"options":["туфля, обувь","рубашка","ужин, обед"],"correctIndex":2,"correctAnswer":"ужин, обед"},{"id":"noun-253","sourceId":253,"word":"rain","pos":"noun","subtest":7,"orderInSubtest":33,"options":["остров","дождь","напиток, порция алкоголя"],"correctIndex":1,"correctAnswer":"дождь"},{"id":"noun-250","sourceId":250,"word":"cat","pos":"noun","subtest":7,"orderInSubtest":34,"options":["хлеб","кошка, кот","свет, освещение"],"correctIndex":1,"correctAnswer":"кошка, кот"},{"id":"noun-263","sourceId":263,"word":"forest","pos":"noun","subtest":7,"orderInSubtest":35,"options":["поле, область деятельности","фрукт, плоды","лес"],"correctIndex":2,"correctAnswer":"лес"},{"id":"noun-251","sourceId":251,"word":"bird","pos":"noun","subtest":7,"orderInSubtest":36,"options":["окружающая среда, окружение","птица","овощ"],"correctIndex":1,"correctAnswer":"птица"},{"id":"noun-258","sourceId":258,"word":"environment","pos":"noun","subtest":7,"orderInSubtest":37,"options":["кофе","ветер","окружающая среда, окружение"],"correctIndex":2,"correctAnswer":"окружающая среда, окружение"},{"id":"noun-276","sourceId":276,"word":"meal","pos":"noun","subtest":7,"orderInSubtest":38,"options":["приём пищи, еда","окружающая среда, окружение","одежда"],"correctIndex":0,"correctAnswer":"приём пищи, еда"},{"id":"noun-280","sourceId":280,"word":"shoe","pos":"noun","subtest":7,"orderInSubtest":39,"options":["туфля, обувь","мясо","ветер"],"correctIndex":0,"correctAnswer":"туфля, обувь"},{"id":"noun-244","sourceId":244,"word":"lake","pos":"noun","subtest":7,"orderInSubtest":40,"options":["поле, область деятельности","одежда","озеро"],"correctIndex":2,"correctAnswer":"озеро"},{"id":"noun-305","sourceId":305,"word":"holiday","pos":"noun","subtest":8,"orderInSubtest":1,"options":["спорт, вид спорта","праздник, отпуск","гонка, раса"],"correctIndex":1,"correctAnswer":"праздник, отпуск"},{"id":"noun-288","sourceId":288,"word":"chair","pos":"noun","subtest":8,"orderInSubtest":2,"options":["деятельность, активность","стул, председатель","чашка, кубок"],"correctIndex":1,"correctAnswer":"стул, председатель"},{"id":"noun-307","sourceId":307,"word":"club","pos":"noun","subtest":8,"orderInSubtest":3,"options":["клуб, дубинка, трефы","соревнование, конкуренция","вид, тип, разновидность"],"correctIndex":0,"correctAnswer":"клуб, дубинка, трефы"},{"id":"noun-299","sourceId":299,"word":"camera","pos":"noun","subtest":8,"orderInSubtest":4,"options":["спорт, вид спорта","карта, карточка, открытка","камера, фотоаппарат"],"correctIndex":2,"correctAnswer":"камера, фотоаппарат"},{"id":"noun-281","sourceId":281,"word":"bag","pos":"noun","subtest":8,"orderInSubtest":5,"options":["сумка, мешок","окно","карта, карточка, открытка"],"correctIndex":0,"correctAnswer":"сумка, мешок"},{"id":"noun-291","sourceId":291,"word":"window","pos":"noun","subtest":8,"orderInSubtest":6,"options":["часы","дата, свидание","окно"],"correctIndex":2,"correctAnswer":"окно"},{"id":"noun-303","sourceId":303,"word":"sport","pos":"noun","subtest":8,"orderInSubtest":7,"options":["фестиваль, праздник","упражнение, физическая нагрузка","спорт, вид спорта"],"correctIndex":2,"correctAnswer":"спорт, вид спорта"},{"id":"noun-296","sourceId":296,"word":"gift","pos":"noun","subtest":8,"orderInSubtest":8,"options":["тип, вид","подарок, дар","вечеринка, партия, сторона"],"correctIndex":1,"correctAnswer":"подарок, дар"},{"id":"noun-310","sourceId":310,"word":"dance","pos":"noun","subtest":8,"orderInSubtest":9,"options":["танец","соревнование, конкуренция","бутылка"],"correctIndex":0,"correctAnswer":"танец"},{"id":"noun-297","sourceId":297,"word":"tool","pos":"noun","subtest":8,"orderInSubtest":10,"options":["спорт, вид спорта","мяч, шар, бал","инструмент, средство"],"correctIndex":2,"correctAnswer":"инструмент, средство"},{"id":"noun-293","sourceId":293,"word":"watch","pos":"noun","subtest":8,"orderInSubtest":11,"options":["фестиваль, праздник","вечеринка, партия, сторона","наручные часы, наблюдение"],"correctIndex":2,"correctAnswer":"наручные часы, наблюдение"},{"id":"noun-317","sourceId":317,"word":"activity","pos":"noun","subtest":8,"orderInSubtest":12,"options":["деятельность, активность","праздник, отпуск","инструмент, средство"],"correctIndex":0,"correctAnswer":"деятельность, активность"},{"id":"noun-282","sourceId":282,"word":"key","pos":"noun","subtest":8,"orderInSubtest":13,"options":["танец","ключ","игра, матч"],"correctIndex":1,"correctAnswer":"ключ"},{"id":"noun-311","sourceId":311,"word":"exercise","pos":"noun","subtest":8,"orderInSubtest":14,"options":["вид, тип, разновидность","упражнение, физическая нагрузка","сумка, мешок"],"correctIndex":1,"correctAnswer":"упражнение, физическая нагрузка"},{"id":"noun-316","sourceId":316,"word":"action","pos":"noun","subtest":8,"orderInSubtest":15,"options":["спорт, вид спорта","действие, мера","радио, радиоприёмник"],"correctIndex":1,"correctAnswer":"действие, мера"},{"id":"noun-290","sourceId":290,"word":"door","pos":"noun","subtest":8,"orderInSubtest":16,"options":["дверь","действие, мера","кровать, русло"],"correctIndex":0,"correctAnswer":"дверь"},{"id":"noun-300","sourceId":300,"word":"television","pos":"noun","subtest":8,"orderInSubtest":17,"options":["танец","дверь","телевидение, телевизор"],"correctIndex":2,"correctAnswer":"телевидение, телевизор"},{"id":"noun-302","sourceId":302,"word":"game","pos":"noun","subtest":8,"orderInSubtest":18,"options":["дата, свидание","машина, механизм","игра, матч"],"correctIndex":2,"correctAnswer":"игра, матч"},{"id":"noun-286","sourceId":286,"word":"box","pos":"noun","subtest":8,"orderInSubtest":19,"options":["инструмент, средство","коробка, ящик","упражнение, физическая нагрузка"],"correctIndex":1,"correctAnswer":"коробка, ящик"},{"id":"noun-295","sourceId":295,"word":"ticket","pos":"noun","subtest":8,"orderInSubtest":20,"options":["билет, талон","мяч, шар, бал","гонка, раса"],"correctIndex":0,"correctAnswer":"билет, талон"},{"id":"noun-319","sourceId":319,"word":"type","pos":"noun","subtest":8,"orderInSubtest":21,"options":["тип, вид","вечеринка, партия, сторона","инструмент, средство"],"correctIndex":0,"correctAnswer":"тип, вид"},{"id":"noun-292","sourceId":292,"word":"clock","pos":"noun","subtest":8,"orderInSubtest":22,"options":["часы","стул, председатель","вечеринка, партия, сторона"],"correctIndex":0,"correctAnswer":"часы"},{"id":"noun-301","sourceId":301,"word":"radio","pos":"noun","subtest":8,"orderInSubtest":23,"options":["наручные часы, наблюдение","радио, радиоприёмник","бутылка"],"correctIndex":1,"correctAnswer":"радио, радиоприёмник"},{"id":"noun-285","sourceId":285,"word":"bottle","pos":"noun","subtest":8,"orderInSubtest":24,"options":["кровать, русло","деятельность, активность","бутылка"],"correctIndex":2,"correctAnswer":"бутылка"},{"id":"noun-306","sourceId":306,"word":"festival","pos":"noun","subtest":8,"orderInSubtest":25,"options":["тест, испытание, проверка","фестиваль, праздник","билет, талон"],"correctIndex":1,"correctAnswer":"фестиваль, праздник"},{"id":"noun-314","sourceId":314,"word":"competition","pos":"noun","subtest":8,"orderInSubtest":26,"options":["билет, талон","вид, тип, разновидность","соревнование, конкуренция"],"correctIndex":2,"correctAnswer":"соревнование, конкуренция"},{"id":"noun-298","sourceId":298,"word":"machine","pos":"noun","subtest":8,"orderInSubtest":27,"options":["бутылка","машина, механизм","билет, талон"],"correctIndex":1,"correctAnswer":"машина, механизм"},{"id":"noun-315","sourceId":315,"word":"date","pos":"noun","subtest":8,"orderInSubtest":28,"options":["вид, тип, разновидность","соревнование, конкуренция","дата, свидание"],"correctIndex":2,"correctAnswer":"дата, свидание"},{"id":"noun-320","sourceId":320,"word":"test","pos":"noun","subtest":8,"orderInSubtest":29,"options":["карта, карточка, открытка","стол, таблица","тест, испытание, проверка"],"correctIndex":2,"correctAnswer":"тест, испытание, проверка"},{"id":"noun-313","sourceId":313,"word":"race","pos":"noun","subtest":8,"orderInSubtest":30,"options":["билет, талон","тип, вид","гонка, раса"],"correctIndex":2,"correctAnswer":"гонка, раса"},{"id":"noun-308","sourceId":308,"word":"ball","pos":"noun","subtest":8,"orderInSubtest":31,"options":["мяч, шар, бал","чашка, кубок","окно"],"correctIndex":0,"correctAnswer":"мяч, шар, бал"},{"id":"noun-284","sourceId":284,"word":"cup","pos":"noun","subtest":8,"orderInSubtest":32,"options":["танец","чашка, кубок","действие, мера"],"correctIndex":1,"correctAnswer":"чашка, кубок"},{"id":"noun-318","sourceId":318,"word":"kind","pos":"noun","subtest":8,"orderInSubtest":33,"options":["дверь","телевидение, телевизор","вид, тип, разновидность"],"correctIndex":2,"correctAnswer":"вид, тип, разновидность"},{"id":"noun-309","sourceId":309,"word":"song","pos":"noun","subtest":8,"orderInSubtest":34,"options":["песня","спорт, вид спорта","вид, тип, разновидность"],"correctIndex":0,"correctAnswer":"песня"},{"id":"noun-289","sourceId":289,"word":"bed","pos":"noun","subtest":8,"orderInSubtest":35,"options":["кровать, русло","деятельность, активность","сумка, мешок"],"correctIndex":0,"correctAnswer":"кровать, русло"},{"id":"noun-283","sourceId":283,"word":"card","pos":"noun","subtest":8,"orderInSubtest":36,"options":["песня","карта, карточка, открытка","камера, фотоаппарат"],"correctIndex":1,"correctAnswer":"карта, карточка, открытка"},{"id":"noun-312","sourceId":312,"word":"hobby","pos":"noun","subtest":8,"orderInSubtest":37,"options":["наручные часы, наблюдение","хобби, увлечение","окно"],"correctIndex":1,"correctAnswer":"хобби, увлечение"},{"id":"noun-287","sourceId":287,"word":"table","pos":"noun","subtest":8,"orderInSubtest":38,"options":["стол, таблица","соревнование, конкуренция","радио, радиоприёмник"],"correctIndex":0,"correctAnswer":"стол, таблица"},{"id":"noun-294","sourceId":294,"word":"map","pos":"noun","subtest":8,"orderInSubtest":39,"options":["радио, радиоприёмник","карта, схема","бутылка"],"correctIndex":1,"correctAnswer":"карта, схема"},{"id":"noun-304","sourceId":304,"word":"party","pos":"noun","subtest":8,"orderInSubtest":40,"options":["вечеринка, партия, сторона","телевидение, телевизор","хобби, увлечение"],"correctIndex":0,"correctAnswer":"вечеринка, партия, сторона"}]};
+    const CONFIG = { category: 'nouns', title: 'Существительные', subtitle: '320 вопросов · 8 блоков по 40', total: 320 };
+    const STORAGE_KEY = 'english-vocabulary-test-v3-' + CONFIG.category;
+    const letters = ['A', 'B', 'C'];
+    const app = document.getElementById('app');
+    const blockNumbers = [...new Set(TEST_DATA.questions.map(function (question) { return question.subtest; }))].sort(function (a, b) { return a - b; });
+
+    function initialState() {
+      return { version: 3, completed: {}, active: null };
+    }
+
+    function loadState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (parsed && parsed.version === 3 && parsed.completed) return parsed;
+      } catch (error) {}
+      return initialState();
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (error) {}
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (char) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char];
+      });
+    }
+
+    function shuffle(items) {
+      const result = items.slice();
+      for (let index = result.length - 1; index > 0; index -= 1) {
+        const target = Math.floor(Math.random() * (index + 1));
+        const temp = result[index]; result[index] = result[target]; result[target] = temp;
+      }
+      return result;
+    }
+
+    function pageFrame(content) {
+      return '<div class="topbar">' +
+        '<div class="brand"><div class="brand-mark">EN</div><div><div class="brand-name">Английский язык</div><div class="brand-title">' + escapeHtml(CONFIG.title) + '</div></div></div>' +
+        '<a class="back-link" href="/tests/english/">← К английским тестам</a></div>' +
+        '<section class="panel">' + content + '</section>' +
+        '<div class="footer">Автономный тест · результаты сохраняются в этом браузере</div>';
+    }
+
+    function completedResults() {
+      return blockNumbers.map(function (number) { return state.completed[number]; }).filter(Boolean);
+    }
+
+    function completedCount() { return completedResults().length; }
+
+    function totalCompletedScore() {
+      return completedResults().reduce(function (sum, result) { return sum + result.score; }, 0);
+    }
+
+    function percent(score, total) {
+      return total ? Math.round(score / total * 100) : 0;
+    }
+
+    function renderHome() {
+      const complete = completedCount();
+      const allDone = complete === blockNumbers.length;
+      const cards = blockNumbers.map(function (number) {
+        const result = state.completed[number];
+        const active = state.active && state.active.block === number;
+        const classes = ['block-card'];
+        if (result) classes.push('done');
+        if (active) classes.push('active');
+        const label = active ? 'В процессе' : result ? 'Завершён' : 'Не начат';
+        let score = '40 вопросов';
+        if (result) score = result.score + ' из ' + result.total + ' правильных · ' + result.percent + '%';
+        if (active && result) score += '<br>Сохранённый результат будет заменён после завершения.';
+        let buttons = '';
+        if (active) {
+          buttons = '<button class="btn full" data-continue="' + number + '">Продолжить</button>';
+        } else if (result) {
+          buttons = '<button class="btn secondary" data-result="' + number + '">Результат</button><button class="btn" data-retry="' + number + '">Пройти заново</button>';
+        } else {
+          buttons = '<button class="btn full" data-start="' + number + '">Начать</button>';
+        }
+        return '<article class="' + classes.join(' ') + '"><div class="block-top"><div class="block-name">Блок ' + number + '</div><span class="badge">' + label + '</span></div>' +
+          '<div class="block-score">' + score + '</div><div class="card-actions">' + buttons + '</div></article>';
+      }).join('');
+
+      const completedTotal = complete * 40;
+      const completedScore = totalCompletedScore();
+      let overall = '';
+      if (complete > 0 && !allDone) {
+        overall = '<div class="overall"><strong>Промежуточный результат:</strong> ' + completedScore + ' из ' + completedTotal + ' (' + percent(completedScore, completedTotal) + '%).<br>Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '. Это ещё не итог всего теста.</div>';
+      }
+      if (allDone) {
+        overall = '<div class="overall"><strong>Итог по всему тесту:</strong> ' + completedScore + ' из ' + TEST_DATA.questions.length + ' (' + percent(completedScore, TEST_DATA.questions.length) + '%).<br>Все блоки завершены.<br><button class="btn" id="open-final">Открыть итоговый результат</button></div>';
+      }
+
+      const content = '<div class="home"><div class="eyebrow">Английский язык</div><h1>' + escapeHtml(CONFIG.title) + '</h1>' +
+        '<p class="lead">' + escapeHtml(CONFIG.subtitle) + '. Для каждого английского слова выберите один наиболее точный перевод.</p>' +
+        '<div class="rules"><div class="rule"><strong>Один ответ</strong>В каждом вопросе верен один из трёх вариантов.</div>' +
+        '<div class="rule"><strong>Результат по блокам</strong>После завершения показываются правильные ответы и процент.</div>' +
+        '<div class="rule"><strong>Повторное прохождение</strong>Любой блок можно пройти заново без потери остальных результатов.</div></div>' +
+        '<div class="summary">Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '</div><div class="block-grid">' + cards + '</div>' + overall + '</div>';
+      app.innerHTML = pageFrame(content);
+
+      document.querySelectorAll('[data-start]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.start), false); });
+      });
+      document.querySelectorAll('[data-continue]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.continue), false); });
+      });
+      document.querySelectorAll('[data-retry]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.retry), true); });
+      });
+      document.querySelectorAll('[data-result]').forEach(function (button) {
+        button.addEventListener('click', function () { renderResult(Number(button.dataset.result)); });
+      });
+      const finalButton = document.getElementById('open-final');
+      if (finalButton) finalButton.addEventListener('click', function () { renderResult(blockNumbers[blockNumbers.length - 1]); });
+    }
+
+    function startBlock(number, retry) {
+      if (state.active && state.active.block === number) { renderQuestion(); return; }
+      if (state.completed[number] && !retry) { renderResult(number); return; }
+      if (state.active && !confirm('Другой блок ещё не завершён. Начать новый и удалить незавершённые ответы?')) return;
+      const questions = shuffle(TEST_DATA.questions.filter(function (question) { return question.subtest === number; }));
+      state.active = {
+        block: number,
+        index: 0,
+        questionIds: questions.map(function (question) { return question.id; }),
+        answers: {},
+        startedAt: Date.now(),
+        retry: Boolean(state.completed[number])
+      };
+      saveState();
+      renderQuestion();
+    }
+
+    function activeQuestions() {
+      if (!state.active) return [];
+      const byId = new Map(TEST_DATA.questions.map(function (question) { return [question.id, question]; }));
+      return state.active.questionIds.map(function (id) { return byId.get(id); }).filter(Boolean);
+    }
+
+    function posText(pos) {
+      if (pos === 'verb') return 'глагол';
+      if (pos === 'noun') return 'существительное';
+      if (pos === 'adjective') return 'прилагательное';
+      if (pos === 'adverb') return 'наречие';
+      return '';
+    }
+
+    function renderQuestion() {
+      if (!state.active) { renderHome(); return; }
+      const questions = activeQuestions();
+      if (!questions.length) { state.active = null; saveState(); renderHome(); return; }
+      const index = Math.max(0, Math.min(state.active.index, questions.length - 1));
+      state.active.index = index;
+      const question = questions[index];
+      const selected = state.active.answers[question.id];
+      const options = question.options.map(function (option, optionIndex) {
+        const checked = selected === optionIndex;
+        return '<label class="option ' + (checked ? 'selected' : '') + '"><input type="radio" name="answer" value="' + optionIndex + '" ' + (checked ? 'checked' : '') + '>' +
+          '<span class="letter">' + letters[optionIndex] + '.</span><span class="option-text">' + escapeHtml(option) + '</span></label>';
+      }).join('');
+      const progress = Math.round((index + 1) / questions.length * 100);
+      const isLast = index === questions.length - 1;
+      const content = '<div class="test-view"><div class="test-head"><div class="test-head-row"><div><strong>Блок ' + state.active.block + '</strong><div class="test-meta">Вопрос ' + (index + 1) + ' из ' + questions.length + (state.active.retry ? ' · повторное прохождение' : '') + '</div></div>' +
+        '<button class="btn secondary" id="to-home">К блокам</button></div><div class="progress-track"><div class="progress-fill" style="width:' + progress + '%"></div></div></div>' +
+        '<div class="question-wrap"><div class="question-label">Выберите перевод</div><h2 class="word">' + escapeHtml(question.word) + '</h2><div class="pos">' + posText(question.pos) + '</div>' +
+        '<div class="prompt">Отметьте один вариант:</div><div class="options">' + options + '</div><div class="nav"><button class="btn secondary" id="previous" ' + (index === 0 ? 'disabled' : '') + '>Назад</button>' +
+        '<button class="btn" id="next" ' + (selected === undefined ? 'disabled' : '') + '>' + (isLast ? 'Завершить блок' : 'Следующий вопрос') + '</button></div></div></div>';
+      app.innerHTML = pageFrame(content);
+
+      document.getElementById('to-home').addEventListener('click', renderHome);
+      document.getElementById('previous').addEventListener('click', function () { state.active.index -= 1; saveState(); renderQuestion(); });
+      document.querySelectorAll('input[name="answer"]').forEach(function (input) {
+        input.addEventListener('change', function () {
+          state.active.answers[question.id] = Number(input.value);
+          saveState();
+          renderQuestion();
+        });
+      });
+      document.getElementById('next').addEventListener('click', function () {
+        if (state.active.answers[question.id] === undefined) return;
+        if (isLast) finishBlock();
+        else { state.active.index += 1; saveState(); renderQuestion(); }
+      });
+    }
+
+    function finishBlock() {
+      const active = state.active;
+      const questions = activeQuestions();
+      const unanswered = questions.filter(function (question) { return active.answers[question.id] === undefined; });
+      if (unanswered.length) {
+        alert('Остались вопросы без ответа: ' + unanswered.length + '.');
+        state.active.index = questions.findIndex(function (question) { return active.answers[question.id] === undefined; });
+        saveState(); renderQuestion(); return;
+      }
+      const score = questions.reduce(function (sum, question) {
+        return sum + (active.answers[question.id] === question.correctIndex ? 1 : 0);
+      }, 0);
+      const number = active.block;
+      state.completed[number] = {
+        score: score,
+        total: questions.length,
+        percent: percent(score, questions.length),
+        completedAt: new Date().toISOString(),
+        durationSeconds: Math.max(1, Math.round((Date.now() - active.startedAt) / 1000))
+      };
+      state.active = null;
+      saveState();
+      renderResult(number);
+    }
+
+    function formatDuration(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      return minutes + ' мин ' + (seconds % 60) + ' сек';
+    }
+
+    function reportDate() {
+      return new Date().toLocaleString('ru-RU');
+    }
+
+    function resultRows() {
+      return blockNumbers.map(function (number) {
+        const result = state.completed[number];
+        if (!result) return '';
+        return '<tr><td>Блок ' + number + '</td><td>' + result.score + ' из ' + result.total + '</td><td>' + result.percent + '%</td><td>' + formatDuration(result.durationSeconds) + '</td></tr>';
+      }).join('');
+    }
+
+    function renderResult(number) {
+      const result = state.completed[number];
+      if (!result) { renderHome(); return; }
+      const complete = completedCount();
+      const allDone = complete === blockNumbers.length;
+      const totalScore = totalCompletedScore();
+      const currentTotal = complete * 40;
+      const totalPercent = percent(totalScore, allDone ? TEST_DATA.questions.length : currentTotal);
+      const heading = allDone ? 'Итоговый результат' : 'Блок ' + number + ' завершён';
+      const score = allDone ? totalScore + ' / ' + TEST_DATA.questions.length : result.score + ' / ' + result.total;
+      const note = allDone
+        ? totalPercent + '% по всему тесту. Результаты учитывают последние завершённые попытки каждого блока.'
+        : result.percent + '% в блоке ' + number + '. Ниже показан промежуточный результат только по завершённым блокам.';
+      const overall = allDone
+        ? '<div class="overall"><strong>Общий результат:</strong> ' + totalScore + ' из ' + TEST_DATA.questions.length + ' (' + totalPercent + '%).</div>'
+        : '<div class="overall"><strong>Промежуточный результат:</strong> ' + totalScore + ' из ' + currentTotal + ' (' + totalPercent + '%).<br>Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '. Это ещё не итог всего теста.</div>';
+      const printAction = allDone ? '<button class="btn" id="print">Сохранить итог в PDF</button>' : '';
+      const content = '<div class="result"><div class="eyebrow">' + heading + '</div><h2>' + escapeHtml(CONFIG.title) + '</h2><p class="subject">Предмет: Английский язык</p>' +
+        '<div class="score">' + score + '</div><p class="result-note">' + note + '</p>' +
+        '<div class="table-scroll"><table class="result-table"><thead><tr><th>Раздел</th><th>Правильные ответы</th><th>Процент</th><th>Время</th></tr></thead><tbody>' + resultRows() + '</tbody></table></div>' + overall +
+        '<div class="result-actions"><button class="btn secondary" id="home">К списку блоков</button><button class="btn secondary" id="retry">Пройти блок ' + number + ' заново</button>' + printAction + '</div>' +
+        '<p class="report-date">Дата формирования отчёта: <span id="report-date">' + escapeHtml(reportDate()) + '</span></p></div>';
+      app.innerHTML = pageFrame(content);
+      document.getElementById('home').addEventListener('click', renderHome);
+      document.getElementById('retry').addEventListener('click', function () { startBlock(number, true); });
+      if (allDone) {
+        document.getElementById('print').addEventListener('click', function () {
+          document.getElementById('report-date').textContent = reportDate();
+          window.print();
+        });
+      }
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (!state.active) return;
+      if (['1', '2', '3', 'a', 'b', 'c', 'A', 'B', 'C'].includes(event.key)) {
+        const lookup = { '1': 0, 'a': 0, 'A': 0, '2': 1, 'b': 1, 'B': 1, '3': 2, 'c': 2, 'C': 2 };
+        const input = document.querySelector('input[name="answer"][value="' + lookup[event.key] + '"]');
+        if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+      }
+    });
+
+    renderHome();
+  </script>
+</body>
+</html>

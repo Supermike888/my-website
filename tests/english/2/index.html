@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Тест по английскому языку: Прилагательные и наречия.">
+  <meta name="theme-color" content="#090b12">
+  <title>Прилагательные и наречия — тест по английскому языку</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b12;
+      --surface: rgba(20, 24, 37, .96);
+      --surface-soft: rgba(28, 34, 52, .78);
+      --surface-hover: rgba(35, 43, 65, .9);
+      --text: #f4f7ff;
+      --muted: #9da9c2;
+      --line: rgba(151, 168, 205, .18);
+      --blue: #5b8cff;
+      --violet: #8162ff;
+      --cyan: #29d8c7;
+      --cyan-soft: rgba(41, 216, 199, .12);
+      --shadow: 0 22px 64px rgba(0, 0, 0, .32);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-width: 320px; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(91, 140, 255, .14), transparent 30rem),
+        radial-gradient(circle at 100% 100%, rgba(41, 216, 199, .1), transparent 32rem),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, .option:focus-within {
+      outline: 3px solid rgba(41, 216, 199, .55);
+      outline-offset: 3px;
+    }
+
+    .shell { width: min(1080px, calc(100% - 28px)); margin: 0 auto; padding: 12px 0 20px; }
+    .topbar { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark {
+      width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center;
+      border: 1px solid rgba(133, 149, 255, .35); border-radius: 11px;
+      background: linear-gradient(145deg, rgba(91, 140, 255, .18), rgba(129, 98, 255, .08));
+      color: #aebdff; font-size: .72rem; font-weight: 800;
+    }
+    .brand-name { color: var(--muted); font-size: 12px; }
+    .brand-title { overflow-wrap: anywhere; font-weight: 750; line-height: 1.15; }
+    .back-link { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .back-link:hover { color: var(--text); }
+
+    .panel { overflow: hidden; border: 1px solid var(--line); border-radius: 21px; background: var(--surface); box-shadow: var(--shadow); }
+    .home { padding: clamp(20px, 3.3vw, 34px); }
+    .eyebrow { color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 7px 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.04; letter-spacing: -.04em; }
+    .lead { max-width: 760px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.48; }
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 18px 0; }
+    .rule { padding: 11px 12px; border: 1px solid rgba(151, 168, 205, .1); border-radius: 13px; background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.38; }
+    .rule strong { display: block; margin-bottom: 2px; color: var(--text); font-size: 13px; }
+    .summary { margin-bottom: 10px; color: var(--muted); font-size: 13px; }
+    .block-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 10px; }
+    .block-card { border: 1px solid var(--line); border-radius: 15px; padding: 14px; background: rgba(14, 18, 29, .65); }
+    .block-card.done { border-color: rgba(41, 216, 199, .34); background: rgba(25, 63, 63, .22); }
+    .block-card.active { border-color: rgba(91, 140, 255, .5); }
+    .block-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .block-name { font-weight: 800; }
+    .badge { padding: 4px 7px; border-radius: 999px; background: rgba(255, 255, 255, .06); color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .done .badge { background: var(--cyan-soft); color: #7ff1e6; }
+    .active .badge { background: rgba(91, 140, 255, .14); color: #afc4ff; }
+    .block-score { min-height: 38px; margin: 10px 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .btn {
+      min-height: 40px; border: 0; border-radius: 11px; padding: 9px 12px;
+      background: linear-gradient(135deg, var(--blue), var(--violet)); color: white; font-weight: 750;
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+    }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn.secondary { border: 1px solid var(--line); background: rgba(255, 255, 255, .035); color: var(--text); }
+    .btn.secondary:hover { background: var(--surface-hover); }
+    .btn:disabled { cursor: not-allowed; opacity: .42; transform: none; }
+    .btn.full { width: 100%; }
+
+    .overall { margin-top: 16px; border: 1px solid rgba(41, 216, 199, .3); border-radius: 15px; padding: 14px; background: var(--cyan-soft); color: #cbd8e9; font-size: 14px; line-height: 1.5; }
+    .overall strong { color: #8cf4ea; }
+    .overall .btn { margin-top: 10px; }
+
+    .test-view { min-height: min(620px, calc(100svh - 92px)); display: flex; flex-direction: column; }
+    .test-head { padding: 12px 18px 9px; border-bottom: 1px solid var(--line); background: rgba(12, 15, 25, .82); }
+    .test-head-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .test-meta { color: var(--muted); font-size: 12px; }
+    .progress-track { height: 5px; overflow: hidden; margin-top: 8px; border-radius: 999px; background: rgba(255, 255, 255, .08); }
+    .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); transition: width .2s ease; }
+    .question-wrap { flex: 1; display: flex; flex-direction: column; padding: clamp(16px, 2.7vw, 26px); }
+    .question-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .word { max-width: 100%; margin: 6px 0 3px; overflow-wrap: anywhere; font-size: clamp(32px, 5.2vw, 52px); letter-spacing: -.035em; line-height: 1.02; }
+    .pos { color: var(--cyan); font-size: 12px; font-weight: 750; }
+    .prompt { margin: 10px 0 8px; color: var(--muted); font-size: 13px; }
+    .options { display: grid; gap: 8px; }
+    .option {
+      min-width: 0; min-height: 50px; display: flex; align-items: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 13px; padding: 9px 12px;
+      background: rgba(255, 255, 255, .025); transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option:hover { border-color: rgba(41, 216, 199, .46); transform: translateY(-1px); }
+    .option.selected { border-color: var(--cyan); background: var(--cyan-soft); }
+    .option input { width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--cyan); }
+    .letter { width: 22px; flex: 0 0 auto; color: var(--cyan); font-weight: 850; }
+    .option-text { min-width: 0; overflow-wrap: anywhere; line-height: 1.35; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 14px; }
+
+    .result { padding: clamp(22px, 4vw, 42px); text-align: center; }
+    .result h2 { margin: 5px 0 2px; overflow-wrap: anywhere; font-size: clamp(27px, 4vw, 38px); }
+    .subject { margin: 0; color: var(--muted); font-size: 13px; }
+    .score { margin: 13px 0 3px; color: #8cf4ea; font-size: clamp(42px, 7vw, 66px); font-weight: 850; letter-spacing: -.05em; }
+    .result-note { max-width: 640px; margin: 0 auto 16px; color: var(--muted); line-height: 1.45; }
+    .table-scroll { width: 100%; overflow-x: auto; margin: 16px auto; border: 1px solid var(--line); border-radius: 13px; }
+    .result-table { width: 100%; min-width: 520px; border-collapse: collapse; text-align: left; }
+    .result-table th, .result-table td { padding: 9px 11px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .result-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    .result-table td:nth-child(n+2), .result-table th:nth-child(n+2) { text-align: right; }
+    .result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+    .report-date { margin: 13px 0 0; color: var(--muted); font-size: 12px; }
+    .footer { padding: 11px 0 0; color: #71809b; font-size: 11px; text-align: center; }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 16px, 1080px); padding-top: 6px; }
+      .topbar { min-height: 46px; margin-bottom: 6px; }
+      .brand-name { display: none; }
+      .brand-title { max-width: 145px; font-size: 13px; }
+      .back-link { font-size: 12px; }
+      .panel { border-radius: 17px; }
+      .home { padding: 18px 15px; }
+      h1 { font-size: clamp(27px, 8.8vw, 34px); }
+      .lead { font-size: 14px; }
+      .rules { grid-template-columns: 1fr; gap: 7px; margin: 14px 0; }
+      .rule { padding: 9px 10px; }
+      .block-grid { grid-template-columns: 1fr; }
+      .test-view { min-height: calc(100svh - 68px); }
+      .test-head { padding: 9px 12px 8px; }
+      .test-head .btn { min-height: 36px; padding: 7px 9px; font-size: 12px; }
+      .question-wrap { padding: 14px 12px; }
+      .word { font-size: clamp(30px, 10.2vw, 38px); }
+      .option { min-height: 52px; padding: 9px 10px; }
+      .nav { padding-top: 11px; }
+      .result { padding: 20px 13px; }
+      .score { font-size: clamp(40px, 14vw, 56px); }
+      .table-scroll { margin: 14px auto; }
+    }
+
+    @media (min-width: 701px) and (max-height: 768px) {
+      .shell { padding-top: 6px; }
+      .topbar { min-height: 44px; margin-bottom: 6px; }
+      .test-view { min-height: calc(100vh - 74px); }
+      .question-wrap { padding: 14px 22px; }
+      .word { font-size: 42px; }
+      .option { min-height: 46px; padding: 8px 12px; }
+      .nav { padding-top: 9px; }
+    }
+
+    @media print {
+      :root { color-scheme: light; --text: #152033; --muted: #596477; --line: #d9dee8; --cyan: #176b67; --cyan-soft: #e7f4f2; }
+      body { min-height: auto; background: white; color: var(--text); }
+      .shell { width: 100%; padding: 0; }
+      .topbar, .result-actions, .footer { display: none !important; }
+      .panel { overflow: visible; border: 0; border-radius: 0; background: white; box-shadow: none; }
+      .result { padding: 10mm 8mm; }
+      .score { color: #176b67; }
+      .table-scroll { overflow: visible; border-color: var(--line); }
+      .result-table { min-width: 0; }
+      .result-table, .overall { break-inside: avoid; }
+      .overall { background: #eef8f6; color: #354052; }
+      .overall strong { color: #0f514e; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><div class="shell"><div class="panel home">Для работы теста необходимо включить JavaScript в браузере.</div></div></noscript>
+  <main class="shell" id="app" aria-live="polite"></main>
+  <script>
+    'use strict';
+    const TEST_DATA = {"meta":{"version":"1.0-stage2","created":"2026-10-14","answerFormat":"one_of_three","counts":{"verbs":120,"nouns":320,"modifiers":160,"total":600},"generation":{"distractors":"Translations of other words with the same part of speech; semantic conflicts and Russian token overlaps excluded.","questionOrder":"Deterministic mixed order, not alphabetical.","correctPositions":"Balanced across A/B/C within each subtest."},"category":"modifiers"},"questions":[{"id":"modifier-031","sourceId":31,"word":"very","pos":"adverb","subtest":1,"orderInSubtest":1,"options":["слишком, также","почти","очень, весьма"],"correctIndex":2,"correctAnswer":"очень, весьма"},{"id":"modifier-012","sourceId":12,"word":"high","pos":"adjective","subtest":1,"orderInSubtest":2,"options":["возможный","высокий","низкий"],"correctIndex":1,"correctAnswer":"высокий"},{"id":"modifier-001","sourceId":1,"word":"good","pos":"adjective","subtest":1,"orderInSubtest":3,"options":["плохой, дурной","хороший, добротный","большой, крупный"],"correctIndex":1,"correctAnswer":"хороший, добротный"},{"id":"modifier-017","sourceId":17,"word":"same","pos":"adjective","subtest":1,"orderInSubtest":4,"options":["тот же самый, одинаковый","реальный, настоящий","великий, отличный, огромный"],"correctIndex":0,"correctAnswer":"тот же самый, одинаковый"},{"id":"modifier-032","sourceId":32,"word":"really","pos":"adverb","subtest":1,"orderInSubtest":5,"options":["только, лишь","действительно, на самом деле","почти"],"correctIndex":1,"correctAnswer":"действительно, на самом деле"},{"id":"modifier-021","sourceId":21,"word":"late","pos":"adjective","subtest":1,"orderInSubtest":6,"options":["молодой, юный","великий, отличный, огромный","поздний, опоздавший"],"correctIndex":2,"correctAnswer":"поздний, опоздавший"},{"id":"modifier-026","sourceId":26,"word":"false","pos":"adjective","subtest":1,"orderInSubtest":7,"options":["старый, давний","хороший, добротный","ложный, неверный"],"correctIndex":2,"correctAnswer":"ложный, неверный"},{"id":"modifier-016","sourceId":16,"word":"different","pos":"adjective","subtest":1,"orderInSubtest":8,"options":["другой, различный","возможный","хороший, добротный"],"correctIndex":0,"correctAnswer":"другой, различный"},{"id":"modifier-027","sourceId":27,"word":"clear","pos":"adjective","subtest":1,"orderInSubtest":9,"options":["простой","маленький, незначительный","ясный, понятный, прозрачный"],"correctIndex":2,"correctAnswer":"ясный, понятный, прозрачный"},{"id":"modifier-038","sourceId":38,"word":"still","pos":"adverb","subtest":1,"orderInSubtest":10,"options":["всё ещё, по-прежнему","слишком, также","действительно, на самом деле"],"correctIndex":0,"correctAnswer":"всё ещё, по-прежнему"},{"id":"modifier-024","sourceId":24,"word":"real","pos":"adjective","subtest":1,"orderInSubtest":11,"options":["новый","реальный, настоящий","маленький, небольшой"],"correctIndex":1,"correctAnswer":"реальный, настоящий"},{"id":"modifier-033","sourceId":33,"word":"quite","pos":"adverb","subtest":1,"orderInSubtest":12,"options":["достаточно","слишком, также","довольно, вполне"],"correctIndex":2,"correctAnswer":"довольно, вполне"},{"id":"modifier-036","sourceId":36,"word":"almost","pos":"adverb","subtest":1,"orderInSubtest":13,"options":["действительно, на самом деле","почти","уже"],"correctIndex":1,"correctAnswer":"почти"},{"id":"modifier-040","sourceId":40,"word":"only","pos":"adverb","subtest":1,"orderInSubtest":14,"options":["всё ещё, по-прежнему","только, лишь","довольно, вполне"],"correctIndex":1,"correctAnswer":"только, лишь"},{"id":"modifier-005","sourceId":5,"word":"great","pos":"adjective","subtest":1,"orderInSubtest":15,"options":["новый","великий, отличный, огромный","низкий"],"correctIndex":1,"correctAnswer":"великий, отличный, огромный"},{"id":"modifier-019","sourceId":19,"word":"wrong","pos":"adjective","subtest":1,"orderInSubtest":16,"options":["неправильный, ошибочный","большой, крупный","истинный, верный"],"correctIndex":0,"correctAnswer":"неправильный, ошибочный"},{"id":"modifier-039","sourceId":39,"word":"just","pos":"adverb","subtest":1,"orderInSubtest":17,"options":["только что, просто, как раз","всё ещё, по-прежнему","очень, весьма"],"correctIndex":0,"correctAnswer":"только что, просто, как раз"},{"id":"modifier-034","sourceId":34,"word":"too","pos":"adverb","subtest":1,"orderInSubtest":18,"options":["всё ещё, по-прежнему","только, лишь","слишком, также"],"correctIndex":2,"correctAnswer":"слишком, также"},{"id":"modifier-028","sourceId":28,"word":"simple","pos":"adjective","subtest":1,"orderInSubtest":19,"options":["простой","поздний, опоздавший","истинный, верный"],"correctIndex":0,"correctAnswer":"простой"},{"id":"modifier-037","sourceId":37,"word":"already","pos":"adverb","subtest":1,"orderInSubtest":20,"options":["уже","довольно, вполне","очень, весьма"],"correctIndex":0,"correctAnswer":"уже"},{"id":"modifier-009","sourceId":9,"word":"little","pos":"adjective","subtest":1,"orderInSubtest":21,"options":["маленький, незначительный","важный, значительный","старый, давний"],"correctIndex":0,"correctAnswer":"маленький, незначительный"},{"id":"modifier-029","sourceId":29,"word":"easy","pos":"adjective","subtest":1,"orderInSubtest":22,"options":["маленький, небольшой","длинный, долгий","лёгкий, нетрудный"],"correctIndex":2,"correctAnswer":"лёгкий, нетрудный"},{"id":"modifier-022","sourceId":22,"word":"possible","pos":"adjective","subtest":1,"orderInSubtest":23,"options":["маленький, незначительный","великий, отличный, огромный","возможный"],"correctIndex":2,"correctAnswer":"возможный"},{"id":"modifier-011","sourceId":11,"word":"short","pos":"adjective","subtest":1,"orderInSubtest":24,"options":["плохой, дурной","короткий, краткий","длинный, долгий"],"correctIndex":1,"correctAnswer":"короткий, краткий"},{"id":"modifier-002","sourceId":2,"word":"bad","pos":"adjective","subtest":1,"orderInSubtest":25,"options":["плохой, дурной","маленький, незначительный","невозможный"],"correctIndex":0,"correctAnswer":"плохой, дурной"},{"id":"modifier-020","sourceId":20,"word":"early","pos":"adjective","subtest":1,"orderInSubtest":26,"options":["истинный, верный","поздний, опоздавший","ранний"],"correctIndex":2,"correctAnswer":"ранний"},{"id":"modifier-014","sourceId":14,"word":"young","pos":"adjective","subtest":1,"orderInSubtest":27,"options":["простой","старый, давний","молодой, юный"],"correctIndex":2,"correctAnswer":"молодой, юный"},{"id":"modifier-010","sourceId":10,"word":"long","pos":"adjective","subtest":1,"orderInSubtest":28,"options":["длинный, долгий","невозможный","маленький, небольшой"],"correctIndex":0,"correctAnswer":"длинный, долгий"},{"id":"modifier-007","sourceId":7,"word":"small","pos":"adjective","subtest":1,"orderInSubtest":29,"options":["новый","маленький, небольшой","ложный, неверный"],"correctIndex":1,"correctAnswer":"маленький, небольшой"},{"id":"modifier-004","sourceId":4,"word":"old","pos":"adjective","subtest":1,"orderInSubtest":30,"options":["новый","ранний","старый, давний"],"correctIndex":2,"correctAnswer":"старый, давний"},{"id":"modifier-030","sourceId":30,"word":"difficult","pos":"adjective","subtest":1,"orderInSubtest":31,"options":["новый","трудный, сложный","хороший, добротный"],"correctIndex":1,"correctAnswer":"трудный, сложный"},{"id":"modifier-023","sourceId":23,"word":"impossible","pos":"adjective","subtest":1,"orderInSubtest":32,"options":["лёгкий, нетрудный","невозможный","правильный, правый"],"correctIndex":1,"correctAnswer":"невозможный"},{"id":"modifier-018","sourceId":18,"word":"right","pos":"adjective","subtest":1,"orderInSubtest":33,"options":["возможный","хороший, добротный","правильный, правый"],"correctIndex":2,"correctAnswer":"правильный, правый"},{"id":"modifier-003","sourceId":3,"word":"new","pos":"adjective","subtest":1,"orderInSubtest":34,"options":["новый","правильный, правый","ложный, неверный"],"correctIndex":0,"correctAnswer":"новый"},{"id":"modifier-025","sourceId":25,"word":"true","pos":"adjective","subtest":1,"orderInSubtest":35,"options":["истинный, верный","большой, крупный, обширный","новый"],"correctIndex":0,"correctAnswer":"истинный, верный"},{"id":"modifier-035","sourceId":35,"word":"enough","pos":"adverb","subtest":1,"orderInSubtest":36,"options":["уже","достаточно","слишком, также"],"correctIndex":1,"correctAnswer":"достаточно"},{"id":"modifier-015","sourceId":15,"word":"important","pos":"adjective","subtest":1,"orderInSubtest":37,"options":["важный, значительный","неправильный, ошибочный","ранний"],"correctIndex":0,"correctAnswer":"важный, значительный"},{"id":"modifier-008","sourceId":8,"word":"large","pos":"adjective","subtest":1,"orderInSubtest":38,"options":["ранний","большой, крупный, обширный","длинный, долгий"],"correctIndex":1,"correctAnswer":"большой, крупный, обширный"},{"id":"modifier-013","sourceId":13,"word":"low","pos":"adjective","subtest":1,"orderInSubtest":39,"options":["низкий","правильный, правый","ранний"],"correctIndex":0,"correctAnswer":"низкий"},{"id":"modifier-006","sourceId":6,"word":"big","pos":"adjective","subtest":1,"orderInSubtest":40,"options":["ясный, понятный, прозрачный","лёгкий, нетрудный","большой, крупный"],"correctIndex":2,"correctAnswer":"большой, крупный"},{"id":"modifier-070","sourceId":70,"word":"kind","pos":"adjective","subtest":2,"orderInSubtest":1,"options":["пустой","добрый, заботливый","трудный, тяжёлый, твёрдый"],"correctIndex":1,"correctAnswer":"добрый, заботливый"},{"id":"modifier-062","sourceId":62,"word":"afraid","pos":"adjective","subtest":2,"orderInSubtest":2,"options":["испуганный, боящийся","тихий, спокойный","открытый"],"correctIndex":0,"correctAnswer":"испуганный, боящийся"},{"id":"modifier-068","sourceId":68,"word":"ugly","pos":"adjective","subtest":2,"orderInSubtest":3,"options":["уродливый, некрасивый","трудный, тяжёлый, твёрдый","полезный, готовый помочь"],"correctIndex":0,"correctAnswer":"уродливый, некрасивый"},{"id":"modifier-052","sourceId":52,"word":"useful","pos":"adjective","subtest":2,"orderInSubtest":4,"options":["полезный","безопасный, надёжный","необходимый"],"correctIndex":0,"correctAnswer":"полезный"},{"id":"modifier-066","sourceId":66,"word":"loud","pos":"adjective","subtest":2,"orderInSubtest":5,"options":["необходимый","громкий","грустный, печальный"],"correctIndex":1,"correctAnswer":"громкий"},{"id":"modifier-044","sourceId":44,"word":"free","pos":"adjective","subtest":2,"orderInSubtest":6,"options":["свободный, бесплатный","испуганный, боящийся","трудный, тяжёлый, твёрдый"],"correctIndex":0,"correctAnswer":"свободный, бесплатный"},{"id":"modifier-064","sourceId":64,"word":"busy","pos":"adjective","subtest":2,"orderInSubtest":7,"options":["закрытый","занятый","безопасный, надёжный"],"correctIndex":1,"correctAnswer":"занятый"},{"id":"modifier-048","sourceId":48,"word":"closed","pos":"adjective","subtest":2,"orderInSubtest":8,"options":["полезный","занятый","закрытый"],"correctIndex":2,"correctAnswer":"закрытый"},{"id":"modifier-050","sourceId":50,"word":"available","pos":"adjective","subtest":2,"orderInSubtest":9,"options":["доступный, имеющийся, свободный","уродливый, некрасивый","закрытый"],"correctIndex":0,"correctAnswer":"доступный, имеющийся, свободный"},{"id":"modifier-065","sourceId":65,"word":"quiet","pos":"adjective","subtest":2,"orderInSubtest":10,"options":["тихий, спокойный","испуганный, боящийся","добрый, заботливый"],"correctIndex":0,"correctAnswer":"тихий, спокойный"},{"id":"modifier-046","sourceId":46,"word":"empty","pos":"adjective","subtest":2,"orderInSubtest":11,"options":["красивый, прекрасный","пустой","закрытый"],"correctIndex":1,"correctAnswer":"пустой"},{"id":"modifier-051","sourceId":51,"word":"necessary","pos":"adjective","subtest":2,"orderInSubtest":12,"options":["уродливый, некрасивый","необходимый","полезный"],"correctIndex":1,"correctAnswer":"необходимый"},{"id":"modifier-073","sourceId":73,"word":"again","pos":"adverb","subtest":2,"orderInSubtest":13,"options":["снова, опять","всегда","также, тоже"],"correctIndex":0,"correctAnswer":"снова, опять"},{"id":"modifier-080","sourceId":80,"word":"soon","pos":"adverb","subtest":2,"orderInSubtest":14,"options":["иногда","редко","скоро"],"correctIndex":2,"correctAnswer":"скоро"},{"id":"modifier-075","sourceId":75,"word":"usually","pos":"adverb","subtest":2,"orderInSubtest":15,"options":["снова, опять","обычно","скоро"],"correctIndex":1,"correctAnswer":"обычно"},{"id":"modifier-041","sourceId":41,"word":"hard","pos":"adjective","subtest":2,"orderInSubtest":16,"options":["полный, наполненный","серьёзный","трудный, тяжёлый, твёрдый"],"correctIndex":2,"correctAnswer":"трудный, тяжёлый, твёрдый"},{"id":"modifier-061","sourceId":61,"word":"angry","pos":"adjective","subtest":2,"orderInSubtest":17,"options":["сердитый, злой","громкий","слабый"],"correctIndex":0,"correctAnswer":"сердитый, злой"},{"id":"modifier-071","sourceId":71,"word":"even","pos":"adverb","subtest":2,"orderInSubtest":18,"options":["всегда","даже","также, тоже"],"correctIndex":1,"correctAnswer":"даже"},{"id":"modifier-072","sourceId":72,"word":"also","pos":"adverb","subtest":2,"orderInSubtest":19,"options":["скоро","также, тоже","снова, опять"],"correctIndex":1,"correctAnswer":"также, тоже"},{"id":"modifier-049","sourceId":49,"word":"ready","pos":"adjective","subtest":2,"orderInSubtest":20,"options":["пустой","испуганный, боящийся","готовый"],"correctIndex":2,"correctAnswer":"готовый"},{"id":"modifier-057","sourceId":57,"word":"healthy","pos":"adjective","subtest":2,"orderInSubtest":21,"options":["здоровый, полезный для здоровья","полный, наполненный","сильный, крепкий"],"correctIndex":0,"correctAnswer":"здоровый, полезный для здоровья"},{"id":"modifier-042","sourceId":42,"word":"strong","pos":"adjective","subtest":2,"orderInSubtest":22,"options":["добрый, заботливый","доступный, имеющийся, свободный","сильный, крепкий"],"correctIndex":2,"correctAnswer":"сильный, крепкий"},{"id":"modifier-076","sourceId":76,"word":"often","pos":"adverb","subtest":2,"orderInSubtest":23,"options":["снова, опять","часто","также, тоже"],"correctIndex":1,"correctAnswer":"часто"},{"id":"modifier-053","sourceId":53,"word":"helpful","pos":"adjective","subtest":2,"orderInSubtest":24,"options":["уродливый, некрасивый","открытый","полезный, готовый помочь"],"correctIndex":2,"correctAnswer":"полезный, готовый помочь"},{"id":"modifier-054","sourceId":54,"word":"serious","pos":"adjective","subtest":2,"orderInSubtest":25,"options":["трудный, тяжёлый, твёрдый","серьёзный","открытый"],"correctIndex":1,"correctAnswer":"серьёзный"},{"id":"modifier-055","sourceId":55,"word":"safe","pos":"adjective","subtest":2,"orderInSubtest":26,"options":["безопасный, надёжный","уродливый, некрасивый","испуганный, боящийся"],"correctIndex":0,"correctAnswer":"безопасный, надёжный"},{"id":"modifier-043","sourceId":43,"word":"weak","pos":"adjective","subtest":2,"orderInSubtest":27,"options":["занятый","уставший","слабый"],"correctIndex":2,"correctAnswer":"слабый"},{"id":"modifier-063","sourceId":63,"word":"tired","pos":"adjective","subtest":2,"orderInSubtest":28,"options":["занятый","трудный, тяжёлый, твёрдый","уставший"],"correctIndex":2,"correctAnswer":"уставший"},{"id":"modifier-077","sourceId":77,"word":"sometimes","pos":"adverb","subtest":2,"orderInSubtest":29,"options":["иногда","скоро","также, тоже"],"correctIndex":0,"correctAnswer":"иногда"},{"id":"modifier-079","sourceId":79,"word":"never","pos":"adverb","subtest":2,"orderInSubtest":30,"options":["также, тоже","даже","никогда"],"correctIndex":2,"correctAnswer":"никогда"},{"id":"modifier-074","sourceId":74,"word":"always","pos":"adverb","subtest":2,"orderInSubtest":31,"options":["всегда","также, тоже","снова, опять"],"correctIndex":0,"correctAnswer":"всегда"},{"id":"modifier-056","sourceId":56,"word":"dangerous","pos":"adjective","subtest":2,"orderInSubtest":32,"options":["здоровый, полезный для здоровья","опасный","серьёзный"],"correctIndex":1,"correctAnswer":"опасный"},{"id":"modifier-067","sourceId":67,"word":"beautiful","pos":"adjective","subtest":2,"orderInSubtest":33,"options":["испуганный, боящийся","серьёзный","красивый, прекрасный"],"correctIndex":2,"correctAnswer":"красивый, прекрасный"},{"id":"modifier-045","sourceId":45,"word":"full","pos":"adjective","subtest":2,"orderInSubtest":34,"options":["полный, наполненный","готовый","сильный, крепкий"],"correctIndex":0,"correctAnswer":"полный, наполненный"},{"id":"modifier-059","sourceId":59,"word":"happy","pos":"adjective","subtest":2,"orderInSubtest":35,"options":["безопасный, надёжный","счастливый, довольный","закрытый"],"correctIndex":1,"correctAnswer":"счастливый, довольный"},{"id":"modifier-058","sourceId":58,"word":"sick","pos":"adjective","subtest":2,"orderInSubtest":36,"options":["испуганный, боящийся","добрый, заботливый","больной, испытывающий тошноту"],"correctIndex":2,"correctAnswer":"больной, испытывающий тошноту"},{"id":"modifier-060","sourceId":60,"word":"sad","pos":"adjective","subtest":2,"orderInSubtest":37,"options":["необходимый","слабый","грустный, печальный"],"correctIndex":2,"correctAnswer":"грустный, печальный"},{"id":"modifier-047","sourceId":47,"word":"open","pos":"adjective","subtest":2,"orderInSubtest":38,"options":["громкий","открытый","серьёзный"],"correctIndex":1,"correctAnswer":"открытый"},{"id":"modifier-069","sourceId":69,"word":"nice","pos":"adjective","subtest":2,"orderInSubtest":39,"options":["сильный, крепкий","приятный, хороший","открытый"],"correctIndex":1,"correctAnswer":"приятный, хороший"},{"id":"modifier-078","sourceId":78,"word":"rarely","pos":"adverb","subtest":2,"orderInSubtest":40,"options":["снова, опять","также, тоже","редко"],"correctIndex":2,"correctAnswer":"редко"},{"id":"modifier-108","sourceId":108,"word":"international","pos":"adjective","subtest":3,"orderInSubtest":1,"options":["международный","физический, телесный","богатый, насыщенный"],"correctIndex":0,"correctAnswer":"международный"},{"id":"modifier-105","sourceId":105,"word":"private","pos":"adjective","subtest":3,"orderInSubtest":2,"options":["тёплый","современный","частный, личный"],"correctIndex":2,"correctAnswer":"частный, личный"},{"id":"modifier-103","sourceId":103,"word":"mental","pos":"adjective","subtest":3,"orderInSubtest":3,"options":["умственный, психический","быстрый, оперативный","успешный"],"correctIndex":0,"correctAnswer":"умственный, психический"},{"id":"modifier-106","sourceId":106,"word":"local","pos":"adjective","subtest":3,"orderInSubtest":4,"options":["холодный","местный","бедный, низкого качества"],"correctIndex":1,"correctAnswer":"местный"},{"id":"modifier-085","sourceId":85,"word":"expensive","pos":"adjective","subtest":3,"orderInSubtest":5,"options":["дорогой, дорогостоящий","быстрый, оперативный","дружелюбный, приветливый"],"correctIndex":0,"correctAnswer":"дорогой, дорогостоящий"},{"id":"modifier-120","sourceId":120,"word":"back","pos":"adverb","subtest":3,"orderInSubtest":6,"options":["назад, обратно","сегодня","тогда, затем"],"correctIndex":0,"correctAnswer":"назад, обратно"},{"id":"modifier-097","sourceId":97,"word":"popular","pos":"adjective","subtest":3,"orderInSubtest":7,"options":["популярный","медленный","горячий, жаркий"],"correctIndex":0,"correctAnswer":"популярный"},{"id":"modifier-114","sourceId":114,"word":"yesterday","pos":"adverb","subtest":3,"orderInSubtest":8,"options":["назад, обратно","прочь, вдали","вчера"],"correctIndex":2,"correctAnswer":"вчера"},{"id":"modifier-109","sourceId":109,"word":"social","pos":"adjective","subtest":3,"orderInSubtest":9,"options":["традиционный","горячий, жаркий","социальный, общественный"],"correctIndex":2,"correctAnswer":"социальный, общественный"},{"id":"modifier-119","sourceId":119,"word":"away","pos":"adverb","subtest":3,"orderInSubtest":10,"options":["прочь, вдали","сегодня","вместе"],"correctIndex":0,"correctAnswer":"прочь, вдали"},{"id":"modifier-117","sourceId":117,"word":"there","pos":"adverb","subtest":3,"orderInSubtest":11,"options":["вчера","сейчас, теперь","там, туда"],"correctIndex":2,"correctAnswer":"там, туда"},{"id":"modifier-101","sourceId":101,"word":"human","pos":"adjective","subtest":3,"orderInSubtest":12,"options":["дешёвый","быстрый, оперативный","человеческий"],"correctIndex":2,"correctAnswer":"человеческий"},{"id":"modifier-090","sourceId":90,"word":"warm","pos":"adjective","subtest":3,"orderInSubtest":13,"options":["национальный, государственный","человеческий","тёплый"],"correctIndex":2,"correctAnswer":"тёплый"},{"id":"modifier-094","sourceId":94,"word":"quick","pos":"adjective","subtest":3,"orderInSubtest":14,"options":["международный","быстрый, оперативный","популярный"],"correctIndex":1,"correctAnswer":"быстрый, оперативный"},{"id":"modifier-107","sourceId":107,"word":"national","pos":"adjective","subtest":3,"orderInSubtest":15,"options":["быстрый, скорый","грязный","национальный, государственный"],"correctIndex":2,"correctAnswer":"национальный, государственный"},{"id":"modifier-089","sourceId":89,"word":"cold","pos":"adjective","subtest":3,"orderInSubtest":16,"options":["холодный","дружелюбный, приветливый","традиционный"],"correctIndex":0,"correctAnswer":"холодный"},{"id":"modifier-113","sourceId":113,"word":"today","pos":"adverb","subtest":3,"orderInSubtest":17,"options":["сегодня","назад, обратно","вместе"],"correctIndex":0,"correctAnswer":"сегодня"},{"id":"modifier-115","sourceId":115,"word":"tomorrow","pos":"adverb","subtest":3,"orderInSubtest":18,"options":["вместе","там, туда","завтра"],"correctIndex":2,"correctAnswer":"завтра"},{"id":"modifier-100","sourceId":100,"word":"natural","pos":"adjective","subtest":3,"orderInSubtest":19,"options":["естественный, природный","грязный","популярный"],"correctIndex":0,"correctAnswer":"естественный, природный"},{"id":"modifier-110","sourceId":110,"word":"political","pos":"adjective","subtest":3,"orderInSubtest":20,"options":["грязный","чистый","политический"],"correctIndex":2,"correctAnswer":"политический"},{"id":"modifier-095","sourceId":95,"word":"successful","pos":"adjective","subtest":3,"orderInSubtest":21,"options":["дружелюбный, приветливый","популярный","успешный"],"correctIndex":2,"correctAnswer":"успешный"},{"id":"modifier-102","sourceId":102,"word":"physical","pos":"adjective","subtest":3,"orderInSubtest":22,"options":["холодный","физический, телесный","традиционный"],"correctIndex":1,"correctAnswer":"физический, телесный"},{"id":"modifier-104","sourceId":104,"word":"public","pos":"adjective","subtest":3,"orderInSubtest":23,"options":["дорогой, дорогостоящий","медленный","общественный, публичный"],"correctIndex":2,"correctAnswer":"общественный, публичный"},{"id":"modifier-088","sourceId":88,"word":"hot","pos":"adjective","subtest":3,"orderInSubtest":24,"options":["успешный","горячий, жаркий","чистый"],"correctIndex":1,"correctAnswer":"горячий, жаркий"},{"id":"modifier-092","sourceId":92,"word":"fast","pos":"adjective","subtest":3,"orderInSubtest":25,"options":["дружелюбный, приветливый","быстрый, скорый","успешный"],"correctIndex":1,"correctAnswer":"быстрый, скорый"},{"id":"modifier-086","sourceId":86,"word":"clean","pos":"adjective","subtest":3,"orderInSubtest":26,"options":["прохладный, классный","чистый","популярный"],"correctIndex":1,"correctAnswer":"чистый"},{"id":"modifier-084","sourceId":84,"word":"cheap","pos":"adjective","subtest":3,"orderInSubtest":27,"options":["дешёвый","современный","политический"],"correctIndex":0,"correctAnswer":"дешёвый"},{"id":"modifier-087","sourceId":87,"word":"dirty","pos":"adjective","subtest":3,"orderInSubtest":28,"options":["дорогой, дорогостоящий","грязный","международный"],"correctIndex":1,"correctAnswer":"грязный"},{"id":"modifier-099","sourceId":99,"word":"traditional","pos":"adjective","subtest":3,"orderInSubtest":29,"options":["традиционный","чистый","грязный"],"correctIndex":0,"correctAnswer":"традиционный"},{"id":"modifier-093","sourceId":93,"word":"slow","pos":"adjective","subtest":3,"orderInSubtest":30,"options":["бедный, низкого качества","национальный, государственный","медленный"],"correctIndex":2,"correctAnswer":"медленный"},{"id":"modifier-118","sourceId":118,"word":"together","pos":"adverb","subtest":3,"orderInSubtest":31,"options":["там, туда","вместе","завтра"],"correctIndex":1,"correctAnswer":"вместе"},{"id":"modifier-096","sourceId":96,"word":"careful","pos":"adjective","subtest":3,"orderInSubtest":32,"options":["осторожный, внимательный","общественный, публичный","дешёвый"],"correctIndex":0,"correctAnswer":"осторожный, внимательный"},{"id":"modifier-116","sourceId":116,"word":"here","pos":"adverb","subtest":3,"orderInSubtest":33,"options":["сегодня","здесь, сюда","завтра"],"correctIndex":1,"correctAnswer":"здесь, сюда"},{"id":"modifier-082","sourceId":82,"word":"rich","pos":"adjective","subtest":3,"orderInSubtest":34,"options":["быстрый, скорый","богатый, насыщенный","холодный"],"correctIndex":1,"correctAnswer":"богатый, насыщенный"},{"id":"modifier-112","sourceId":112,"word":"then","pos":"adverb","subtest":3,"orderInSubtest":35,"options":["там, туда","тогда, затем","здесь, сюда"],"correctIndex":1,"correctAnswer":"тогда, затем"},{"id":"modifier-091","sourceId":91,"word":"cool","pos":"adjective","subtest":3,"orderInSubtest":36,"options":["прохладный, классный","естественный, природный","быстрый, оперативный"],"correctIndex":0,"correctAnswer":"прохладный, классный"},{"id":"modifier-081","sourceId":81,"word":"friendly","pos":"adjective","subtest":3,"orderInSubtest":37,"options":["естественный, природный","дорогой, дорогостоящий","дружелюбный, приветливый"],"correctIndex":2,"correctAnswer":"дружелюбный, приветливый"},{"id":"modifier-111","sourceId":111,"word":"now","pos":"adverb","subtest":3,"orderInSubtest":38,"options":["вместе","сейчас, теперь","прочь, вдали"],"correctIndex":1,"correctAnswer":"сейчас, теперь"},{"id":"modifier-098","sourceId":98,"word":"modern","pos":"adjective","subtest":3,"orderInSubtest":39,"options":["бедный, низкого качества","естественный, природный","современный"],"correctIndex":2,"correctAnswer":"современный"},{"id":"modifier-083","sourceId":83,"word":"poor","pos":"adjective","subtest":3,"orderInSubtest":40,"options":["прохладный, классный","бедный, низкого качества","современный"],"correctIndex":1,"correctAnswer":"бедный, низкого качества"},{"id":"modifier-140","sourceId":140,"word":"central","pos":"adjective","subtest":4,"orderInSubtest":1,"options":["единственный, одиночный","иностранный, зарубежный","центральный, главный"],"correctIndex":2,"correctAnswer":"центральный, главный"},{"id":"modifier-130","sourceId":130,"word":"recent","pos":"adjective","subtest":4,"orderInSubtest":2,"options":["главный, основной","положительный, позитивный","недавний, последний"],"correctIndex":2,"correctAnswer":"недавний, последний"},{"id":"modifier-147","sourceId":147,"word":"formal","pos":"adjective","subtest":4,"orderInSubtest":3,"options":["отрицательный, негативный","официальный, формальный","личный, персональный"],"correctIndex":1,"correctAnswer":"официальный, формальный"},{"id":"modifier-152","sourceId":152,"word":"badly","pos":"adverb","subtest":4,"orderInSubtest":4,"options":["плохо, сильно","наконец, в конечном итоге","легко, без труда"],"correctIndex":0,"correctAnswer":"плохо, сильно"},{"id":"modifier-144","sourceId":144,"word":"positive","pos":"adjective","subtest":4,"orderInSubtest":5,"options":["положительный, позитивный","экономический","недавний, последний"],"correctIndex":0,"correctAnswer":"положительный, позитивный"},{"id":"modifier-129","sourceId":129,"word":"current","pos":"adjective","subtest":4,"orderInSubtest":6,"options":["способный, умеющий","текущий, нынешний","общий, распространённый, обычный"],"correctIndex":1,"correctAnswer":"текущий, нынешний"},{"id":"modifier-151","sourceId":151,"word":"well","pos":"adverb","subtest":4,"orderInSubtest":7,"options":["хорошо, успешно","наконец, в конечном итоге","особенно"],"correctIndex":0,"correctAnswer":"хорошо, успешно"},{"id":"modifier-157","sourceId":157,"word":"probably","pos":"adverb","subtest":4,"orderInSubtest":8,"options":["легко, без труда","вероятно, скорее всего","хорошо, успешно"],"correctIndex":1,"correctAnswer":"вероятно, скорее всего"},{"id":"modifier-160","sourceId":160,"word":"finally","pos":"adverb","subtest":4,"orderInSubtest":9,"options":["наконец, в конечном итоге","плохо, сильно","быстро"],"correctIndex":0,"correctAnswer":"наконец, в конечном итоге"},{"id":"modifier-148","sourceId":148,"word":"foreign","pos":"adjective","subtest":4,"orderInSubtest":10,"options":["экономический","иностранный, зарубежный","положительный, позитивный"],"correctIndex":1,"correctAnswer":"иностранный, зарубежный"},{"id":"modifier-127","sourceId":127,"word":"main","pos":"adjective","subtest":4,"orderInSubtest":11,"options":["определённый, уверенный","главный, основной","правильный, верный"],"correctIndex":1,"correctAnswer":"главный, основной"},{"id":"modifier-128","sourceId":128,"word":"basic","pos":"adjective","subtest":4,"orderInSubtest":12,"options":["целый, весь","окончательный, последний","основной, базовый"],"correctIndex":2,"correctAnswer":"основной, базовый"},{"id":"modifier-133","sourceId":133,"word":"certain","pos":"adjective","subtest":4,"orderInSubtest":13,"options":["ответственный","главный, основной","определённый, уверенный"],"correctIndex":2,"correctAnswer":"определённый, уверенный"},{"id":"modifier-135","sourceId":135,"word":"likely","pos":"adjective","subtest":4,"orderInSubtest":14,"options":["профессиональный","текущий, нынешний","вероятный"],"correctIndex":2,"correctAnswer":"вероятный"},{"id":"modifier-136","sourceId":136,"word":"able","pos":"adjective","subtest":4,"orderInSubtest":15,"options":["особый, специальный","способный, умеющий","прямой, непосредственный"],"correctIndex":1,"correctAnswer":"способный, умеющий"},{"id":"modifier-145","sourceId":145,"word":"negative","pos":"adjective","subtest":4,"orderInSubtest":16,"options":["официальный, формальный","определённый, уверенный","отрицательный, негативный"],"correctIndex":2,"correctAnswer":"отрицательный, негативный"},{"id":"modifier-155","sourceId":155,"word":"easily","pos":"adverb","subtest":4,"orderInSubtest":17,"options":["легко, без труда","наконец, в конечном итоге","медленно"],"correctIndex":0,"correctAnswer":"легко, без труда"},{"id":"modifier-138","sourceId":138,"word":"correct","pos":"adjective","subtest":4,"orderInSubtest":18,"options":["правильный, верный","похожий, аналогичный","окончательный, последний"],"correctIndex":0,"correctAnswer":"правильный, верный"},{"id":"modifier-142","sourceId":142,"word":"normal","pos":"adjective","subtest":4,"orderInSubtest":19,"options":["нормальный, обычный","центральный, главный","текущий, нынешний"],"correctIndex":0,"correctAnswer":"нормальный, обычный"},{"id":"modifier-123","sourceId":123,"word":"special","pos":"adjective","subtest":4,"orderInSubtest":20,"options":["правильный, верный","особый, специальный","основной, базовый"],"correctIndex":1,"correctAnswer":"особый, специальный"},{"id":"modifier-134","sourceId":134,"word":"similar","pos":"adjective","subtest":4,"orderInSubtest":21,"options":["правильный, верный","общий, основной","похожий, аналогичный"],"correctIndex":2,"correctAnswer":"похожий, аналогичный"},{"id":"modifier-158","sourceId":158,"word":"perhaps","pos":"adverb","subtest":4,"orderInSubtest":22,"options":["медленно","возможно, может быть","хорошо, успешно"],"correctIndex":1,"correctAnswer":"возможно, может быть"},{"id":"modifier-156","sourceId":156,"word":"clearly","pos":"adverb","subtest":4,"orderInSubtest":23,"options":["ясно, чётко","особенно","медленно"],"correctIndex":0,"correctAnswer":"ясно, чётко"},{"id":"modifier-143","sourceId":143,"word":"professional","pos":"adjective","subtest":4,"orderInSubtest":24,"options":["профессиональный","похожий, аналогичный","иностранный, зарубежный"],"correctIndex":0,"correctAnswer":"профессиональный"},{"id":"modifier-131","sourceId":131,"word":"whole","pos":"adjective","subtest":4,"orderInSubtest":25,"options":["общий, распространённый, обычный","недавний, последний","целый, весь"],"correctIndex":2,"correctAnswer":"целый, весь"},{"id":"modifier-153","sourceId":153,"word":"quickly","pos":"adverb","subtest":4,"orderInSubtest":26,"options":["возможно, может быть","хорошо, успешно","быстро"],"correctIndex":2,"correctAnswer":"быстро"},{"id":"modifier-137","sourceId":137,"word":"responsible","pos":"adjective","subtest":4,"orderInSubtest":27,"options":["тёмный","текущий, нынешний","ответственный"],"correctIndex":2,"correctAnswer":"ответственный"},{"id":"modifier-149","sourceId":149,"word":"dark","pos":"adjective","subtest":4,"orderInSubtest":28,"options":["единственный, одиночный","тёмный","положительный, позитивный"],"correctIndex":1,"correctAnswer":"тёмный"},{"id":"modifier-121","sourceId":121,"word":"economic","pos":"adjective","subtest":4,"orderInSubtest":29,"options":["личный, персональный","экономический","иностранный, зарубежный"],"correctIndex":1,"correctAnswer":"экономический"},{"id":"modifier-122","sourceId":122,"word":"personal","pos":"adjective","subtest":4,"orderInSubtest":30,"options":["особый, специальный","личный, персональный","похожий, аналогичный"],"correctIndex":1,"correctAnswer":"личный, персональный"},{"id":"modifier-159","sourceId":159,"word":"especially","pos":"adverb","subtest":4,"orderInSubtest":31,"options":["особенно","возможно, может быть","легко, без труда"],"correctIndex":0,"correctAnswer":"особенно"},{"id":"modifier-139","sourceId":139,"word":"direct","pos":"adjective","subtest":4,"orderInSubtest":32,"options":["текущий, нынешний","похожий, аналогичный","прямой, непосредственный"],"correctIndex":2,"correctAnswer":"прямой, непосредственный"},{"id":"modifier-150","sourceId":150,"word":"bright","pos":"adjective","subtest":4,"orderInSubtest":33,"options":["яркий, светлый, способный","определённый, уверенный","профессиональный"],"correctIndex":0,"correctAnswer":"яркий, светлый, способный"},{"id":"modifier-154","sourceId":154,"word":"slowly","pos":"adverb","subtest":4,"orderInSubtest":34,"options":["медленно","плохо, сильно","ясно, чётко"],"correctIndex":0,"correctAnswer":"медленно"},{"id":"modifier-146","sourceId":146,"word":"active","pos":"adjective","subtest":4,"orderInSubtest":35,"options":["окончательный, последний","активный, действующий","экономический"],"correctIndex":1,"correctAnswer":"активный, действующий"},{"id":"modifier-124","sourceId":124,"word":"general","pos":"adjective","subtest":4,"orderInSubtest":36,"options":["окончательный, последний","положительный, позитивный","общий, основной"],"correctIndex":2,"correctAnswer":"общий, основной"},{"id":"modifier-132","sourceId":132,"word":"single","pos":"adjective","subtest":4,"orderInSubtest":37,"options":["единственный, одиночный","правильный, верный","похожий, аналогичный"],"correctIndex":0,"correctAnswer":"единственный, одиночный"},{"id":"modifier-141","sourceId":141,"word":"final","pos":"adjective","subtest":4,"orderInSubtest":38,"options":["общий, распространённый, обычный","определённый, уверенный","окончательный, последний"],"correctIndex":2,"correctAnswer":"окончательный, последний"},{"id":"modifier-125","sourceId":125,"word":"common","pos":"adjective","subtest":4,"orderInSubtest":39,"options":["общий, распространённый, обычный","похожий, аналогичный","главный, основной"],"correctIndex":0,"correctAnswer":"общий, распространённый, обычный"},{"id":"modifier-126","sourceId":126,"word":"major","pos":"adjective","subtest":4,"orderInSubtest":40,"options":["прямой, непосредственный","главный, крупный, основной","отрицательный, негативный"],"correctIndex":1,"correctAnswer":"главный, крупный, основной"}]};
+    const CONFIG = { category: 'modifiers', title: 'Прилагательные и наречия', subtitle: '160 вопросов · 4 блока по 40', total: 160 };
+    const STORAGE_KEY = 'english-vocabulary-test-v3-' + CONFIG.category;
+    const letters = ['A', 'B', 'C'];
+    const app = document.getElementById('app');
+    const blockNumbers = [...new Set(TEST_DATA.questions.map(function (question) { return question.subtest; }))].sort(function (a, b) { return a - b; });
+
+    function initialState() {
+      return { version: 3, completed: {}, active: null };
+    }
+
+    function loadState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (parsed && parsed.version === 3 && parsed.completed) return parsed;
+      } catch (error) {}
+      return initialState();
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (error) {}
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (char) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char];
+      });
+    }
+
+    function shuffle(items) {
+      const result = items.slice();
+      for (let index = result.length - 1; index > 0; index -= 1) {
+        const target = Math.floor(Math.random() * (index + 1));
+        const temp = result[index]; result[index] = result[target]; result[target] = temp;
+      }
+      return result;
+    }
+
+    function pageFrame(content) {
+      return '<div class="topbar">' +
+        '<div class="brand"><div class="brand-mark">EN</div><div><div class="brand-name">Английский язык</div><div class="brand-title">' + escapeHtml(CONFIG.title) + '</div></div></div>' +
+        '<a class="back-link" href="/tests/english/">← К английским тестам</a></div>' +
+        '<section class="panel">' + content + '</section>' +
+        '<div class="footer">Автономный тест · результаты сохраняются в этом браузере</div>';
+    }
+
+    function completedResults() {
+      return blockNumbers.map(function (number) { return state.completed[number]; }).filter(Boolean);
+    }
+
+    function completedCount() { return completedResults().length; }
+
+    function totalCompletedScore() {
+      return completedResults().reduce(function (sum, result) { return sum + result.score; }, 0);
+    }
+
+    function percent(score, total) {
+      return total ? Math.round(score / total * 100) : 0;
+    }
+
+    function renderHome() {
+      const complete = completedCount();
+      const allDone = complete === blockNumbers.length;
+      const cards = blockNumbers.map(function (number) {
+        const result = state.completed[number];
+        const active = state.active && state.active.block === number;
+        const classes = ['block-card'];
+        if (result) classes.push('done');
+        if (active) classes.push('active');
+        const label = active ? 'В процессе' : result ? 'Завершён' : 'Не начат';
+        let score = '40 вопросов';
+        if (result) score = result.score + ' из ' + result.total + ' правильных · ' + result.percent + '%';
+        if (active && result) score += '<br>Сохранённый результат будет заменён после завершения.';
+        let buttons = '';
+        if (active) {
+          buttons = '<button class="btn full" data-continue="' + number + '">Продолжить</button>';
+        } else if (result) {
+          buttons = '<button class="btn secondary" data-result="' + number + '">Результат</button><button class="btn" data-retry="' + number + '">Пройти заново</button>';
+        } else {
+          buttons = '<button class="btn full" data-start="' + number + '">Начать</button>';
+        }
+        return '<article class="' + classes.join(' ') + '"><div class="block-top"><div class="block-name">Блок ' + number + '</div><span class="badge">' + label + '</span></div>' +
+          '<div class="block-score">' + score + '</div><div class="card-actions">' + buttons + '</div></article>';
+      }).join('');
+
+      const completedTotal = complete * 40;
+      const completedScore = totalCompletedScore();
+      let overall = '';
+      if (complete > 0 && !allDone) {
+        overall = '<div class="overall"><strong>Промежуточный результат:</strong> ' + completedScore + ' из ' + completedTotal + ' (' + percent(completedScore, completedTotal) + '%).<br>Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '. Это ещё не итог всего теста.</div>';
+      }
+      if (allDone) {
+        overall = '<div class="overall"><strong>Итог по всему тесту:</strong> ' + completedScore + ' из ' + TEST_DATA.questions.length + ' (' + percent(completedScore, TEST_DATA.questions.length) + '%).<br>Все блоки завершены.<br><button class="btn" id="open-final">Открыть итоговый результат</button></div>';
+      }
+
+      const content = '<div class="home"><div class="eyebrow">Английский язык</div><h1>' + escapeHtml(CONFIG.title) + '</h1>' +
+        '<p class="lead">' + escapeHtml(CONFIG.subtitle) + '. Для каждого английского слова выберите один наиболее точный перевод.</p>' +
+        '<div class="rules"><div class="rule"><strong>Один ответ</strong>В каждом вопросе верен один из трёх вариантов.</div>' +
+        '<div class="rule"><strong>Результат по блокам</strong>После завершения показываются правильные ответы и процент.</div>' +
+        '<div class="rule"><strong>Повторное прохождение</strong>Любой блок можно пройти заново без потери остальных результатов.</div></div>' +
+        '<div class="summary">Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '</div><div class="block-grid">' + cards + '</div>' + overall + '</div>';
+      app.innerHTML = pageFrame(content);
+
+      document.querySelectorAll('[data-start]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.start), false); });
+      });
+      document.querySelectorAll('[data-continue]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.continue), false); });
+      });
+      document.querySelectorAll('[data-retry]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.retry), true); });
+      });
+      document.querySelectorAll('[data-result]').forEach(function (button) {
+        button.addEventListener('click', function () { renderResult(Number(button.dataset.result)); });
+      });
+      const finalButton = document.getElementById('open-final');
+      if (finalButton) finalButton.addEventListener('click', function () { renderResult(blockNumbers[blockNumbers.length - 1]); });
+    }
+
+    function startBlock(number, retry) {
+      if (state.active && state.active.block === number) { renderQuestion(); return; }
+      if (state.completed[number] && !retry) { renderResult(number); return; }
+      if (state.active && !confirm('Другой блок ещё не завершён. Начать новый и удалить незавершённые ответы?')) return;
+      const questions = shuffle(TEST_DATA.questions.filter(function (question) { return question.subtest === number; }));
+      state.active = {
+        block: number,
+        index: 0,
+        questionIds: questions.map(function (question) { return question.id; }),
+        answers: {},
+        startedAt: Date.now(),
+        retry: Boolean(state.completed[number])
+      };
+      saveState();
+      renderQuestion();
+    }
+
+    function activeQuestions() {
+      if (!state.active) return [];
+      const byId = new Map(TEST_DATA.questions.map(function (question) { return [question.id, question]; }));
+      return state.active.questionIds.map(function (id) { return byId.get(id); }).filter(Boolean);
+    }
+
+    function posText(pos) {
+      if (pos === 'verb') return 'глагол';
+      if (pos === 'noun') return 'существительное';
+      if (pos === 'adjective') return 'прилагательное';
+      if (pos === 'adverb') return 'наречие';
+      return '';
+    }
+
+    function renderQuestion() {
+      if (!state.active) { renderHome(); return; }
+      const questions = activeQuestions();
+      if (!questions.length) { state.active = null; saveState(); renderHome(); return; }
+      const index = Math.max(0, Math.min(state.active.index, questions.length - 1));
+      state.active.index = index;
+      const question = questions[index];
+      const selected = state.active.answers[question.id];
+      const options = question.options.map(function (option, optionIndex) {
+        const checked = selected === optionIndex;
+        return '<label class="option ' + (checked ? 'selected' : '') + '"><input type="radio" name="answer" value="' + optionIndex + '" ' + (checked ? 'checked' : '') + '>' +
+          '<span class="letter">' + letters[optionIndex] + '.</span><span class="option-text">' + escapeHtml(option) + '</span></label>';
+      }).join('');
+      const progress = Math.round((index + 1) / questions.length * 100);
+      const isLast = index === questions.length - 1;
+      const content = '<div class="test-view"><div class="test-head"><div class="test-head-row"><div><strong>Блок ' + state.active.block + '</strong><div class="test-meta">Вопрос ' + (index + 1) + ' из ' + questions.length + (state.active.retry ? ' · повторное прохождение' : '') + '</div></div>' +
+        '<button class="btn secondary" id="to-home">К блокам</button></div><div class="progress-track"><div class="progress-fill" style="width:' + progress + '%"></div></div></div>' +
+        '<div class="question-wrap"><div class="question-label">Выберите перевод</div><h2 class="word">' + escapeHtml(question.word) + '</h2><div class="pos">' + posText(question.pos) + '</div>' +
+        '<div class="prompt">Отметьте один вариант:</div><div class="options">' + options + '</div><div class="nav"><button class="btn secondary" id="previous" ' + (index === 0 ? 'disabled' : '') + '>Назад</button>' +
+        '<button class="btn" id="next" ' + (selected === undefined ? 'disabled' : '') + '>' + (isLast ? 'Завершить блок' : 'Следующий вопрос') + '</button></div></div></div>';
+      app.innerHTML = pageFrame(content);
+
+      document.getElementById('to-home').addEventListener('click', renderHome);
+      document.getElementById('previous').addEventListener('click', function () { state.active.index -= 1; saveState(); renderQuestion(); });
+      document.querySelectorAll('input[name="answer"]').forEach(function (input) {
+        input.addEventListener('change', function () {
+          state.active.answers[question.id] = Number(input.value);
+          saveState();
+          renderQuestion();
+        });
+      });
+      document.getElementById('next').addEventListener('click', function () {
+        if (state.active.answers[question.id] === undefined) return;
+        if (isLast) finishBlock();
+        else { state.active.index += 1; saveState(); renderQuestion(); }
+      });
+    }
+
+    function finishBlock() {
+      const active = state.active;
+      const questions = activeQuestions();
+      const unanswered = questions.filter(function (question) { return active.answers[question.id] === undefined; });
+      if (unanswered.length) {
+        alert('Остались вопросы без ответа: ' + unanswered.length + '.');
+        state.active.index = questions.findIndex(function (question) { return active.answers[question.id] === undefined; });
+        saveState(); renderQuestion(); return;
+      }
+      const score = questions.reduce(function (sum, question) {
+        return sum + (active.answers[question.id] === question.correctIndex ? 1 : 0);
+      }, 0);
+      const number = active.block;
+      state.completed[number] = {
+        score: score,
+        total: questions.length,
+        percent: percent(score, questions.length),
+        completedAt: new Date().toISOString(),
+        durationSeconds: Math.max(1, Math.round((Date.now() - active.startedAt) / 1000))
+      };
+      state.active = null;
+      saveState();
+      renderResult(number);
+    }
+
+    function formatDuration(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      return minutes + ' мин ' + (seconds % 60) + ' сек';
+    }
+
+    function reportDate() {
+      return new Date().toLocaleString('ru-RU');
+    }
+
+    function resultRows() {
+      return blockNumbers.map(function (number) {
+        const result = state.completed[number];
+        if (!result) return '';
+        return '<tr><td>Блок ' + number + '</td><td>' + result.score + ' из ' + result.total + '</td><td>' + result.percent + '%</td><td>' + formatDuration(result.durationSeconds) + '</td></tr>';
+      }).join('');
+    }
+
+    function renderResult(number) {
+      const result = state.completed[number];
+      if (!result) { renderHome(); return; }
+      const complete = completedCount();
+      const allDone = complete === blockNumbers.length;
+      const totalScore = totalCompletedScore();
+      const currentTotal = complete * 40;
+      const totalPercent = percent(totalScore, allDone ? TEST_DATA.questions.length : currentTotal);
+      const heading = allDone ? 'Итоговый результат' : 'Блок ' + number + ' завершён';
+      const score = allDone ? totalScore + ' / ' + TEST_DATA.questions.length : result.score + ' / ' + result.total;
+      const note = allDone
+        ? totalPercent + '% по всему тесту. Результаты учитывают последние завершённые попытки каждого блока.'
+        : result.percent + '% в блоке ' + number + '. Ниже показан промежуточный результат только по завершённым блокам.';
+      const overall = allDone
+        ? '<div class="overall"><strong>Общий результат:</strong> ' + totalScore + ' из ' + TEST_DATA.questions.length + ' (' + totalPercent + '%).</div>'
+        : '<div class="overall"><strong>Промежуточный результат:</strong> ' + totalScore + ' из ' + currentTotal + ' (' + totalPercent + '%).<br>Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '. Это ещё не итог всего теста.</div>';
+      const printAction = allDone ? '<button class="btn" id="print">Сохранить итог в PDF</button>' : '';
+      const content = '<div class="result"><div class="eyebrow">' + heading + '</div><h2>' + escapeHtml(CONFIG.title) + '</h2><p class="subject">Предмет: Английский язык</p>' +
+        '<div class="score">' + score + '</div><p class="result-note">' + note + '</p>' +
+        '<div class="table-scroll"><table class="result-table"><thead><tr><th>Раздел</th><th>Правильные ответы</th><th>Процент</th><th>Время</th></tr></thead><tbody>' + resultRows() + '</tbody></table></div>' + overall +
+        '<div class="result-actions"><button class="btn secondary" id="home">К списку блоков</button><button class="btn secondary" id="retry">Пройти блок ' + number + ' заново</button>' + printAction + '</div>' +
+        '<p class="report-date">Дата формирования отчёта: <span id="report-date">' + escapeHtml(reportDate()) + '</span></p></div>';
+      app.innerHTML = pageFrame(content);
+      document.getElementById('home').addEventListener('click', renderHome);
+      document.getElementById('retry').addEventListener('click', function () { startBlock(number, true); });
+      if (allDone) {
+        document.getElementById('print').addEventListener('click', function () {
+          document.getElementById('report-date').textContent = reportDate();
+          window.print();
+        });
+      }
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (!state.active) return;
+      if (['1', '2', '3', 'a', 'b', 'c', 'A', 'B', 'C'].includes(event.key)) {
+        const lookup = { '1': 0, 'a': 0, 'A': 0, '2': 1, 'b': 1, 'B': 1, '3': 2, 'c': 2, 'C': 2 };
+        const input = document.querySelector('input[name="answer"][value="' + lookup[event.key] + '"]');
+        if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+      }
+    });
+
+    renderHome();
+  </script>
+</body>
+</html>
