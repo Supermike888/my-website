@@ -131,6 +131,13 @@
     .result-table tr:last-child td { border-bottom: 0; }
     .result-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
     .result-table td:nth-child(n+2), .result-table th:nth-child(n+2) { text-align: right; }
+    .mistakes-review { margin: 18px 0 0; padding: 16px; border: 1px solid rgba(255, 183, 92, .28); border-radius: 14px; background: rgba(90, 54, 20, .18); text-align: left; }
+    .mistakes-review h3 { margin: 0 0 10px; font-size: 17px; }
+    .mistakes-review p { margin: 0; color: var(--muted); }
+    .mistake-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .mistake-item { padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; background: rgba(10, 13, 22, .34); }
+    .mistake-question { display: block; margin-bottom: 3px; font-weight: 760; overflow-wrap: anywhere; }
+    .mistake-answer { color: var(--muted); overflow-wrap: anywhere; }
     .result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
     .report-date { margin: 13px 0 0; color: var(--muted); font-size: 12px; }
     .footer { padding: 11px 0 0; color: #71809b; font-size: 11px; text-align: center; }
@@ -174,7 +181,7 @@
       :root { color-scheme: light; --text: #152033; --muted: #596477; --line: #d9dee8; --cyan: #176b67; --cyan-soft: #e7f4f2; }
       body { min-height: auto; background: white; color: var(--text); }
       .shell { width: 100%; padding: 0; }
-      .topbar, .result-actions, .footer { display: none !important; }
+      .topbar, .result-actions, .mistakes-review, .footer { display: none !important; }
       .panel { overflow: visible; border: 0; border-radius: 0; background: white; box-shadow: none; }
       .result { padding: 10mm 8mm; }
       .score { color: #176b67; }
@@ -295,7 +302,7 @@
       const content = '<div class="home"><div class="eyebrow">Английский язык</div><h1>' + escapeHtml(CONFIG.title) + '</h1>' +
         '<p class="lead">' + escapeHtml(CONFIG.subtitle) + '. Для каждого английского слова выберите один наиболее точный перевод.</p>' +
         '<div class="rules"><div class="rule"><strong>Один ответ</strong>В каждом вопросе верен один из трёх вариантов.</div>' +
-        '<div class="rule"><strong>Результат по блокам</strong>После завершения показываются правильные ответы и процент.</div>' +
+        '<div class="rule"><strong>Результат по блокам</strong>После завершения показываются результат и только допущенные ошибки.</div>' +
         '<div class="rule"><strong>Повторное прохождение</strong>Любой блок можно пройти заново без потери остальных результатов.</div></div>' +
         '<div class="summary">Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '</div><div class="block-grid">' + cards + '</div>' + overall + '</div>';
       app.innerHTML = pageFrame(content);
@@ -403,7 +410,12 @@
         total: questions.length,
         percent: percent(score, questions.length),
         completedAt: new Date().toISOString(),
-        durationSeconds: Math.max(1, Math.round((Date.now() - active.startedAt) / 1000))
+        durationSeconds: Math.max(1, Math.round((Date.now() - active.startedAt) / 1000)),
+        mistakes: questions.filter(function (question) {
+          return active.answers[question.id] !== question.correctIndex;
+        }).map(function (question) {
+          return { question: question.word, selected: question.options[active.answers[question.id]] };
+        })
       };
       state.active = null;
       saveState();
@@ -427,6 +439,19 @@
       }).join('');
     }
 
+    function mistakesReview(result) {
+      if (!Array.isArray(result.mistakes)) {
+        return '<section class="mistakes-review"><h3>Ошибки в этом блоке</h3><p>Для ранее сохранённого результата перечень ошибок недоступен. Он появится после повторного прохождения блока.</p></section>';
+      }
+      if (!result.mistakes.length) {
+        return '<section class="mistakes-review"><h3>Ошибки в этом блоке</h3><p>Ошибок нет — все ответы верны.</p></section>';
+      }
+      const items = result.mistakes.map(function (mistake) {
+        return '<li class="mistake-item"><span class="mistake-question">' + escapeHtml(mistake.question) + '</span><span class="mistake-answer">Ваш ответ: ' + escapeHtml(mistake.selected) + '</span></li>';
+      }).join('');
+      return '<section class="mistakes-review"><h3>Ошибки в блоке: ' + result.mistakes.length + '</h3><ul class="mistake-list">' + items + '</ul></section>';
+    }
+
     function renderResult(number) {
       const result = state.completed[number];
       if (!result) { renderHome(); return; }
@@ -446,7 +471,7 @@
       const printAction = allDone ? '<button class="btn" id="print">Сохранить итог в PDF</button>' : '';
       const content = '<div class="result"><div class="eyebrow">' + heading + '</div><h2>' + escapeHtml(CONFIG.title) + '</h2><p class="subject">Предмет: Английский язык</p>' +
         '<div class="score">' + score + '</div><p class="result-note">' + note + '</p>' +
-        '<div class="table-scroll"><table class="result-table"><thead><tr><th>Раздел</th><th>Правильные ответы</th><th>Процент</th><th>Время</th></tr></thead><tbody>' + resultRows() + '</tbody></table></div>' + overall +
+        '<div class="table-scroll"><table class="result-table"><thead><tr><th>Раздел</th><th>Правильные ответы</th><th>Процент</th><th>Время</th></tr></thead><tbody>' + resultRows() + '</tbody></table></div>' + overall + mistakesReview(result) +
         '<div class="result-actions"><button class="btn secondary" id="home">К списку блоков</button><button class="btn secondary" id="retry">Пройти блок ' + number + ' заново</button>' + printAction + '</div>' +
         '<p class="report-date">Дата формирования отчёта: <span id="report-date">' + escapeHtml(reportDate()) + '</span></p></div>';
       app.innerHTML = pageFrame(content);
