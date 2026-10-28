@@ -307,7 +307,7 @@
         '<p class="lead">' + escapeHtml(CONFIG.subtitle) + '. Выберите наиболее точное определение термина: смысл показателя и формулу, если она применима. В формулах сравниваются связанные данные за один период: например, расходы на рекламу за октябрь и заявки от неё за октябрь.</p>' +
         '<div class="rules"><div class="rule"><strong>Один ответ</strong>Выберите один из трёх вариантов и подтвердите ответ. После подтверждения изменить его нельзя.</div>' +
         '<div class="rule"><strong>Результат по блокам</strong>После завершения показываются результат и только допущенные ошибки.</div>' +
-        '<div class="rule"><strong>Повторное прохождение</strong>Любой блок можно пройти заново без потери остальных результатов.</div></div>' +
+        '<div class="rule"><strong>Повторное прохождение</strong>Тест можно пройти заново. После завершения новой попытки предыдущий результат будет заменён.</div></div>' +
         '<p class="summary">PDF доступен после завершения теста.</p>' +
         '<div class="summary">Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '</div><div class="block-grid">' + cards + '</div>' + overall + '<details class="sources"><summary>Источники и принятые определения</summary><p>Формулы с несколькими трактовками уточнены в названии вопроса. GMV и take rate сравниваются только при одинаковых правилах учёта; LTV здесь рассчитан по маржинальному доходу. Схемы FBO/FBS/realFBS приведены для Ozon. Проверено 28.10.2026.</p><a href="https://yandex.ru/support/direct/ru/glossary" target="_blank" rel="noopener">Яндекс Директ</a><a href="https://yandex.ru/support/metrica/ru/general/source-tags" target="_blank" rel="noopener">Яндекс Метрика</a><a href="https://seller.ozon.ru/media/beginners/chem-razlichayutsya-shemy-raboty-na-ozon/" target="_blank" rel="noopener">Схемы Ozon</a><a href="https://www.shopify.com/blog/what-is-a-good-ltv-to-cac-ratio" target="_blank" rel="noopener">LTV и CAC</a><a href="https://help.shopify.com/en/partners/partner-program/glossary" target="_blank" rel="noopener">GMV</a></details></div>';
       app.innerHTML = pageFrame(content);
@@ -543,6 +543,7 @@
   </script>
 </body>
 </html>
+
 
 
 
