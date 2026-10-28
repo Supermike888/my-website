@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Тест «Маркетинг и продажи»: показатели, реклама, продажи и маркетплейсы.">
+  <meta name="theme-color" content="#090b12">
+  <title>Маркетинг и продажи — тест Supermike888</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b12;
+      --surface: rgba(20, 24, 37, .96);
+      --surface-soft: rgba(28, 34, 52, .78);
+      --surface-hover: rgba(35, 43, 65, .9);
+      --text: #f4f7ff;
+      --muted: #9da9c2;
+      --line: rgba(151, 168, 205, .18);
+      --blue: #5b8cff;
+      --violet: #8162ff;
+      --cyan: #29d8c7;
+      --cyan-soft: rgba(41, 216, 199, .12);
+      --shadow: 0 22px 64px rgba(0, 0, 0, .32);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-width: 320px; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(91, 140, 255, .14), transparent 30rem),
+        radial-gradient(circle at 100% 100%, rgba(41, 216, 199, .1), transparent 32rem),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, .option:focus-within {
+      outline: 3px solid rgba(41, 216, 199, .55);
+      outline-offset: 3px;
+    }
+
+    .shell { width: min(1080px, calc(100% - 28px)); margin: 0 auto; padding: 12px 0 20px; }
+    .topbar { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark {
+      width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center;
+      border: 1px solid rgba(133, 149, 255, .35); border-radius: 11px;
+      background: linear-gradient(145deg, rgba(91, 140, 255, .18), rgba(129, 98, 255, .08));
+      color: #aebdff; font-size: .72rem; font-weight: 800;
+    }
+    .brand-name { color: var(--muted); font-size: 12px; }
+    .brand-title { overflow-wrap: anywhere; font-weight: 750; line-height: 1.15; }
+    .back-link { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .back-link:hover { color: var(--text); }
+
+    .panel { overflow: hidden; border: 1px solid var(--line); border-radius: 21px; background: var(--surface); box-shadow: var(--shadow); }
+    .home { padding: clamp(20px, 3.3vw, 34px); }
+    .eyebrow { color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 7px 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.04; letter-spacing: -.04em; }
+    .lead { max-width: none; margin: 0; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 18px 0; }
+    .rule { padding: 11px 12px; border: 1px solid rgba(151, 168, 205, .1); border-radius: 13px; background: var(--surface-soft); color: var(--muted); font-size: 18px; line-height: 1.45; }
+    .rule strong { display: block; margin-bottom: 2px; color: var(--text); font-size: 21px; }
+    .summary { margin-bottom: 10px; color: var(--muted); font-size: 13px; }
+    .block-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 10px; }
+    .block-card { border: 1px solid var(--line); border-radius: 15px; padding: 14px; background: rgba(14, 18, 29, .65); }
+    .block-card.done { border-color: rgba(41, 216, 199, .34); background: rgba(25, 63, 63, .22); }
+    .block-card.active { border-color: rgba(91, 140, 255, .5); }
+    .block-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .block-name { font-size: 26px; font-weight: 800; }
+    .badge { padding: 4px 7px; border-radius: 999px; background: rgba(255, 255, 255, .06); color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .done .badge { background: var(--cyan-soft); color: #7ff1e6; }
+    .active .badge { background: rgba(91, 140, 255, .14); color: #afc4ff; }
+    .block-score { min-height: 38px; margin: 10px 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .btn {
+      min-height: 40px; border: 0; border-radius: 11px; padding: 9px 12px;
+      background: linear-gradient(135deg, var(--blue), var(--violet)); color: white; font-weight: 750;
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+    }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn.secondary { border: 1px solid var(--line); background: rgba(255, 255, 255, .035); color: var(--text); }
+    .btn.secondary:hover { background: var(--surface-hover); }
+    .btn:disabled { cursor: not-allowed; opacity: .42; transform: none; }
+    .btn.full { width: 100%; }
+
+    .overall { margin-top: 16px; border: 1px solid rgba(41, 216, 199, .3); border-radius: 15px; padding: 14px; background: var(--cyan-soft); color: #cbd8e9; font-size: 14px; line-height: 1.5; }
+    .overall strong { color: #8cf4ea; }
+    .overall .btn { margin-top: 10px; }
+
+    .test-view { min-height: min(620px, calc(100svh - 92px)); display: flex; flex-direction: column; }
+    .test-head { padding: 12px 18px 9px; border-bottom: 1px solid var(--line); background: rgba(12, 15, 25, .82); }
+    .test-head-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .test-head-row strong { font-size: 26px; }
+    .test-meta { color: var(--muted); font-size: 18px; }
+    .progress-track { height: 5px; overflow: hidden; margin-top: 8px; border-radius: 999px; background: rgba(255, 255, 255, .08); }
+    .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); transition: width .2s ease; }
+    .question-wrap { flex: 1; display: flex; flex-direction: column; padding: clamp(16px, 2.7vw, 26px); }
+    .question-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .word { max-width: 100%; margin: 6px 0 3px; overflow-wrap: anywhere; font-size: clamp(24px, 3.8vw, 38px); letter-spacing: -.035em; line-height: 1.02; }
+    .pos { color: var(--cyan); font-size: 12px; font-weight: 750; }
+    .prompt { margin: 10px 0 8px; color: var(--muted); font-size: 13px; }
+    .options { display: grid; gap: 8px; }
+    .option {
+      min-width: 0; min-height: 50px; display: flex; align-items: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 13px; padding: 9px 12px;
+      background: rgba(255, 255, 255, .025); transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .option:hover { border-color: rgba(41, 216, 199, .46); transform: translateY(-1px); }
+    .option.selected { border-color: var(--cyan); background: var(--cyan-soft); }
+    .option input { width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--cyan); }
+    .letter { width: 22px; flex: 0 0 auto; color: var(--cyan); font-weight: 850; }
+    .option-text { font-size: 17px; min-width: 0; overflow-wrap: anywhere; line-height: 1.35; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 14px; }
+
+    .result { padding: clamp(22px, 4vw, 42px); text-align: center; }
+    .result h2 { margin: 5px 0 2px; overflow-wrap: anywhere; font-size: clamp(27px, 4vw, 38px); }
+    .subject { margin: 0; color: var(--muted); font-size: 13px; }
+    .score { margin: 13px 0 3px; color: #8cf4ea; font-size: clamp(42px, 7vw, 66px); font-weight: 850; letter-spacing: -.05em; }
+    .result-note { max-width: 640px; margin: 0 auto 16px; color: var(--muted); line-height: 1.45; }
+    .table-scroll { width: 100%; overflow-x: auto; margin: 16px auto; border: 1px solid var(--line); border-radius: 13px; }
+    .result-table { width: 100%; min-width: 520px; border-collapse: collapse; text-align: left; }
+    .result-table th, .result-table td { padding: 9px 11px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .result-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    .result-table td:nth-child(n+2), .result-table th:nth-child(n+2) { text-align: right; }
+    .mistakes-review { margin: 18px 0 0; padding: 16px; border: 1px solid rgba(255, 183, 92, .28); border-radius: 14px; background: rgba(90, 54, 20, .18); text-align: left; }
+    .mistakes-review h3 { margin: 0 0 10px; font-size: 17px; }
+    .mistakes-review p { margin: 0; color: var(--muted); }
+    .mistake-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .mistake-item { padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; background: rgba(10, 13, 22, .34); }
+    .mistake-question { display: block; margin-bottom: 3px; font-weight: 760; overflow-wrap: anywhere; }
+    .mistake-answer { color: var(--muted); overflow-wrap: anywhere; }
+    .result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+    .report-date { margin: 13px 0 0; color: var(--muted); font-size: 12px; }
+    .footer { padding: 11px 0 0; color: #71809b; font-size: 11px; text-align: center; }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 16px, 1080px); padding-top: 6px; }
+      .topbar { min-height: 46px; margin-bottom: 6px; }
+      .brand-name { display: none; }
+      .brand-title { max-width: 145px; font-size: 13px; }
+      .back-link { font-size: 12px; }
+      .panel { border-radius: 17px; }
+      .home { padding: 18px 15px; }
+      h1 { font-size: clamp(27px, 8.8vw, 34px); }
+      .lead { font-size: 17px; }
+      .rules { grid-template-columns: 1fr; gap: 7px; margin: 14px 0; }
+      .rule { padding: 9px 10px; }
+      .block-grid { grid-template-columns: 1fr; }
+      .test-view { min-height: calc(100svh - 68px); }
+      .test-head { padding: 9px 12px 8px; }
+      .test-head .btn { min-height: 36px; padding: 7px 9px; font-size: 12px; }
+      .question-wrap { padding: 14px 12px; }
+      .word { font-size: clamp(23px, 6vw, 30px); }
+      .option { min-height: 52px; padding: 9px 10px; }
+      .nav { padding-top: 11px; }
+      .result { padding: 20px 13px; }
+      .score { font-size: clamp(40px, 14vw, 56px); }
+      .table-scroll { margin: 14px auto; }
+    }
+
+    @media (min-width: 701px) and (max-height: 768px) {
+      .shell { padding-top: 6px; }
+      .topbar { min-height: 44px; margin-bottom: 6px; }
+      .test-view { min-height: calc(100vh - 74px); }
+      .question-wrap { padding: 14px 22px; }
+      .word { font-size: 32px; }
+      .option { min-height: 46px; padding: 8px 12px; }
+      .nav { padding-top: 9px; }
+    }
+
+    @media print {
+      :root { color-scheme: light; --text: #152033; --muted: #596477; --line: #d9dee8; --cyan: #176b67; --cyan-soft: #e7f4f2; }
+      body { min-height: auto; background: white; color: var(--text); }
+      .shell { width: 100%; padding: 0; }
+      .topbar, .result-actions, .mistakes-review, .footer { display: none !important; }
+      .panel { overflow: visible; border: 0; border-radius: 0; background: white; box-shadow: none; }
+      .result { padding: 10mm 8mm; }
+      .score { color: #176b67; }
+      .table-scroll { overflow: visible; border-color: var(--line); }
+      .result-table { min-width: 0; }
+      .result-table, .overall { break-inside: avoid; }
+      .overall { background: #eef8f6; color: #354052; }
+      .overall strong { color: #0f514e; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+    .sources { margin-top:22px; color:var(--muted); font-size:13px; line-height:1.7; }
+    .sources a { margin-right:12px; }
+    @media (max-width:700px) { .option { align-items:flex-start; } .option-text { font-size:16px; line-height:1.45; } }
+  </style>
+</head>
+<body>
+  <noscript><div class="shell"><div class="panel home">Для работы теста необходимо включить JavaScript в браузере.</div></div></noscript>
+  <main class="shell" id="app" aria-live="polite"></main>
+  <script>
+    'use strict';
+    const TEST_DATA = {"questions":[{"id":"marketing-1","word":"GMV","pos":"","subtest":1,"options":["Комиссии площадки минус расходы; показывает чистую прибыль от заказов.","Рекламные расходы / число заказов; показывает стоимость одного заказа.","Сумма стоимости товаров в заказах за период по принятой методике; показывает масштаб оборота площадки, а не её комиссионную выручку или прибыль."],"correctAnswer":"Сумма стоимости товаров в заказах за период по принятой методике; показывает масштаб оборота площадки, а не её комиссионную выручку или прибыль.","correctIndex":2},{"id":"marketing-2","word":"CAC","pos":"","subtest":1,"options":["Расходы на привлечение новых клиентов / число новых клиентов за согласованный период или когорту; показывает стоимость привлечения клиента.","Выручка / все клиенты; показывает доход от среднего покупателя.","Рекламные расходы / все заявки; показывает стоимость привлечения платящего клиента."],"correctAnswer":"Расходы на привлечение новых клиентов / число новых клиентов за согласованный период или когорту; показывает стоимость привлечения клиента.","correctIndex":0},{"id":"marketing-3","word":"LTV по маржинальному доходу, без дисконтирования","pos":"","subtest":1,"options":["Средний чек × число заказов всех клиентов; оценка маржинального дохода одного покупателя за всю жизнь.","Средний чек × частота покупок за период × число периодов жизни клиента × доля маржинального дохода; оценка вклада клиента за всё сотрудничество до вычета CAC.","Расходы на привлечение / новые клиенты; оценка будущего вклада покупателя."],"correctAnswer":"Средний чек × частота покупок за период × число периодов жизни клиента × доля маржинального дохода; оценка вклада клиента за всё сотрудничество до вычета CAC.","correctIndex":1},{"id":"marketing-4","word":"LTV / CAC","pos":"","subtest":1,"options":["Отношение выручки к рекламным расходам за месяц; показывает долю повторных покупок.","Отношение пожизненного вклада клиента к стоимости его привлечения при сопоставимых определениях; помогает оценить экономику привлечения.","Отношение расходов на привлечение к числу заказов; показывает срок окупаемости в месяцах."],"correctAnswer":"Отношение пожизненного вклада клиента к стоимости его привлечения при сопоставимых определениях; помогает оценить экономику привлечения.","correctIndex":1},{"id":"marketing-5","word":"Срок окупаемости CAC, упрощённая модель","pos":"","subtest":1,"options":["Месячная выручка / CAC; число месяцев до окупаемости клиента.","CAC / средний чек; срок возврата расходов в месяцах без учёта частоты покупок и маржи.","CAC / средний месячный маржинальный доход от нового клиента; число месяцев до покрытия расходов на привлечение при постоянном доходе."],"correctAnswer":"CAC / средний месячный маржинальный доход от нового клиента; число месяцев до покрытия расходов на привлечение при постоянном доходе.","correctIndex":2},{"id":"marketing-6","word":"CTR","pos":"","subtest":1,"options":["Клики / показы × 100%; доля показов рекламы, которые привели к клику.","Заказы / клики × 100%; доля показов, которые привели к клику.","Клики / уникальные пользователи × 100%; средняя стоимость перехода."],"correctAnswer":"Клики / показы × 100%; доля показов рекламы, которые привели к клику.","correctIndex":0},{"id":"marketing-7","word":"CPC","pos":"","subtest":1,"options":["Расходы на рекламу / показы × 1000; средняя цена перехода.","Клики / рекламные расходы; средняя стоимость одного заказа.","Расходы на рекламу / клики; средняя цена перехода по объявлению."],"correctAnswer":"Расходы на рекламу / клики; средняя цена перехода по объявлению.","correctIndex":2},{"id":"marketing-8","word":"CPM","pos":"","subtest":1,"options":["Расходы на рекламу / клики × 1000; стоимость тысячи показов.","Расходы на рекламу / показы × 1000; стоимость тысячи показов.","Показы / уникальные пользователи; стоимость одного рекламного контакта."],"correctAnswer":"Расходы на рекламу / показы × 1000; стоимость тысячи показов.","correctIndex":1},{"id":"marketing-9","word":"CPA","pos":"","subtest":1,"options":["Расходы на рекламу / число заданных целевых действий; стоимость конверсии, например покупки или регистрации.","Выручка / число покупателей; средняя стоимость целевого действия.","Расходы на рекламу / число показов; стоимость привлечённого клиента."],"correctAnswer":"Расходы на рекламу / число заданных целевых действий; стоимость конверсии, например покупки или регистрации.","correctIndex":0},{"id":"marketing-10","word":"CPL","pos":"","subtest":1,"options":["Расходы на привлечение лидов / число полученных лидов; средняя стоимость заявки или контакта потенциального клиента.","Расходы на привлечение / число новых покупателей; средняя стоимость заявки.","Выручка / число лидов; сумма, уплаченная за одну заявку."],"correctAnswer":"Расходы на привлечение лидов / число полученных лидов; средняя стоимость заявки или контакта потенциального клиента.","correctIndex":0},{"id":"marketing-11","word":"CR сайта в заказ","pos":"","subtest":1,"options":["Клики / показы × 100%; показывает превращение визитов в заказы.","Число заказов / выручка × 100%; доля посетителей, оставивших заявку.","Число заказов / число визитов × 100% при выбранной базе визитов; показывает, как трафик превращается в заказы."],"correctAnswer":"Число заказов / число визитов × 100% при выбранной базе визитов; показывает, как трафик превращается в заказы.","correctIndex":2},{"id":"marketing-12","word":"ROAS","pos":"","subtest":1,"options":["Прибыль после всех расходов / рекламные расходы; чистая рентабельность бизнеса.","Выручка, отнесённая к рекламе / расходы на эту рекламу; отдача в выручке на рубль рекламы, без учёта себестоимости.","Рекламные расходы / выручка × 100%; выручка на рубль рекламы."],"correctAnswer":"Выручка, отнесённая к рекламе / расходы на эту рекламу; отдача в выручке на рубль рекламы, без учёта себестоимости.","correctIndex":1},{"id":"marketing-13","word":"ДРР","pos":"","subtest":1,"options":["Выручка / рекламные расходы × 100%; доля расходов в выручке.","Рекламные расходы / число заказов; доля рекламных расходов в прибыли.","Рекламные расходы / связанная с ними выручка × 100%; доля выручки, потраченная на рекламу при выбранной атрибуции."],"correctAnswer":"Рекламные расходы / связанная с ними выручка × 100%; доля выручки, потраченная на рекламу при выбранной атрибуции.","correctIndex":2},{"id":"marketing-14","word":"ROMI по маржинальному доходу","pos":"","subtest":1,"options":["Сумма маржинального дохода, отнесённого к маркетингу, минус расходы на маркетинг, делённая на эти расходы, × 100%; возврат маркетинговых вложений в выбранной модели атрибуции.","Выручка от маркетинга / расходы на маркетинг × 100%; возврат вложений с учётом себестоимости.","Расходы на маркетинг / маржинальный доход × 100%; прибыль на рубль маркетинга."],"correctAnswer":"Сумма маржинального дохода, отнесённого к маркетингу, минус расходы на маркетинг, делённая на эти расходы, × 100%; возврат маркетинговых вложений в выбранной модели атрибуции.","correctIndex":0},{"id":"marketing-15","word":"Средний чек (AOV)","pos":"","subtest":1,"options":["Выручка / число уникальных покупателей; средняя сумма одного заказа.","Выручка от заказов / число этих заказов; средняя денежная сумма одного заказа.","Число проданных единиц / число заказов; средний размер заказа в рублях."],"correctAnswer":"Выручка от заказов / число этих заказов; средняя денежная сумма одного заказа.","correctIndex":1},{"id":"marketing-16","word":"Маржинальный доход заказа","pos":"","subtest":1,"options":["Выручка заказа минус связанные с ним переменные затраты (расходы); вклад заказа в покрытие постоянных расходов и прибыль.","Выручка заказа минус только рекламные расходы; прибыль после всех расходов заказа.","Выручка заказа минус постоянные расходы компании; вклад после учёта переменных затрат (расходов)."],"correctAnswer":"Выручка заказа минус связанные с ним переменные затраты (расходы); вклад заказа в покрытие постоянных расходов и прибыль.","correctIndex":0},{"id":"marketing-17","word":"Юнит-экономика","pos":"","subtest":1,"options":["Сумма всех активов компании; показывает стоимость одного рекламного канала.","Доходы и расходы на выбранную единицу бизнеса, например заказ или клиента; помогает проверить, создаёт ли рост положительный вклад.","План количества публикаций; показывает прибыль на каждый пост без учёта расходов."],"correctAnswer":"Доходы и расходы на выбранную единицу бизнеса, например заказ или клиента; помогает проверить, создаёт ли рост положительный вклад.","correctIndex":1},{"id":"marketing-18","word":"Retention rate клиентов, классическая формула","pos":"","subtest":1,"options":["Новые клиенты / все клиенты на конец × 100%; доля сохранённой исходной базы.","Ушедшие клиенты / клиенты на начало × 100%; доля удержанных покупателей.","Клиенты на конец периода минус новые за период, делённые на клиентов на начало, × 100%; доля сохранённой исходной базы."],"correctAnswer":"Клиенты на конец периода минус новые за период, делённые на клиентов на начало, × 100%; доля сохранённой исходной базы.","correctIndex":2},{"id":"marketing-19","word":"Customer churn rate","pos":"","subtest":1,"options":["Новые клиенты / клиенты на начало × 100%; доля потерянных клиентов.","Ушедшие за период клиенты из исходной базы / клиенты на начало периода × 100%; доля потерянных клиентов при заданном критерии ухода.","Выручка / число клиентов на конец; частота прекращения покупок в процентах."],"correctAnswer":"Ушедшие за период клиенты из исходной базы / клиенты на начало периода × 100%; доля потерянных клиентов при заданном критерии ухода.","correctIndex":1},{"id":"marketing-20","word":"Доля повторных покупателей за период","pos":"","subtest":1,"options":["Покупатели с двумя и более покупками в выбранном периоде / все покупатели этого периода × 100%; распространённость повторных покупок.","Повторные заказы / все заказы × 100%; доля покупателей с повторной покупкой.","Новые покупатели / все посетители × 100%; доля удержанных клиентов."],"correctAnswer":"Покупатели с двумя и более покупками в выбранном периоде / все покупатели этого периода × 100%; распространённость повторных покупок.","correctIndex":0},{"id":"marketing-21","word":"SMM","pos":"","subtest":1,"options":["Оптимизация сайта для органической выдачи поисковиков и техническая работа с индексацией.","Управление хранением, сборкой и доставкой заказов интернет-магазина.","Продвижение и коммуникации в социальных сетях: контент, сообщество и кампании для достижения целей бренда и продаж."],"correctAnswer":"Продвижение и коммуникации в социальных сетях: контент, сообщество и кампании для достижения целей бренда и продаж.","correctIndex":2},{"id":"marketing-22","word":"SEO","pos":"","subtest":1,"options":["Покупка гарантированного первого места в поиске с оплатой каждого перехода.","Рассылка рекламных сообщений подписчикам с автоматическим списанием платы за показы.","Работа над сайтом и его содержанием для улучшения видимости в органических результатах поиска и привлечения релевантного трафика."],"correctAnswer":"Работа над сайтом и его содержанием для улучшения видимости в органических результатах поиска и привлечения релевантного трафика.","correctIndex":2},{"id":"marketing-23","word":"Контекстная реклама","pos":"","subtest":1,"options":["Любое бесплатное упоминание бренда в органической выдаче без управления размещением.","Реклама с учётом поискового запроса, содержания площадки и других сигналов релевантности; позволяет привлекать подходящую аудиторию.","Только рассылка сообщений клиентам, которые уже совершили покупку."],"correctAnswer":"Реклама с учётом поискового запроса, содержания площадки и других сигналов релевантности; позволяет привлекать подходящую аудиторию.","correctIndex":1},{"id":"marketing-24","word":"Яндекс Директ","pos":"","subtest":1,"options":["Платформа размещения рекламы, в том числе в Поиске Яндекса и РСЯ; используется для привлечения аудитории и целевых действий.","Система бухгалтерского учёта рекламных расходов и автоматического расчёта прибыли продавца.","Сервис только для анализа посещений сайта, не размещающий объявления."],"correctAnswer":"Платформа размещения рекламы, в том числе в Поиске Яндекса и РСЯ; используется для привлечения аудитории и целевых действий.","correctIndex":0},{"id":"marketing-25","word":"РСЯ","pos":"","subtest":1,"options":["Бесплатные органические результаты Поиска Яндекса, отсортированные по CTR.","Рекламная сеть Яндекса: размещение объявлений на участвующих площадках и в сервисах; даёт охват за пределами поисковой выдачи.","Складская сеть Яндекса, отвечающая за комплектацию заказов продавца."],"correctAnswer":"Рекламная сеть Яндекса: размещение объявлений на участвующих площадках и в сервисах; даёт охват за пределами поисковой выдачи.","correctIndex":1},{"id":"marketing-26","word":"Ретаргетинг","pos":"","subtest":1,"options":["Показ рекламы исключительно случайным новым пользователям без учёта их поведения.","Изменение цены товара для всех покупателей в зависимости от складского остатка.","Повторное рекламное обращение к аудитории, ранее взаимодействовавшей с бизнесом или отвечающей заданным условиям сегмента."],"correctAnswer":"Повторное рекламное обращение к аудитории, ранее взаимодействовавшей с бизнесом или отвечающей заданным условиям сегмента.","correctIndex":2},{"id":"marketing-27","word":"UTM-метки","pos":"","subtest":1,"options":["Параметры ссылки, обозначающие источник, канал, кампанию и другие признаки перехода; помогают разделять трафик в аналитике.","Код на упаковке, позволяющий определять склад хранения и дату отгрузки товара.","Механизм, который сам повышает конверсию и обеспечивает точную идентификацию каждого покупателя."],"correctAnswer":"Параметры ссылки, обозначающие источник, канал, кампанию и другие признаки перехода; помогают разделять трафик в аналитике.","correctIndex":0},{"id":"marketing-28","word":"Яндекс Метрика","pos":"","subtest":1,"options":["Сервис веб-аналитики для изучения посещений, источников и целевых действий; помогает оценивать поведение аудитории и результативность каналов.","Платформа, которая сама принимает оплату покупателей и хранит товары магазина.","Система размещения объявлений с гарантией продаж по фиксированной цене."],"correctAnswer":"Сервис веб-аналитики для изучения посещений, источников и целевых действий; помогает оценивать поведение аудитории и результативность каналов.","correctIndex":0},{"id":"marketing-29","word":"Атрибуция конверсий","pos":"","subtest":1,"options":["Распределение рекламного бюджета строго поровну между всеми доступными каналами.","Правило распределения ценности конверсии между контактами с каналами; влияет на оценку их вклада и не доказывает причинность само по себе.","Проверка совпадения фактического складского остатка с данными карточки товара."],"correctAnswer":"Правило распределения ценности конверсии между контактами с каналами; влияет на оценку их вклада и не доказывает причинность само по себе.","correctIndex":1},{"id":"marketing-30","word":"Лид","pos":"","subtest":1,"options":["Любой показ объявления пользователю, даже без интереса и контактных данных.","Только покупатель, оплативший повторный заказ и получивший товар.","Потенциальный клиент, проявивший интерес и оставивший доступный для работы контакт или заявку; ещё не обязательно покупатель."],"correctAnswer":"Потенциальный клиент, проявивший интерес и оставивший доступный для работы контакт или заявку; ещё не обязательно покупатель.","correctIndex":2},{"id":"marketing-31","word":"Квалификация лида","pos":"","subtest":1,"options":["Оценка соответствия потенциального клиента целевому профилю и готовности к покупке; помогает приоритизировать работу продаж.","Подсчёт всех показов объявления без оценки намерения и потребности аудитории.","Присвоение каждому посетителю статуса оплаченного клиента после первого клика."],"correctAnswer":"Оценка соответствия потенциального клиента целевому профилю и готовности к покупке; помогает приоритизировать работу продаж.","correctIndex":0},{"id":"marketing-32","word":"Воронка продаж","pos":"","subtest":1,"options":["Список рекламных площадок, упорядоченных исключительно по цене тысячи показов.","Отчёт об остатках товаров, распределённых по датам поступления на склад.","Последовательность этапов от первого интереса до сделки; позволяет находить потери и оценивать конверсии между этапами."],"correctAnswer":"Последовательность этапов от первого интереса до сделки; позволяет находить потери и оценивать конверсии между этапами.","correctIndex":2},{"id":"marketing-33","word":"CRM","pos":"","subtest":1,"options":["Сервис только для публикации рекламных баннеров на внешних сайтах.","Подход и система управления взаимодействиями с клиентами: контакты, история, сделки и задачи; помогает организовать продажи и обслуживание.","Показатель доли рекламных расходов в выручке от повторных покупателей."],"correctAnswer":"Подход и система управления взаимодействиями с клиентами: контакты, история, сделки и задачи; помогает организовать продажи и обслуживание.","correctIndex":1},{"id":"marketing-34","word":"УТП","pos":"","subtest":1,"options":["Любой рекламный слоган, независимо от выгоды и отличий от конкурентов.","Внутренний норматив складского запаса, определяющий минимальную партию поставки.","Уникальное торговое предложение: конкретная значимая выгода и отличие для целевого клиента; объясняет причину выбора предложения."],"correctAnswer":"Уникальное торговое предложение: конкретная значимая выгода и отличие для целевого клиента; объясняет причину выбора предложения.","correctIndex":2},{"id":"marketing-35","word":"Сегментация аудитории","pos":"","subtest":1,"options":["Разделение клиентов на группы по потребностям, поведению или другим значимым признакам; позволяет точнее выбирать предложение и коммуникации.","Разделение рекламного бюджета на равные суммы без анализа клиентов.","Объединение всех покупателей в одну группу с одинаковыми потребностями по умолчанию."],"correctAnswer":"Разделение клиентов на группы по потребностям, поведению или другим значимым признакам; позволяет точнее выбирать предложение и коммуникации.","correctIndex":0},{"id":"marketing-36","word":"A/B-тест","pos":"","subtest":1,"options":["Сравнение продаж декабря и января без учёта сезонности и иных изменений.","Сравнение вариантов на случайно разделённых сопоставимых группах по заранее выбранной метрике; помогает оценить эффект изменения.","Выбор лучшего макета по мнению автора без измерения реакции пользователей."],"correctAnswer":"Сравнение вариантов на случайно разделённых сопоставимых группах по заранее выбранной метрике; помогает оценить эффект изменения.","correctIndex":1},{"id":"marketing-37","word":"Лендинг","pos":"","subtest":1,"options":["Каталог всех клиентов компании с историей звонков и статусами сделок.","Посадочная страница под конкретное предложение и целевое действие; концентрирует внимание на регистрации, заявке или покупке.","Складская зона, в которой комплектуют и маркируют товары для доставки."],"correctAnswer":"Посадочная страница под конкретное предложение и целевое действие; концентрирует внимание на регистрации, заявке или покупке.","correctIndex":1},{"id":"marketing-38","word":"Upsell","pos":"","subtest":1,"options":["Предложение более дорогой или расширенной версии основного продукта; может увеличить ценность покупки и средний чек.","Предложение сопутствующего товара из другой категории к уже выбранному продукту.","Снижение цены на тот же товар всем покупателям без изменения комплектации."],"correctAnswer":"Предложение более дорогой или расширенной версии основного продукта; может увеличить ценность покупки и средний чек.","correctIndex":0},{"id":"marketing-39","word":"Cross-sell","pos":"","subtest":1,"options":["Замена выбранного тарифа на более дорогую версию того же сервиса.","Возврат покупателю части цены за отменённый заказ без новой продажи.","Предложение сопутствующих или дополняющих товаров, например чехла к телефону; помогает расширить состав покупки."],"correctAnswer":"Предложение сопутствующих или дополняющих товаров, например чехла к телефону; помогает расширить состав покупки.","correctIndex":2},{"id":"marketing-40","word":"NPS","pos":"","subtest":1,"options":["Средняя оценка по шкале 0–10, умноженная на 10; индекс от −100 до +100 пунктов.","Доля оценок 9–10 минус доля оценок 0–6 на вопрос о рекомендации по шкале 0–10; индекс готовности рекомендовать от −100 до +100 пунктов.","Доля оценок 7–8 минус доля оценок 9–10; индекс готовности рекомендовать."],"correctAnswer":"Доля оценок 9–10 минус доля оценок 0–6 на вопрос о рекомендации по шкале 0–10; индекс готовности рекомендовать от −100 до +100 пунктов.","correctIndex":1},{"id":"marketing-41","word":"FBO на Ozon","pos":"","subtest":1,"options":["Продавец хранит и упаковывает заказы у себя, затем передаёт их Ozon для доставки.","Продавец сам хранит, комплектует и доставляет все заказы покупателям без логистики Ozon.","Продавец заранее поставляет товар на склад Ozon, а площадка хранит, собирает и доставляет заказы; часть складских операций передаётся маркетплейсу."],"correctAnswer":"Продавец заранее поставляет товар на склад Ozon, а площадка хранит, собирает и доставляет заказы; часть складских операций передаётся маркетплейсу.","correctIndex":2},{"id":"marketing-42","word":"FBS на Ozon","pos":"","subtest":1,"options":["Продавец хранит товар и собирает заказы у себя, затем передаёт их в доставку Ozon; сохраняет у себя склад и комплектацию.","Ozon хранит товар на своём складе и полностью собирает заказы вместо продавца.","Покупатель забирает каждый заказ только со склада продавца, доставка Ozon не участвует."],"correctAnswer":"Продавец хранит товар и собирает заказы у себя, затем передаёт их в доставку Ozon; сохраняет у себя склад и комплектацию.","correctIndex":0},{"id":"marketing-43","word":"realFBS на Ozon","pos":"","subtest":1,"options":["Ozon хранит и упаковывает товары на собственном складе, продавец только рекламирует.","Продавец хранит товары у себя, а все заказы обязательно доставляет логистика Ozon.","Продавец хранит и собирает заказы, доставляет сам или через стороннего перевозчика; площадка служит каналом продаж."],"correctAnswer":"Продавец хранит и собирает заказы, доставляет сам или через стороннего перевозчика; площадка служит каналом продаж.","correctIndex":2},{"id":"marketing-44","word":"SKU","pos":"","subtest":1,"options":["Уникальный номер покупателя, одинаковый для всех заказанных им товаров.","Идентификатор отдельной товарной позиции или варианта для учёта, например конкретного размера и цвета; помогает управлять ассортиментом и остатками.","Стоимость тысячи показов товарной карточки в рекламной системе площадки."],"correctAnswer":"Идентификатор отдельной товарной позиции или варианта для учёта, например конкретного размера и цвета; помогает управлять ассортиментом и остатками.","correctIndex":1},{"id":"marketing-45","word":"Take rate маркетплейса, заданная база GMV","pos":"","subtest":1,"options":["Выручка площадки от комиссий и согласованных услуг / GMV той же базы × 100%; показывает, какую долю оборота площадка монетизирует.","GMV / выручка площадки × 100%; доля оборота, удерживаемая площадкой.","Прибыль продавца / рекламные расходы × 100%; доля комиссии в цене товара."],"correctAnswer":"Выручка площадки от комиссий и согласованных услуг / GMV той же базы × 100%; показывает, какую долю оборота площадка монетизирует.","correctIndex":0}]};
+    const CONFIG = { category: 'marketing', title: 'Маркетинг и продажи', subtitle: '45 вопросов · один блок', total: 45 };
+    const STORAGE_KEY = 'marketing-sales-test-v1';
+    const letters = ['A', 'B', 'C'];
+    const app = document.getElementById('app');
+    const blockNumbers = [...new Set(TEST_DATA.questions.map(function (question) { return question.subtest; }))].sort(function (a, b) { return a - b; });
+
+    function initialState() {
+      return { version: 3, completed: {}, active: null };
+    }
+
+    function loadState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (parsed && parsed.version === 3 && parsed.completed) return parsed;
+      } catch (error) {}
+      return initialState();
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (error) {}
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (char) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char];
+      });
+    }
+
+    function shuffle(items) {
+      const result = items.slice();
+      for (let index = result.length - 1; index > 0; index -= 1) {
+        const target = Math.floor(Math.random() * (index + 1));
+        const temp = result[index]; result[index] = result[target]; result[target] = temp;
+      }
+      return result;
+    }
+
+    function pageFrame(content) {
+      return '<div class="topbar">' +
+        '<div class="brand"><div class="brand-mark">S8</div><div><div class="brand-name">Маркетинг и продажи</div><div class="brand-title">' + escapeHtml(CONFIG.title) + '</div></div></div>' +
+        '<a class="back-link" href="/tests/">← К тестам</a></div>' +
+        '<section class="panel">' + content + '</section>' +
+        '<div class="footer">Автономный тест · результаты сохраняются в этом браузере</div>';
+    }
+
+    function completedResults() {
+      return blockNumbers.map(function (number) { return state.completed[number]; }).filter(Boolean);
+    }
+
+    function completedCount() { return completedResults().length; }
+
+    function totalCompletedScore() {
+      return completedResults().reduce(function (sum, result) { return sum + result.score; }, 0);
+    }
+
+    function percent(score, total) {
+      return total ? Math.round(score / total * 100) : 0;
+    }
+
+    function renderHome() {
+      const complete = completedCount();
+      const allDone = complete === blockNumbers.length;
+      const cards = blockNumbers.map(function (number) {
+        const result = state.completed[number];
+        const active = state.active && state.active.block === number;
+        const classes = ['block-card'];
+        if (result) classes.push('done');
+        if (active) classes.push('active');
+        const label = active ? 'В процессе' : result ? 'Завершён' : 'Не начат';
+        let score = '45 вопросов';
+        if (result) score = result.score + ' из ' + result.total + ' правильных · ' + result.percent + '%';
+        if (active && result) score += '<br>Сохранённый результат будет заменён после завершения.';
+        let buttons = '';
+        if (active) {
+          buttons = '<button class="btn full" data-continue="' + number + '">Продолжить</button>';
+        } else if (result) {
+          buttons = '<button class="btn secondary" data-result="' + number + '">Результат</button><button class="btn" data-retry="' + number + '">Пройти заново</button>';
+        } else {
+          buttons = '<button class="btn full" data-start="' + number + '">Начать</button>';
+        }
+        return '<article class="' + classes.join(' ') + '"><div class="block-top"><div class="block-name">Блок ' + number + '</div><span class="badge">' + label + '</span></div>' +
+          '<div class="block-score">' + score + '</div><div class="card-actions">' + buttons + '</div></article>';
+      }).join('');
+
+      const completedTotal = completedResults().reduce(function (sum, r) { return sum + r.total; }, 0);
+      const completedScore = totalCompletedScore();
+      let overall = '';
+      if (complete > 0 && !allDone) {
+        overall = '<div class="overall"><strong>Промежуточный результат:</strong> ' + completedScore + ' из ' + completedTotal + ' (' + percent(completedScore, completedTotal) + '%).<br>Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '. Это ещё не итог всего теста.</div>';
+      }
+      if (allDone) {
+        overall = '<div class="overall"><strong>Итог по всему тесту:</strong> ' + completedScore + ' из ' + TEST_DATA.questions.length + ' (' + percent(completedScore, TEST_DATA.questions.length) + '%).<br>Все блоки завершены.<br><button class="btn" id="open-final">Открыть итоговый результат</button></div>';
+      }
+
+      const content = '<div class="home"><div class="eyebrow">Маркетинг и продажи</div><h1>' + escapeHtml(CONFIG.title) + '</h1>' +
+        '<p class="lead">' + escapeHtml(CONFIG.subtitle) + '. Выберите наиболее точное определение термина: смысл показателя и формулу, если она применима. В формулах сравниваются связанные данные за один период: например, расходы на рекламу за октябрь и заявки от неё за октябрь.</p>' +
+        '<div class="rules"><div class="rule"><strong>Один ответ</strong>Выберите один из трёх вариантов и подтвердите ответ. После подтверждения изменить его нельзя.</div>' +
+        '<div class="rule"><strong>Результат по блокам</strong>После завершения показываются результат и только допущенные ошибки.</div>' +
+        '<div class="rule"><strong>Повторное прохождение</strong>Любой блок можно пройти заново без потери остальных результатов.</div></div>' +
+        '<p class="summary">PDF доступен после завершения теста.</p>' +
+        '<div class="summary">Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '</div><div class="block-grid">' + cards + '</div>' + overall + '<details class="sources"><summary>Источники и принятые определения</summary><p>Формулы с несколькими трактовками уточнены в названии вопроса. GMV и take rate сравниваются только при одинаковых правилах учёта; LTV здесь рассчитан по маржинальному доходу. Схемы FBO/FBS/realFBS приведены для Ozon. Проверено 28.10.2026.</p><a href="https://yandex.ru/support/direct/ru/glossary" target="_blank" rel="noopener">Яндекс Директ</a><a href="https://yandex.ru/support/metrica/ru/general/source-tags" target="_blank" rel="noopener">Яндекс Метрика</a><a href="https://seller.ozon.ru/media/beginners/chem-razlichayutsya-shemy-raboty-na-ozon/" target="_blank" rel="noopener">Схемы Ozon</a><a href="https://www.shopify.com/blog/what-is-a-good-ltv-to-cac-ratio" target="_blank" rel="noopener">LTV и CAC</a><a href="https://help.shopify.com/en/partners/partner-program/glossary" target="_blank" rel="noopener">GMV</a></details></div>';
+      app.innerHTML = pageFrame(content);
+      document.querySelectorAll('[data-start]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.start), false); });
+      });
+      document.querySelectorAll('[data-continue]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.continue), false); });
+      });
+      document.querySelectorAll('[data-retry]').forEach(function (button) {
+        button.addEventListener('click', function () { startBlock(Number(button.dataset.retry), true); });
+      });
+      document.querySelectorAll('[data-result]').forEach(function (button) {
+        button.addEventListener('click', function () { renderResult(Number(button.dataset.result)); });
+      });
+      const finalButton = document.getElementById('open-final');
+      if (finalButton) finalButton.addEventListener('click', function () { renderResult(blockNumbers[blockNumbers.length - 1]); });
+    }
+
+    function startBlock(number, retry) {
+      if (state.active && state.active.block === number) { renderQuestion(); return; }
+      if (state.completed[number] && !retry) { renderResult(number); return; }
+      if (state.active && !confirm('Другой блок ещё не завершён. Начать новый и удалить незавершённые ответы?')) return;
+      const questions = shuffle(TEST_DATA.questions.filter(function (question) { return question.subtest === number; }));
+      state.active = {
+        block: number,
+        index: 0,
+        questionIds: questions.map(function (question) { return question.id; }),
+        answers: {},
+        confirmed: {},
+        startedAt: Date.now(),
+        retry: Boolean(state.completed[number])
+      };
+      saveState();
+      renderQuestion();
+    }
+
+    function activeQuestions() {
+      if (!state.active) return [];
+      const byId = new Map(TEST_DATA.questions.map(function (question) { return [question.id, question]; }));
+      return state.active.questionIds.map(function (id) { return byId.get(id); }).filter(Boolean);
+    }
+
+    function posText(pos) {
+      if (pos === 'verb') return 'глагол';
+      if (pos === 'noun') return 'существительное';
+      if (pos === 'adjective') return 'прилагательное';
+      if (pos === 'adverb') return 'наречие';
+      return '';
+    }
+
+    const expansions = {
+      'GMV': 'Gross Merchandise Value (Volume) — валовая стоимость товаров в заказах.',
+      'CAC': 'Customer Acquisition Cost — стоимость привлечения клиента.',
+      'LTV': 'Lifetime Value — пожизненная ценность клиента.',
+      'CTR': 'Click-Through Rate — кликабельность.',
+      'CPC': 'Cost Per Click — стоимость клика.',
+      'CPM': 'Cost Per Mille — стоимость тысячи показов.',
+      'CPA': 'Cost Per Action — стоимость целевого действия.',
+      'CPL': 'Cost Per Lead — стоимость лида (заявки).',
+      'CR': 'Conversion Rate — коэффициент конверсии.',
+      'ROAS': 'Return On Ad Spend — отдача от рекламных расходов в выручке.',
+      'ДРР': 'Доля рекламных расходов.',
+      'ROMI': 'Return On Marketing Investment — рентабельность маркетинговых инвестиций.',
+      'AOV': 'Average Order Value — средняя стоимость заказа (средний чек).',
+      'SMM': 'Social Media Marketing — маркетинг в социальных сетях.',
+      'SEO': 'Search Engine Optimization — поисковая оптимизация.',
+      'РСЯ': 'Рекламная сеть Яндекса.',
+      'UTM': 'Urchin Tracking Module — параметры ссылки для отслеживания источника перехода.',
+      'CRM': 'Customer Relationship Management — управление взаимоотношениями с клиентами.',
+      'УТП': 'Уникальное торговое предложение.',
+      'NPS': 'Net Promoter Score — индекс готовности рекомендовать.',
+      'FBO': 'Fulfillment by Ozon — выполнение заказов силами Ozon со склада площадки.',
+      'FBS': 'Fulfillment by Seller — хранение и сборка заказов продавцом; в этой схеме Ozon доставляет заказ.',
+      'realFBS': 'real Fulfillment by Seller — хранение, сборка и организация доставки продавцом.',
+      'SKU': 'Stock Keeping Unit — единица складского учёта.'
+    };
+
+    function renderQuestion() {
+      if (!state.active) { renderHome(); return; }
+      const questions = activeQuestions();
+      if (!questions.length) { state.active = null; saveState(); renderHome(); return; }
+      const index = Math.max(0, Math.min(state.active.index, questions.length - 1));
+      state.active.index = index;
+      const question = questions[index];
+      const selected = state.active.answers[question.id];
+      if (!state.active.confirmed) state.active.confirmed = {};
+      const confirmed = state.active.confirmed[question.id] === true;
+      const correct = confirmed && selected === question.correctIndex;
+      const expansion = Object.keys(expansions).filter(function (key) { return question.word.includes(key) && !(key === 'FBS' && question.word.includes('realFBS')); }).map(function (key) { return expansions[key]; }).join(' ');
+      const feedback = confirmed ? '<div class="overall" role="status">' + (correct ? '<strong>Верно.</strong> ' + escapeHtml(expansion || 'Ответ подтверждён.') : 'Ответ подтверждён и сохранён.') + '<br>Изменить ответ можно при новом прохождении теста.</div>' : '';
+      const options = question.options.map(function (option, optionIndex) {
+        const checked = selected === optionIndex;
+        return '<label class="option ' + (checked ? 'selected' : '') + '"><input type="radio" name="answer" value="' + optionIndex + '" ' + (checked ? 'checked ' : '') + (confirmed ? 'disabled' : '') + '>' +
+          '<span class="letter">' + letters[optionIndex] + '.</span><span class="option-text">' + escapeHtml(option) + '</span></label>';
+      }).join('');
+      const progress = Math.round((index + 1) / questions.length * 100);
+      const isLast = index === questions.length - 1;
+      const content = '<div class="test-view"><div class="test-head"><div class="test-head-row"><div><strong>Блок ' + state.active.block + '</strong><div class="test-meta">Вопрос ' + (index + 1) + ' из ' + questions.length + (state.active.retry ? ' · повторное прохождение' : '') + '</div></div>' +
+        '<button class="btn secondary" id="to-home">К блокам</button></div><div class="progress-track"><div class="progress-fill" style="width:' + progress + '%"></div></div></div>' +
+        '<div class="question-wrap"><div class="question-label">Что означает этот термин?</div><h2 class="word">' + escapeHtml(question.word) + '</h2><div class="pos">' + posText(question.pos) + '</div>' +
+        '<div class="prompt">Выберите вариант и подтвердите ответ. После подтверждения изменить его нельзя.</div><div class="options">' + options + '</div>' + feedback + '<div class="nav"><button class="btn secondary" id="previous" ' + (index === 0 ? 'disabled' : '') + '>Назад</button>' +
+        (confirmed ? '<button class="btn" id="next">' + (isLast ? 'Завершить блок' : 'Следующий вопрос') + '</button>' : '<button class="btn" id="confirm-answer" ' + (selected === undefined ? 'disabled' : '') + '>Подтвердить ответ</button>') + '</div></div></div>';
+      app.innerHTML = pageFrame(content);
+
+      document.getElementById('to-home').addEventListener('click', renderHome);
+      document.getElementById('previous').addEventListener('click', function () { state.active.index -= 1; saveState(); renderQuestion(); });
+      document.querySelectorAll('input[name="answer"]').forEach(function (input) {
+        input.addEventListener('change', function () {
+          if (state.active.confirmed[question.id]) return;
+          state.active.answers[question.id] = Number(input.value);
+          saveState();
+          renderQuestion();
+        });
+      });
+      const confirmButton = document.getElementById('confirm-answer');
+      if (confirmButton) confirmButton.addEventListener('click', function () {
+        if (state.active.answers[question.id] === undefined || state.active.confirmed[question.id]) return;
+        state.active.confirmed[question.id] = true;
+        saveState(); renderQuestion();
+      });
+      const nextButton = document.getElementById('next');
+      if (nextButton) nextButton.addEventListener('click', function () {
+        if (!state.active.confirmed[question.id]) return;
+        if (isLast) finishBlock();
+        else { state.active.index += 1; saveState(); renderQuestion(); }
+      });
+    }
+
+    function finishBlock() {
+      const active = state.active;
+      const questions = activeQuestions();
+      const unanswered = questions.filter(function (question) { return !active.confirmed || !active.confirmed[question.id]; });
+      if (unanswered.length) {
+        alert('Остались неподтверждённые ответы: ' + unanswered.length + '.');
+        state.active.index = questions.findIndex(function (question) { return !active.confirmed || !active.confirmed[question.id]; });
+        saveState(); renderQuestion(); return;
+      }
+      const score = questions.reduce(function (sum, question) {
+        return sum + (active.answers[question.id] === question.correctIndex ? 1 : 0);
+      }, 0);
+      const number = active.block;
+      state.completed[number] = {
+        score: score,
+        total: questions.length,
+        percent: percent(score, questions.length),
+        completedAt: new Date().toISOString(),
+        durationSeconds: Math.max(1, Math.round((Date.now() - active.startedAt) / 1000)),
+        mistakes: questions.filter(function (question) {
+          return active.answers[question.id] !== question.correctIndex;
+        }).map(function (question) {
+          return { question: question.word, selected: question.options[active.answers[question.id]] };
+        })
+      };
+      state.active = null;
+      saveState();
+      renderResult(number);
+    }
+
+    function formatDuration(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      return minutes + ' мин ' + (seconds % 60) + ' сек';
+    }
+
+    function reportDate() {
+      return new Date().toLocaleString('ru-RU');
+    }
+
+    function resultRows() {
+      return blockNumbers.map(function (number) {
+        const result = state.completed[number];
+        if (!result) return '';
+        return '<tr><td>Блок ' + number + '</td><td>' + result.score + ' из ' + result.total + '</td><td>' + result.percent + '%</td><td>' + formatDuration(result.durationSeconds) + '</td></tr>';
+      }).join('');
+    }
+
+    function mistakesReview(result) {
+      if (!Array.isArray(result.mistakes)) {
+        return '<section class="mistakes-review"><h3>Ошибки в этом блоке</h3><p>Для ранее сохранённого результата перечень ошибок недоступен. Он появится после повторного прохождения блока.</p></section>';
+      }
+      if (!result.mistakes.length) {
+        return '<section class="mistakes-review"><h3>Ошибки в этом блоке</h3><p>Ошибок нет — все ответы верны.</p></section>';
+      }
+      const items = result.mistakes.map(function (mistake) {
+        return '<li class="mistake-item"><span class="mistake-question">' + escapeHtml(mistake.question) + '</span><span class="mistake-answer">Ваш ответ: ' + escapeHtml(mistake.selected) + '</span></li>';
+      }).join('');
+      return '<section class="mistakes-review"><h3>Ошибки в блоке: ' + result.mistakes.length + '</h3><ul class="mistake-list">' + items + '</ul></section>';
+    }
+
+    function renderResult(number) {
+      const result = state.completed[number];
+      if (!result) { renderHome(); return; }
+      const complete = completedCount();
+      const allDone = complete === blockNumbers.length;
+      const totalScore = totalCompletedScore();
+      const currentTotal = completedResults().reduce(function (sum, r) { return sum + r.total; }, 0);
+      const totalPercent = percent(totalScore, allDone ? TEST_DATA.questions.length : currentTotal);
+      const heading = allDone ? 'Итоговый результат' : 'Блок ' + number + ' завершён';
+      const score = allDone ? totalScore + ' / ' + TEST_DATA.questions.length : result.score + ' / ' + result.total;
+      const note = allDone
+        ? totalPercent + '% по всему тесту. Результаты учитывают последние завершённые попытки каждого блока.'
+        : result.percent + '% в блоке ' + number + '. Ниже показан промежуточный результат только по завершённым блокам.';
+      const overall = allDone
+        ? '<div class="overall"><strong>Общий результат:</strong> ' + totalScore + ' из ' + TEST_DATA.questions.length + ' (' + totalPercent + '%).</div>'
+        : '<div class="overall"><strong>Промежуточный результат:</strong> ' + totalScore + ' из ' + currentTotal + ' (' + totalPercent + '%).<br>Завершено блоков: ' + complete + ' из ' + blockNumbers.length + '. Это ещё не итог всего теста.</div>';
+      const printAction = allDone ? '<button class="btn" id="print">Сохранить итог в PDF</button>' : '';
+      const content = '<div class="result"><div class="eyebrow">' + heading + '</div><h2>' + escapeHtml(CONFIG.title) + '</h2><p class="subject">Предмет: Маркетинг и продажи</p>' +
+        '<div class="score">' + score + '</div><p class="result-note">' + note + '</p>' +
+        '<div class="table-scroll"><table class="result-table"><thead><tr><th>Раздел</th><th>Правильные ответы</th><th>Процент</th><th>Время</th></tr></thead><tbody>' + resultRows() + '</tbody></table></div>' + overall + mistakesReview(result) +
+        '<div class="result-actions"><button class="btn secondary" id="home">К списку блоков</button><button class="btn secondary" id="retry">Пройти блок ' + number + ' заново</button>' + printAction + '</div>' +
+        '<p class="report-date">Дата формирования отчёта: <span id="report-date">' + escapeHtml(reportDate()) + '</span></p></div>';
+      app.innerHTML = pageFrame(content);
+      document.getElementById('home').addEventListener('click', renderHome);
+      document.getElementById('retry').addEventListener('click', function () { startBlock(number, true); });
+      if (allDone) {
+        document.getElementById('print').addEventListener('click', function () {
+          document.getElementById('report-date').textContent = reportDate();
+          window.print();
+        });
+      }
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (!state.active) return;
+      if (['1', '2', '3', 'a', 'b', 'c', 'A', 'B', 'C'].includes(event.key)) {
+        const lookup = { '1': 0, 'a': 0, 'A': 0, '2': 1, 'b': 1, 'B': 1, '3': 2, 'c': 2, 'C': 2 };
+        const input = document.querySelector('input[name="answer"][value="' + lookup[event.key] + '"]');
+        if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+      }
+    });
+
+    renderHome();
+  </script>
+</body>
+</html>
+
+
+
