@@ -492,24 +492,71 @@ function finish() {
   showResult(savedResult);
 }
 
+// Known verb pairs let the local checker distinguish a valid form from a word
+// that merely ends in -ing. Unrecognized constructions receive an uncertain verdict.
+const practiceVerbs = {
+  work: 'working', study: 'studying', read: 'reading', write: 'writing',
+  walk: 'walking', drive: 'driving', take: 'taking', go: 'going',
+  watch: 'watching', play: 'playing', cook: 'cooking', eat: 'eating',
+  drink: 'drinking', start: 'starting', finish: 'finishing', run: 'running',
+  swim: 'swimming', sleep: 'sleeping', talk: 'talking', speak: 'speaking',
+  learn: 'learning', listen: 'listening', travel: 'travelling',
+  visit: 'visiting', meet: 'meeting', do: 'doing', make: 'making',
+  have: 'having', buy: 'buying', use: 'using', prepare: 'preparing'
+};
+
 function reviewPractice(line) {
-  const parts = line.replace(/[’‘]/g, "'").match(/^I\s+usually\s+(.+?)\s*,?\s+but\s+(?:this week|today)\s+(.+)/i);
-  if (!parts) return 'Сверьте структуру: сначала привычка с I usually, затем временное изменение с but this week или but today.';
-  const [, habit, change] = parts;
+  const normalized = line.replace(/[’‘]/g, "'").trim();
+  const parts = normalized.match(/^I\s+usually\s+(.+?)\s*,?\s+but\s+(?:this week|today)\s+(.+?)[.!?]*$/i);
+  if (!parts) {
+    return 'Не удалось уверенно оценить фразу. Проверка рассчитана на два действия по схеме I usually …, but today / this week I’m …. Другая конструкция тоже может быть правильной.';
+  }
+  const habit = parts[1].replace(/[,\s]+$/, '').toLowerCase();
+  const change = parts[2].trim().toLowerCase();
   const notes = [];
-  if (/^(?:am\s+(?:not\s+)?\w+ing\b|\w+ing\b)/i.test(habit)) {
-    notes.push('В части про привычку проверьте форму после I usually: для обычного действия используйте Present Simple.');
+  const uncertain = [];
+  const habitVerb = habit.match(/^(?:do\s+not\s+|don't\s+)?([a-z]+)\b/);
+  const firstWord = habitVerb && habitVerb[1];
+  const recognizedHabit = Object.hasOwn(practiceVerbs, firstWord);
+  if (/^(?:am|is|are|was|were|will)\b/.test(habit) || Object.values(practiceVerbs).includes(firstWord)) {
+    notes.push('В части про привычку нужна форма Present Simple. Например, I usually work, а не I usually am working.');
+  } else if (!recognizedHabit) {
+    const base = Object.keys(practiceVerbs).find(verb =>
+      [verb + 's', verb + 'es', verb.replace(/y$/, 'ies'), verb + 'ed'].includes(firstWord) && verb !== firstWord);
+    if (base) notes.push('После I usually используйте ' + base + ' вместо ' + firstWord + '.');
+    else uncertain.push('Не удалось распознать глагол в части про привычку.');
   }
-  if (!/^I(?:'m|\s+am)\s+(?:not\s+)?[a-z]+ing\b/i.test(change)) {
-    notes.push('В части про временное изменение проверьте, есть ли I’m или I am и глагол на -ing.');
+  const continuous = change.match(/^i(?:'m|\s+am)\s+(?:not\s+)?([a-z]+)\b/);
+  let recognizedChange = false;
+  if (!continuous) {
+    notes.push('Во второй части для действия сейчас или временного изменения нужны I am / I’m и глагол на -ing.');
+  } else {
+    const form = continuous[1];
+    recognizedChange = Object.values(practiceVerbs).includes(form) || form === 'traveling';
+    if (Object.hasOwn(practiceVerbs, form)) {
+      notes.push('После I am нужна форма ' + practiceVerbs[form] + ' вместо ' + form + '.');
+    } else if (!form.endsWith('ing')) {
+      notes.push('После I am для действия нужна форма глагола на -ing.');
+    } else if (!recognizedChange) {
+      const base = Object.keys(practiceVerbs).find(verb => verb + 'ing' === form);
+      if (base) notes.push('Проверьте написание: ' + practiceVerbs[base] + ' вместо ' + form + '.');
+      else uncertain.push('Форму ' + form + ' не удалось уверенно распознать.');
+    }
   }
-  return notes.join(' ') || 'Вторая часть соответствует схеме I’m / I am + форма на -ing. В первой сверьте, что после I usually стоит начальная форма глагола.';
+  if (/\b(?:am|is|are)\s+(?:not\s+)?(?:knowing|wanting|needing|believing|owning)\b/.test(change)) {
+    notes.push('Для обычного значения состояния здесь нужен Present Simple, например I know или I want. Выберите другое действие для временного изменения.');
+  }
+  const verdict = notes.length ? 'Есть ошибки в изучаемых конструкциях.' :
+    (recognizedHabit && recognizedChange ? 'По изучаемым конструкциям обе части составлены правильно.' : 'Правильность удалось подтвердить лишь частично.');
+  return [verdict, ...notes, ...uncertain,
+    notes.length ? '' : 'Проверены формы Present Simple и Present Continuous. Сочетаемость слов, артикли и смысл всей фразы требуют отдельной проверки.'
+  ].filter(Boolean).join(' ');
 }
 
 function appendPracticeReview(practice) {
   if (!practice) return;
   const section = document.getElementById('practice-review');
-  section.innerHTML = '<h3>Ваши фразы · проверка по шаблону</h3><p>Подсказки проверяют форму по схеме упражнения. Смысл, лексику и остальную грамматику проверьте при чтении.</p>';
+  section.innerHTML = '<h3>Ваши фразы · правильность и замечания</h3><p>Под каждой фразой указан вывод о правильности изучаемых конструкций. Если конструкция не распознана, это отмечено отдельно.</p>';
   const list = document.createElement('ol');
   for (const line of practice.split(/\r?\n/).map(line => line.trim()).filter(Boolean)) {
     const item = document.createElement('li');
