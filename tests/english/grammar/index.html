@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <title>Обычно и сегодня — урок английской грамматики</title>
+  <link rel="stylesheet" href="../../catalog.css">
+  <style>
+    .lesson { width: min(100%, 760px); margin-inline: auto; }
+    .panel { padding: clamp(18px, 4vw, 32px); border: 1px solid var(--border); border-radius: 22px; background: var(--surface-strong); box-shadow: var(--shadow); }
+    .panel h2 { margin-top: 0; }
+    .panel h2:focus { outline: none; }
+    .panel p { max-width: 65ch; }
+    .options, .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .actions { margin-top: 22px; }
+    button, textarea { font: inherit; color: inherit; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+    button { padding: 10px 16px; cursor: pointer; }
+    button:hover:not(:disabled) { border-color: var(--cyan); }
+    button:disabled { cursor: default; }
+    button:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .primary { background: #3555b1; }
+    .correct { border-color: var(--cyan); }
+    .incorrect { border-color: var(--amber); }
+    .feedback { border-left: 3px solid var(--cyan); padding-left: 14px; margin-top: 18px; }
+    textarea { width: 100%; min-height: 120px; padding: 12px; resize: vertical; }
+    summary { cursor: pointer; }
+    .panel li + li { margin-top: 12px; }
+    @media print {
+      :root { color-scheme: light; }
+      body, .panel { background: white; color: black; box-shadow: none; }
+      .shell { min-height: auto; width: 100%; }
+      .topbar, .hero, footer, .actions { display: none; }
+      main { display: block; padding: 0; }
+      .panel { padding: 0; border: 0; }
+      .panel li { break-inside: avoid; }
+    }
+  </style>
+  <script src="lesson.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="../../../index.html"><span class="brand-mark" aria-hidden="true">S8</span><span>Supermike888</span></a>
+      <a class="back-link" href="../index.html">← К английским тестам</a>
+    </header>
+    <main class="lesson">
+      <section class="hero">
+        <p class="eyebrow">Английская грамматика · Урок 01</p>
+        <h1>Обычно <span class="gradient-text">и сегодня</span></h1>
+        <p class="intro">Present Simple и Present Continuous. Потренируйтесь рассказывать о привычках и о том, что сейчас происходит иначе.</p>
+      </section>
+      <section class="panel" id="lesson-panel" aria-label="Задания урока"></section>
+    </main>
+    <footer>Supermike888 · Результат сохраняется в этом браузере</footer>
+  </div>
+</body>
+</html>
